@@ -1,0 +1,28 @@
+[workspace]
+name = "cadt-workshop-2026"
+description = "Landing page for the Complex Adaptive Digital Twins workshop (Salish Urban Sea System, December 2026)"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64", "osx-64"]
+version = "0.1.0"
+
+[tasks]
+# Render content/*.yaml + templates/ into _site/
+build = "python scripts/build.py"
+# Validate content (schema, links, assets) without writing the site
+check = "python scripts/check.py"
+# Build then serve locally on http://localhost:8000
+serve = { cmd = "python -m http.server 8000 --directory _site", depends-on = ["build"] }
+# Pull figures out of PDFs dropped in sources/ into assets/img/figures/ + manifest
+figures = "python scripts/extract_figures.py"
+# Remove build output
+clean = "rm -rf _site"
+# Everything CI runs
+ci = { depends-on = ["check", "build"] }
+
+[dependencies]
+python = ">=3.12,<3.13"
+jinja2 = ">=3.1"
+pyyaml = ">=6.0"
+markdown = ">=3.5"
+pymupdf = ">=1.24"
+pillow = ">=10.0"

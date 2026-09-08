@@ -1,0 +1,66 @@
+# ---------------------------------------------------------------------------
+# Organizations. Only entries with published: true are rendered.
+# tier must be one of `tiers`. Logos live in assets/img/partners/ (SVG preferred).
+# ---------------------------------------------------------------------------
+kicker: Support
+heading: Convened with
+intro: >-
+  The workshop is convened by the University of Washington and Ocean Networks
+  Canada, with advice and support from partners on both sides of the border.
+note: >-
+  Partner list in progress. Organizations appear here once their support is
+  confirmed.
+
+tiers:
+  - Convening organizations
+  - Supporters
+  - Collaborators
+
+organizations:
+  - name: University of Washington, School of Oceanography
+    tier: Convening organizations
+    url: "https://www.ocean.washington.edu/"
+    logo: null
+    published: true
+
+  - name: Ocean Networks Canada
+    tier: Convening organizations
+    url: "https://www.oceannetworks.ca/"
+    logo: null
+    published: true
+
+  # ---- Not yet confirmed for public listing. ----
+  - name: Office of Naval Research
+    tier: Supporters
+    url: "https://www.onr.navy.mil/"
+    logo: null
+    published: false
+    note: Residual grant funds support the workshop. Confirm whether ONR may be listed.
+
+  - name: Paros GeoHazards Center, UW College of the Environment
+    tier: Supporters
+    url: null
+    logo: null
+    published: false
+    note: Contributing support. Confirm listing and URL.
+
+  - name: Circum-Pacific Council
+    tier: Collaborators
+    url: null
+    logo: null
+    published: false
+    note: Advisory role at all stages. Confirm listing and URL.
+
+  - name: Esri
+    tier: Collaborators
+    url: "https://www.esri.com/"
+    logo: null
+    published: false
+    note: In discussion about an organizing and facilitation role on day 2. Confirm before listing.
+
+  - name: GAIA HazLab
+    tier: Collaborators
+    url: "https://gaia-hazlab.github.io/"
+    logo: null
+    published: false
+    note: Maintainer's decision.

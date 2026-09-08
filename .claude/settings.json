@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pixi run *)",
+      "Bash(pixi install*)",
+      "Bash(pixi info*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(ls *)",
+      "Bash(scripts/screenshot.sh*)",
+      "Read(./**)",
+      "Edit(./content/**)",
+      "Edit(./templates/**)",
+      "Edit(./assets/**)",
+      "Edit(./scripts/**)",
+      "Edit(./docs/**)",
+      "Write(./content/**)",
+      "Write(./assets/**)",
+      "Write(./docs/**)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(rm -rf *)",
+      "Write(./materials/**)"
+    ]
+  }
+}

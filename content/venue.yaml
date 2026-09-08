@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# Venue and travel.
+# ---------------------------------------------------------------------------
+kicker: Logistics
+heading: Venue and travel
+venue:
+  name: University of Washington, Seattle
+  detail: Meeting room to be announced with invitations.
+  address: Seattle, WA 98195, USA
+  map_url: "https://www.washington.edu/maps/"
+
+travel:
+  - title: Arriving by air
+    text: >-
+      Seattle–Tacoma International Airport (SEA). Link light rail runs from the
+      airport to the U District station in about 50 minutes, and the campus is a
+      short walk from there.
+  - title: From Vancouver and Victoria
+    text: >-
+      Amtrak Cascades trains and intercity buses connect Vancouver, BC to Seattle in
+      three to four hours. A passenger ferry links Victoria's Inner Harbour to the
+      Seattle waterfront.
+  - title: Lodging
+    text: >-
+      Hotel options near campus will be shared with invitations.
+
+notes:
+  - Participants traveling from Canada should allow time for border formalities.
+  - Accessibility needs and dietary requirements can be sent to the contact in the footer.

@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# Reading list. kind: paper | report | website | draft
+# ---------------------------------------------------------------------------
+kicker: Resources
+heading: Background reading
+intro: >-
+  Start here to arrive with a shared vocabulary.
+
+items:
+  - title: "Urban Sea Systems and why they are important: A preliminary characterization"
+    authors: H.G. Greene and J.R. Delaney
+    venue: Estuarine, Coastal and Shelf Science, vol. 322, 2025
+    url: "https://doi.org/10.1016/j.ecss.2025.109274"
+    kind: paper
+    summary: >-
+      Defines Urban Sea Systems and characterizes three North American examples:
+      the Salish Sea, Chesapeake Bay, and the south shore of Oahu.
+
+  - title: "Digital Twins: Enabling infrastructure for Urban Sea Systems?"
+    authors: J.R. Delaney, H.G. Greene and M.R. Delaney
+    venue: Concept paper, in preparation, 2026
+    url: null
+    kind: draft
+    summary: >-
+      The argument behind the workshop. Copies will be shared with participants.
+
+  - title: Cross-Cutting Themes for U.S. Contributions to the UN Ocean Decade
+    authors: National Academies of Sciences, Engineering, and Medicine
+    venue: National Academies Press, 2022
+    url: "https://nap.nationalacademies.org/catalog/26363"
+    kind: report
+    summary: >-
+      Names a Healthy Urban Sea as one of the cross-cutting themes for U.S.
+      contributions to the UN Decade of Ocean Science for Sustainable Development.
+
+  - title: Digital Twins of the Ocean (DITTO)
+    authors: UN Ocean Decade programme
+    venue: Programme website
+    url: "https://ditto-oceandecade.org/"
+    kind: website
+    summary: >-
+      The international effort to build digital twins of the open ocean, the
+      complement to the coastal and urban problem addressed here.
+
+  - title: CARE Principles for Indigenous Data Governance
+    authors: Global Indigenous Data Alliance
+    venue: GIDA, 2019
+    url: "https://www.gida-global.org/care"
+    kind: website
+    summary: >-
+      Collective benefit, authority to control, responsibility, and ethics. The
+      framework the workshop follows for Indigenous data.

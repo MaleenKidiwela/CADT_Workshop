@@ -1,0 +1,164 @@
+# ---------------------------------------------------------------------------
+# Program. status: draft | confirmed | final
+# Session type: plenary | talk | working | session | social | break
+# leads: names that match team.yaml exactly become links.
+# ---------------------------------------------------------------------------
+status: draft
+status_note: >-
+  Draft program. Times and sessions will change as the agenda is developed with
+  participants.
+timezone_label: All times Pacific Standard Time (UTC-8)
+arc: >-
+  Three days move from a shared vision, to a buildable first set of modules and
+  their couplings, to the practical path forward.
+
+type_labels:
+  plenary: Plenary
+  talk: Talk
+  working: Working session
+  session: Session
+  social: Social
+  break: Break
+
+days:
+  - id: day-1
+    label: Day 1
+    theme: Shared vision
+    date: 2026-12-15
+    summary: >-
+      What Urban Sea Systems are, why they matter, what digital twins can and
+      cannot do, and a first critique of the candidate modules.
+    sessions:
+      - time: "08:30"
+        title: Registration and coffee
+        type: break
+      - time: "09:00"
+        title: Welcome and charge to the workshop
+        type: plenary
+        leads: [John R. Delaney, H. Gary Greene, Kate Moran]
+      - time: "09:30"
+        title: Urban Sea Systems, and why they matter globally
+        type: talk
+        description: >-
+          The coupled watershed, urban, and marine system. The two hundred systems
+          along the world's coasts. The governance mismatch, and what better
+          stewardship could look like.
+      - time: "10:45"
+        title: Break
+        type: break
+      - time: "11:00"
+        title: Digital twins now, and what they can become
+        type: talk
+        description: >-
+          An accessible account of digital twins across domains, what evolving AI
+          adds, and what an active user community makes possible. Technical,
+          scientific, and societal facets, plus data flow, management, and
+          interoperability.
+      - time: "12:15"
+        title: Lunch
+        type: break
+      - time: "13:30"
+        title: The candidate modules, open for critique
+        type: working
+        description: >-
+          Domain experts tell us what is missing, what is miscued, and what should
+          divide or combine. The goal is a module set the room can own.
+      - time: "15:00"
+        title: Break
+        type: break
+      - time: "15:15"
+        title: Coast Salish perspectives and partnership
+        type: session
+        description: Shaped with Indigenous partners.
+      - time: "16:30"
+        title: Synthesis of day 1
+        type: plenary
+      - time: "18:00"
+        title: Reception
+        type: social
+        description: Details to be announced.
+
+  - id: day-2
+    label: Day 2
+    theme: Building a team
+    date: 2026-12-16
+    summary: >-
+      Turn the refined modules and their couplings into something buildable, with
+      owners, data readiness, and a scoped first build.
+    sessions:
+      - time: "09:00"
+        title: Recap and working method
+        type: plenary
+      - time: "09:30"
+        title: "Module working groups I: owners, scope, existing assets"
+        type: working
+        description: >-
+          Each module identifies who owns it, what already runs, and what a first
+          contribution to the twin would be.
+      - time: "11:00"
+        title: Break
+        type: break
+      - time: "11:15"
+        title: "Seams: what actually passes between modules"
+        type: working
+        description: >-
+          Structured capture of the state, fluxes, and boundary conditions each
+          module needs and provides, and of data readiness at each interface.
+      - time: "12:30"
+        title: Lunch
+        type: break
+      - time: "13:30"
+        title: "Observing layer and baseline: data flow, management, interoperability"
+        type: session
+        description: >-
+          Marine sensing, civic telemetry, and the geospatial baseline that every
+          module draws on. What an integration substrate has to provide.
+      - time: "15:00"
+        title: Break
+        type: break
+      - time: "15:15"
+        title: "Module working groups II: scoping a first build"
+        type: working
+      - time: "16:30"
+        title: Roadmap readout
+        type: plenary
+
+  - id: day-3
+    label: Day 3
+    theme: Mapping a future
+    date: 2026-12-17
+    summary: >-
+      The mismatches to bridge, the resources required, who benefits, who decides,
+      and the commitments that leave the room.
+    sessions:
+      - time: "09:00"
+        title: Mismatches across the Salish system
+        type: session
+        description: >-
+          Jurisdictional, national, cultural, economic, and resilience gaps, and how
+          a shared representation could help bridge them.
+      - time: "10:30"
+        title: Break
+        type: break
+      - time: "10:45"
+        title: "What it takes: funding, compute, data, security, and trust"
+        type: session
+        description: >-
+          The practical steps toward a first build. Where the twin lives, who pays,
+          and how data from many communities can be shared with confidence.
+      - time: "12:00"
+        title: Lunch
+        type: break
+      - time: "13:00"
+        title: Who benefits, and who decides
+        type: working
+        description: >-
+          Which communities gain from what-if questions, and how results earn trust
+          across boundaries.
+      - time: "14:30"
+        title: Commitments and next steps
+        type: plenary
+        leads: [John R. Delaney, H. Gary Greene, Kate Moran]
+      - time: "15:30"
+        title: Close
+        type: break

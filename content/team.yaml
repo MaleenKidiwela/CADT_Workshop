@@ -1,0 +1,99 @@
+# ---------------------------------------------------------------------------
+# People. Only entries with published: true are rendered.
+# group must be one of `groups`. Names in program.yaml leads must match `name`.
+# ---------------------------------------------------------------------------
+kicker: Conveners
+heading: Convened by people who have spent decades on this sea
+intro: >-
+  The workshop is convened by ocean scientists and the organizations that observe
+  the Salish Sea, with an organizing committee drawn from the University of
+  Washington and partners on both sides of the border.
+
+groups:
+  - Conveners
+  - Organizing committee
+  - Advisors
+
+people:
+  - name: John R. Delaney
+    role: Convener
+    title: Professor Emeritus, School of Oceanography
+    affiliation: University of Washington
+    group: Conveners
+    photo: null
+    bio: >-
+      Oceanographer and lead architect of the Regional Cabled Array, the interactive
+      ocean observatory off the Pacific Northwest coast. Co-author of the Urban Sea
+      Systems concept.
+    links:
+      - {label: Interactive Oceans, url: "https://interactiveoceans.washington.edu/"}
+    published: true
+
+  - name: H. Gary Greene
+    role: Convener
+    title: Marine geologist, Center for Habitat Studies
+    affiliation: Moss Landing Marine Laboratories, San José State University
+    group: Conveners
+    photo: null
+    bio: >-
+      Marine geologist and seafloor habitat mapper. Co-author, with John Delaney, of
+      the 2025 characterization of Urban Sea Systems.
+    published: true
+
+  - name: Kate Moran
+    role: Co-convener
+    title: President and Chief Executive Officer
+    affiliation: Ocean Networks Canada
+    group: Conveners
+    photo: null
+    bio: >-
+      Leads Ocean Networks Canada, which operates the cabled ocean observatories off
+      British Columbia, including arrays in the Strait of Georgia and Saanich Inlet.
+    links:
+      - {label: Ocean Networks Canada, url: "https://www.oceannetworks.ca/"}
+    published: true
+
+  - name: Marine Denolle
+    role: Organizing committee
+    title: Associate Professor, Earth and Space Sciences
+    affiliation: University of Washington
+    group: Organizing committee
+    photo: https://avatars.githubusercontent.com/mdenolle
+    bio: >-
+      Seismologist working on data-driven monitoring of geohazards and on digital
+      twins of weather-compounded hazards. Leads the GAIA HazLab.
+    links:
+      - {label: GAIA HazLab, url: "https://gaia-hazlab.github.io/"}
+      - {label: GitHub, url: "https://github.com/mdenolle"}
+    published: true
+
+  # ---- Not yet confirmed for public listing. Flip `published` once agreed. ----
+  - name: William Wilcock
+    role: Invited speaker
+    title: Professor, School of Oceanography
+    affiliation: University of Washington
+    group: Advisors
+    photo: null
+    bio: ""
+    published: false
+    note: Asked to speak on geohazards and the Paros GeoHazards Center. Confirm role and wording.
+
+  - name: Ed Saade
+    role: Advisor
+    title: ""
+    affiliation: Circum-Pacific Council
+    group: Advisors
+    photo: null
+    bio: ""
+    published: false
+    note: Advisory role with the Circum-Pacific Council. Confirm title and listing.
+
+  - name: Jan Newton
+    role: Invited participant
+    title: Senior Principal Oceanographer, Applied Physics Laboratory
+    affiliation: University of Washington; NANOOS
+    group: Advisors
+    photo: null
+    bio: ""
+    published: false
+    note: Expected to participate on the observing layer. Confirm role and listing.

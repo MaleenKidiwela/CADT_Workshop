@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Participation: who should attend, what the workshop produces, and questions.
+# ---------------------------------------------------------------------------
+kicker: Participate
+heading: Who should be in the room
+intro: >-
+  About fifty people: the modelers, observers, port and utility operators, tribal
+  and First Nation partners, agency staff, and technologists who already work on
+  some part of the Salish system. Participation is by invitation. If you think you
+  should be there, tell us why.
+
+audiences:
+  - title: Domain modelers
+    text: Circulation, weather and climate, watersheds, water and air quality, hazards.
+  - title: Observers and data stewards
+    text: Cabled observatories, moorings, radar, ferries, civic telemetry, regional data portals.
+  - title: Operators and managers
+    text: Ports, utilities, emergency managers, state, provincial, federal, tribal, and First Nation agencies.
+  - title: Technologists
+    text: Geospatial platforms, cloud infrastructure, data interoperability, AI and assimilation.
+
+outputs:
+  heading: What the workshop produces
+  items:
+    - A refined set of first modules, each with named owners
+    - A specification of what passes across each seam, and the data readiness at each
+    - A scoped first build and a roadmap
+    - A shared statement of the mismatches to bridge and the resources required
+
+questions:
+  - q: Is the workshop open to the public?
+    a: >-
+      No. It is a working meeting of about fifty invited participants. Outputs will
+      be published on this site.
+  - q: Can I join remotely?
+    a: >-
+      The meeting is designed for in-person work. Remote participation will be
+      considered for specific sessions.
+  - q: How do I express interest?
+    a: >-
+      Use the button above, or write to the contact in the footer, with a few lines
+      on the part of the Salish system you work on.
+  - q: Is there a fee, or travel support?
+    a: >-
+      Details on costs and travel support will be included with invitations.
+  - q: Will there be a report?
+    a: >-
+      Yes. A roadmap and a concept paper are planned outputs. Both will be posted
+      here.

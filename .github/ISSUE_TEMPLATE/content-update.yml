@@ -1,0 +1,44 @@
+name: Content update
+description: Ask for a change to the workshop site (dates, program, people, partners, text, figures).
+title: "[content] "
+labels: [content]
+body:
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      options:
+        - Dates, venue, or buttons (site.yaml)
+        - About or the Salish prototype (about.yaml)
+        - Modules or architecture (modules.yaml)
+        - Program (program.yaml)
+        - Conveners and committee (team.yaml)
+        - Partners (partners.yaml)
+        - Venue and travel (venue.yaml)
+        - Participate and FAQ (faq.yaml)
+        - Resources (resources.yaml)
+        - Figures (figures.yaml)
+        - Design or layout
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change
+      description: Be concrete. Quote the exact text or list the exact entries to add, change, or remove.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Which document or message supports this (title and date). Facts on the site must be traceable.
+  - type: checkboxes
+    id: publish
+    attributes:
+      label: Publication
+      options:
+        - label: The people or organizations named here have confirmed they may be listed publicly.
+  - type: markdown
+    attributes:
+      value: "Tip: write `@claude` followed by the request in a comment to have the change drafted as a pull request."

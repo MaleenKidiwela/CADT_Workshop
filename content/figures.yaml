@@ -1,0 +1,170 @@
+# ---------------------------------------------------------------------------
+# Figure registry. Reference figures by `id` from other content files.
+# Files live in assets/img/figures/. Add new ones with scripts/import_figure.py.
+# gallery: false keeps a figure out of the Resources gallery.
+# ---------------------------------------------------------------------------
+figures:
+  - id: urban-sea-system
+    file: assets/img/figures/urban-sea-system.jpg
+    alt: >-
+      Block diagram of a modern Urban Sea System: a port city and its watershed on
+      a coastal plain, labeled with pressures such as port operations, stormwater
+      runoff, treated effluent, sea level rise, warming seas, and wildfire risk.
+    caption: >-
+      An Urban Sea System today. Watersheds, cities, ports, and coastal waters form
+      one dynamically coupled system, from headwaters to the offshore.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+    gallery: true
+
+  - id: urban-seas-global
+    file: assets/img/figures/urban-seas-global.jpg
+    alt: >-
+      World map with more than two hundred port cities marked along the coastlines
+      of every inhabited continent, sized by population.
+    caption: >-
+      More than two hundred Urban Sea Systems line the world's coasts and form the
+      nodes of a global trade network.
+    credit: J.R. Delaney and H.G. Greene, after Greene and Delaney (2025)
+    published: true
+
+  - id: global-trade-layers
+    file: assets/img/figures/global-trade-layers.jpg
+    alt: >-
+      World map overlaying shipping routes at the sea surface with submarine cable
+      routes on the seafloor, both converging on coastal port cities.
+    caption: >-
+      The dual-layer structure of global trade. Shipping routes at the surface and
+      submarine cables on the seafloor converge at the ports of Urban Sea Systems.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  - id: salish-sea-basin
+    file: assets/img/figures/salish-sea-basin.jpg
+    alt: >-
+      Two maps: the Salish Sea and its surrounding basin in blue and green, and a
+      wider view showing the upper Fraser River basin extending far into British
+      Columbia.
+    caption: >-
+      The Salish Sea and its watershed, shared by the United States and Canada. The
+      upper Fraser basin more than doubles the conventionally drawn watershed.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  - id: six-modules
+    file: assets/img/figures/six-modules.jpg
+    alt: >-
+      Illustration of a coastal city and its watershed ringed by six labeled
+      modules: climate and weather, watersheds and runoff, hazards, pollution of
+      air and water, hydrodynamics, and ports and supply chains.
+    caption: >-
+      Six starting modules of a complex adaptive digital twin for an Urban Sea
+      System. Each is a domain model owned by experts and coupled to the others.
+    credit: J.R. Delaney
+    published: true
+
+  - id: layered-architecture
+    file: assets/img/figures/layered-architecture.jpg
+    alt: >-
+      Diagram in four horizontal bands: a baseline map of the Salish Sea at the
+      bottom, an observing layer of marine sensors and civic telemetry above it,
+      six module tiles above that, and arcs of coupling seams at the top.
+    caption: >-
+      Layered architecture for the Salish Urban Sea digital twin. Baseline and
+      observing layer beneath, domain modules above, and the seams that couple them.
+    credit: J.R. Delaney
+    published: true
+
+  - id: enabling-infrastructure
+    file: assets/img/figures/enabling-infrastructure.jpg
+    alt: >-
+      Infographic of an Urban Sea Systems digital twin: a coastal city model
+      surrounded by sixteen module icons, with users on the left and outcomes on
+      the right.
+    caption: >-
+      A digital twin as enabling infrastructure. Interconnected modules, one dynamic
+      system, and outcomes for the people who use it.
+    credit: J.R. Delaney
+    published: true
+
+  - id: three-urban-seas
+    file: assets/img/figures/three-urban-seas.jpg
+    alt: >-
+      Three maps side by side: the Salish Sea, San Francisco Bay, and Chesapeake
+      Bay, each with its coastal zones and watershed.
+    caption: >-
+      Three North American Urban Sea Systems: the Salish Sea, San Francisco Bay, and
+      Chesapeake Bay.
+    credit: J.R. Delaney and H.G. Greene
+    published: true
+
+  - id: urban-sea-before
+    file: assets/img/figures/urban-sea-before.jpg
+    alt: >-
+      Block diagram of the same coastline before development: forested mountains,
+      a river delta, a natural estuary, and open water with no city or port.
+    caption: >-
+      The same coast as a natural refuge, before it became a port-centered region.
+      What will it look like in thirty years?
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  - id: digital-twin-cycle
+    file: assets/img/figures/digital-twin-cycle.jpg
+    alt: >-
+      Two halves of a loop: the real world of people, communities, ecosystems,
+      infrastructure, and economy on the left, and the digital twin of integrated
+      models, data, analytics, simulations, and scenarios on the right, joined by
+      arrows for observations and sensor data one way, and insights, decisions,
+      and interventions the other.
+    caption: >-
+      A continuous, adaptive cycle. Observations feed the twin, models and
+      simulations generate insights, and insights inform the decisions and
+      interventions that reshape the real world.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  - id: three-foundations
+    file: assets/img/figures/three-foundations.jpg
+    alt: >-
+      Diagram in two rows: John Holland (mechanism), Simon Levin (limit), and
+      Elinor Ostrom (remedy) above three design obligations, federated build,
+      bounded futures, and governance inside, converging on the complex adaptive
+      digital twin of an Urban Sea System.
+    caption: >-
+      From theory to design obligations. Holland's mechanism, Levin's limit, and
+      Ostrom's remedy each require a feature of the instrument: federated,
+      bounded rather than predictive, and governed from within.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  - id: design-obligations
+    file: assets/img/figures/design-obligations.jpg
+    alt: >-
+      Flow diagram: the real world Urban Sea System observed by satellites, buoys,
+      stations, and surveys; the twin as federated modules with data stores,
+      models, analytics, and visualizations; and governance that explores and
+      rehearses scenarios, with observations, reflexive feedback, interventions,
+      and spreading lines of plausible futures.
+    caption: >-
+      Real world, twin, and governance. The real world informs the twin, governance
+      reshapes what is modeled and how, and interventions act on the system.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: true
+
+  # ---- Available but not published. ----
+  - id: five-module-architecture
+    file: assets/img/figures/five-module-architecture.jpg
+    alt: Block diagram of an Urban Sea System ringed by five digital twin modules.
+    caption: Earlier five-module architecture from the draft concept paper.
+    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    published: false
+    note: Superseded by the six-module figure.
+
+  - id: sixteen-subcomponents
+    file: assets/img/figures/sixteen-subcomponents.jpg
+    alt: Diagram listing sixteen sub-component domains of an operational Urban Sea System digital twin.
+    caption: Sixteen sub-component domains, natural and human, of an operational Urban Sea System digital twin.
+    credit: J.R. Delaney and H.G. Greene, adapted from Sobocinski et al. (2022)
+    published: false
+    note: Adapted from a third-party publication. Confirm permission before publishing.

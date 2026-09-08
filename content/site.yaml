@@ -1,0 +1,80 @@
+# ---------------------------------------------------------------------------
+# Global site and event settings. Read by every page.
+# Fields marked (md) accept Markdown. See docs/CONTENT_MODEL.md.
+# ---------------------------------------------------------------------------
+name: CADT Workshop 2026
+short_name: CADT 2026
+title: Complex Adaptive Digital Twins for Urban Sea Systems
+tagline: A working meeting to design the first modules of a digital twin of the Salish Sea.
+description: >-
+  A three-day, invitation-based working meeting in Seattle, December 2026, to test
+  whether a complex adaptive digital twin can help steward the Salish Sea, and to
+  scope its first six modules.
+url: https://mdenolle.github.io/CADT_workshop_2026/
+repo: https://github.com/mdenolle/CADT_workshop_2026
+og_image: assets/img/figures/urban-sea-system.jpg
+
+event:
+  start: 2026-12-15
+  end: 2026-12-17
+  dates_confirmed: false
+  dates_note: Provisional dates, to be confirmed with the co-conveners.
+  timezone_label: Pacific Standard Time (UTC-8)
+  countdown_iso: "2026-12-15T09:00:00-08:00"
+  city: Seattle, Washington
+  host: University of Washington
+  format: In-person working meeting
+  attendance: By invitation, about 50 participants
+
+# One of the keys in status_labels.
+status: planning
+status_labels:
+  planning: Planning underway
+  interest: Expressions of interest open
+  invitations: Invitations sent
+  full: Participation confirmed
+  live: Happening now
+  archived: Concluded
+
+hero:
+  eyebrow: Workshop · Seattle · December 2026
+  heading: Complex Adaptive Digital Twins for Urban Sea Systems
+  heading_accent: Urban Sea Systems
+  lead: >-
+    The Salish Sea is one coupled system of watersheds, cities, ports, and coastal
+    ocean, shared by two nations. This working meeting brings together the people
+    who model, observe, and govern it to design the first modules of a digital twin,
+    and to decide what it would take to build one.
+  figure: urban-sea-system
+
+cta:
+  primary:
+    label: Express interest
+    url: "mailto:mdenolle@uw.edu?subject=CADT%20Workshop%202026%20expression%20of%20interest"
+    new_window: false
+  secondary:
+    label: Read the concept
+    url: "#about"
+
+nav:
+  - {label: About, href: "#about"}
+  - {label: Modules, href: "#modules"}
+  - {label: Program, href: "#program"}
+  - {label: Participate, href: "#participate"}
+  - {label: Venue, href: "#venue"}
+  - {label: Conveners, href: "#team"}
+  - {label: Partners, href: "#partners"}
+  - {label: Resources, href: "#resources"}
+
+contact:
+  name: Marine Denolle
+  email: mdenolle@uw.edu
+  note: Workshop coordination and website
+
+footer:
+  tagline: A working meeting on digital twins for the Salish Sea and the world's Urban Sea Systems.
+  attribution: >-
+    Site template adapted from the University of Washington eScience Institute hackweek
+    splash page and the SCOPED 2024 workshop site.
+  copyright_holder: CADT Workshop organizers
+  license_note: Site code is MIT licensed. Figures and text belong to their credited authors.

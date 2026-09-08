@@ -1,0 +1,144 @@
+# ---------------------------------------------------------------------------
+# The six starting modules, their readiness, and the four-layer architecture.
+# readiness is an integer index into readiness_scale (1 = first label).
+# ---------------------------------------------------------------------------
+kicker: Think big, start small
+heading: Six modules, one coupled system
+intro: >-
+  A digital twin of an Urban Sea System is not one model. It is a federation of
+  domain modules, each owned by the experts who already run it, coupled through
+  well-defined exchanges of state, flux, and boundary conditions. The workshop
+  starts with six modules where regional models and committed people already
+  exist, and treats the couplings among them as the real work.
+
+readiness_scale:
+  - Concept
+  - Pieces exist
+  - Partial, integration needed
+  - Operational
+  - Operational and coupled
+
+modules:
+  - id: hydrodynamics
+    number: 1
+    icon: wave
+    name: Hydrodynamics and circulation
+    subtitle: with biogeochemistry
+    summary: >-
+      Currents, temperature, salinity, oxygen, carbonate chemistry, and plankton
+      across the estuary, from the Strait of Juan de Fuca to Puget Sound and the
+      Strait of Georgia.
+    existing: [Salish Sea Model, LiveOcean, SalishSeaCast]
+    readiness: 5
+    note: >-
+      Three complementary operational models, one of which already supplies daily
+      boundary conditions to another across the border.
+
+  - id: weather
+    number: 2
+    icon: cloud
+    name: Weather and climate
+    subtitle: forcing from the atmosphere
+    summary: >-
+      Regional weather ensembles, atmospheric rivers, and downscaled climate
+      projections that drive flooding, runoff, and stormwater design.
+    existing: [Regional WRF ensembles, Climate Impacts Group projections, Northwest Modeling Consortium]
+    readiness: 4
+
+  - id: watersheds
+    number: 3
+    icon: river
+    name: Watersheds and runoff
+    subtitle: land to sea
+    summary: >-
+      Forest hydrology, land cover, streamflow, and stormwater from the Fraser,
+      Skagit, Snohomish, and Puget lowland basins into the sea.
+    existing: [VELMA watershed model, State and federal stream monitoring, County stormwater programs]
+    readiness: 3
+    note: >-
+      The pieces exist across agencies. The workshop must choose the first
+      watershed representation the twin adopts.
+
+  - id: pollution
+    number: 4
+    icon: factory
+    name: Pollution of air and water
+    subtitle: nutrients, toxics, microplastics, airsheds
+    summary: >-
+      Fate and transport of nutrients, toxics, oil, and microplastics in water, and
+      the thinner strand of airshed modeling for the region.
+    existing: [Water-quality components of the circulation models, Health of the Salish Sea reporting, Regional air agencies]
+    readiness: 3
+    note: >-
+      Water pollution is well covered through module 1. Air pollution needs a named
+      owner.
+
+  - id: ports
+    number: 5
+    icon: ship
+    name: Ports and supply chains
+    subtitle: the human engine
+    summary: >-
+      Vessel traffic, rail and truck flows, terminal operations, and their
+      resilience to disruption, on both sides of the border.
+    existing: [Port of Vancouver supply-chain visibility program, Northwest Seaport Alliance operations]
+    readiness: 3
+    note: >-
+      Vancouver is already building a port digital twin. The US side needs
+      integration work.
+
+  - id: hazards
+    number: 6
+    icon: alert
+    name: Hazards, natural and human-generated
+    subtitle: earthquakes, tsunamis, floods, spills
+    summary: >-
+      Cascadia megathrust and crustal-fault scenarios, tsunami inundation, coastal
+      flooding, and the human-generated hazards of spills and infrastructure
+      failure.
+    existing: [M9 Project, GeoClaw tsunami modeling, State inundation maps, Cascadia CoPes Hub, Offshore cabled arrays]
+    readiness: 4
+    note: >-
+      The human-generated half has no single owner yet. The workshop will decide how
+      much of it the first twin attempts.
+
+architecture:
+  kicker: Four layers
+  heading: Baseline, live observations, modules, seams
+  intro: >-
+    The six modules are peers. Beneath them sit two foundations. Above them sits
+    the coupling fabric that turns a set of models into one adaptive system.
+  layers:
+    - number: 4
+      name: Seams and coupling fabric
+      text: >-
+        Cross-domain flows of water, heat, sediment, nutrients, organisms,
+        decisions, and schedules that bind modules into one system. The hardest and
+        most novel work.
+    - number: 3
+      name: Domain modules
+      text: >-
+        Six expert-owned models that turn live flow into understanding, each with
+        its own maturity and its own community.
+    - number: 2
+      name: Observing layer
+      text: >-
+        Marine sensing (cabled observatories, moorings, radar, ferry boxes, ships)
+        and civic telemetry (water, sewage, power, traffic, air). A model with no
+        live flow is a study. A model coupled to observation is a twin.
+    - number: 1
+      name: Baseline
+      text: >-
+        Maps, bathymetry, shorelines, fixed geography, and the historical record.
+        The quiet substrate the system stands on.
+  figure: layered-architecture
+
+partnership:
+  kicker: Partners in the whole
+  heading: Coast Salish knowledge and governance
+  text: >-
+    Coast Salish nations and Indigenous-led science already observe, steward, and
+    co-govern this sea, and already sit at binational coordinating tables. They are
+    partners in the whole, not a module in the grid. The workshop follows the CARE
+    principles for Indigenous data governance, and engagement proceeds at the pace,
+    and on the terms, that the nations set.

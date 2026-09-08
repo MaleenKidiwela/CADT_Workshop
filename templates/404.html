@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Page not found · {{ site.name }}{% endblock %}
+{% block bodyclass %}page{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">404</p>
+    <h1>That page is not here</h1>
+    <p class="lead">The address may have changed. Everything about the workshop is on the home page.</p>
+  </div>
+</section>
+<section class="section section-paper">
+  <div class="wrap prose narrow">
+    <p class="back"><a class="link-arrow" href="index.html"><svg class="ic ic-sm flip"><use href="#i-arrow"/></svg> Back to the workshop</a></p>
+  </div>
+</section>
+{% endblock %}

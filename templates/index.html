@@ -1,0 +1,392 @@
+{% extends "base.html" %}
+{% block bodyclass %}home{% endblock %}
+{% block content %}
+{% set hero_fig = fig.get(site.hero.figure) %}
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-bg" aria-hidden="true">
+    <svg class="contours" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.2">
+        <ellipse cx="1120" cy="430" rx="200" ry="130"/>
+        <ellipse cx="1120" cy="430" rx="330" ry="220"/>
+        <ellipse cx="1120" cy="430" rx="470" ry="320"/>
+        <ellipse cx="1120" cy="430" rx="620" ry="430"/>
+        <ellipse cx="1120" cy="430" rx="790" ry="560"/>
+        <ellipse cx="1120" cy="430" rx="980" ry="700"/>
+        <ellipse cx="1120" cy="430" rx="1190" ry="860"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot"></span>{{ site.hero.eyebrow }}</p>
+      <h1 id="hero-title">{{ site.hero.heading | accent(site.hero.heading_accent) }}</h1>
+      <p class="lead">{{ site.hero.lead | md_inline }}</p>
+      <ul class="meta" aria-label="Event details">
+        <li><svg class="ic"><use href="#i-calendar"/></svg><span>{{ site.event.date_label }}</span>{% if not site.event.dates_confirmed %}<span class="chip chip-soft" title="{{ site.event.dates_note }}">provisional</span>{% endif %}</li>
+        <li><svg class="ic"><use href="#i-pin"/></svg><span>{{ site.event.host }}, {{ site.event.city }}</span></li>
+        <li><svg class="ic"><use href="#i-users"/></svg><span>{{ site.event.attendance }}</span></li>
+      </ul>
+      <div class="actions">
+        {% if site.cta.primary %}<a class="btn btn-primary" href="{{ site.cta.primary.url }}"{% if site.cta.primary.new_window %} target="_blank" rel="noopener"{% endif %}>{{ site.cta.primary.label }}</a>{% endif %}
+        {% if site.cta.secondary %}<a class="btn btn-ghost" href="{{ site.cta.secondary.url }}">{{ site.cta.secondary.label }}</a>{% endif %}
+      </div>
+      {% if site.event.countdown_iso and site.status != 'archived' %}
+      <p class="countdown" data-countdown="{{ site.event.countdown_iso }}" hidden>
+        <span class="countdown-label">Starts in</span>
+        <b data-unit="days">0</b> days
+        <b data-unit="hours">0</b> h
+        <b data-unit="minutes">0</b> min
+      </p>
+      {% endif %}
+    </div>
+    {% if hero_fig %}
+    <figure class="hero-figure">
+      <img src="{{ hero_fig.file }}" alt="{{ hero_fig.alt }}" loading="eager" fetchpriority="high">
+      <figcaption>{{ hero_fig.caption }}</figcaption>
+    </figure>
+    {% endif %}
+  </div>
+</section>
+
+<section class="statband" aria-label="Key numbers">
+  <div class="wrap stats">
+    {% for s in about.stats %}
+    <div class="stat"><div class="num">{{ s.value }}</div><div class="lbl">{{ s.label }}</div></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ about.kicker }}</p>
+      <h2>{{ about.heading }}</h2>
+      <div class="lead">{{ about.lead | md }}</div>
+    </div>
+    <div class="grid grid-3 pillars">
+      {% for p in about.pillars %}
+      <article class="card pillar">
+        <span class="icon-badge"><svg class="ic"><use href="#i-{{ p.icon }}"/></svg></span>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.text | md_inline }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    {% if about.body %}<div class="prose narrow center-block">{{ about.body | md }}</div>{% endif %}
+    {% set f = fig.get(about.figure) %}
+    {% set figclass = 'figure-wide' %}
+    {% include 'partials/figure.html' %}
+  </div>
+</section>
+
+{% set fo = about.foundations %}
+{% if fo %}
+<section class="section section-paper" id="foundations">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ fo.kicker }}</p>
+      <h2>{{ fo.heading }}</h2>
+      <p class="lead">{{ fo.intro | md_inline }}</p>
+    </div>
+    <ol class="grid grid-3 foundations">
+      {% for it in fo['items'] %}
+      <li class="card foundation">
+        <p class="foundation-src"><span class="idea">{{ it.idea }}</span> · {{ it.name }}</p>
+        <p class="foundation-text">{{ it.text | md_inline }}</p>
+        <div class="foundation-obl">
+          <svg class="ic"><use href="#i-arrow"/></svg>
+          <div><h3>{{ it.obligation }}</h3><p>{{ it.obligation_text | md_inline }}</p></div>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% set f = fig.get(fo.figure) %}
+    {% set figclass = 'figure-wide' %}
+    {% include 'partials/figure.html' %}
+  </div>
+</section>
+{% endif %}
+
+{% set pr = about.prototype %}
+<section class="section" id="prototype">
+  <div class="wrap split">
+    <div class="split-media">
+      {% set f = fig.get(pr.figure) %}
+      {% set figclass = 'figure-tall' %}
+      {% include 'partials/figure.html' %}
+    </div>
+    <div class="split-copy">
+      <p class="kicker">{{ pr.kicker }}</p>
+      <h2>{{ pr.heading }}</h2>
+      <div class="prose">{{ pr.body | md }}</div>
+      <ul class="points">
+        {% for pt in pr.points %}
+        <li><svg class="ic"><use href="#i-check"/></svg><div><b>{{ pt.title }}</b><span>{{ pt.text | md_inline }}</span></div></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-paper" id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ modules.kicker }}</p>
+      <h2>{{ modules.heading }}</h2>
+      <div class="lead">{{ modules.intro | md }}</div>
+    </div>
+    <ol class="grid grid-3 modules">
+      {% for m in modules.modules %}
+      <li class="card module" id="module-{{ m.id }}">
+        <div class="module-top">
+          <span class="num" aria-hidden="true">{{ m.number }}</span>
+          <svg class="ic ic-lg"><use href="#i-{{ m.icon }}"/></svg>
+        </div>
+        <h3>{{ m.name }}</h3>
+        {% if m.subtitle %}<p class="sub">{{ m.subtitle }}</p>{% endif %}
+        <p>{{ m.summary | md_inline }}</p>
+        {% if m.existing %}
+        <p class="tags-label">Existing capabilities</p>
+        <ul class="tags">{% for t in m.existing %}<li>{{ t }}</li>{% endfor %}</ul>
+        {% endif %}
+        <div class="meter" role="img" aria-label="Readiness: {{ m.readiness_label }}">
+          <span class="segs">{% for i in range(m.readiness_max) %}<span class="seg{% if i < m.readiness %} on{% endif %}"></span>{% endfor %}</span>
+          <span class="meter-label">{{ m.readiness_label }}</span>
+        </div>
+        {% if m.note %}<p class="note">{{ m.note | md_inline }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% set arch = modules.architecture %}
+    <div class="arch">
+      <div class="arch-copy">
+        <p class="kicker">{{ arch.kicker }}</p>
+        <h3 class="h2">{{ arch.heading }}</h3>
+        <p class="lead-sm">{{ arch.intro | md_inline }}</p>
+        <ol class="stack">
+          {% for l in arch.layers %}
+          <li class="layer layer-{{ l.number }}">
+            <span class="num" aria-hidden="true">{{ l.number }}</span>
+            <div><h4>{{ l.name }}</h4><p>{{ l.text | md_inline }}</p></div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      <div class="arch-media">
+        {% set f = fig.get(arch.figure) %}
+        {% set figclass = '' %}
+        {% include 'partials/figure.html' %}
+      </div>
+    </div>
+
+    {% set pn = modules.partnership %}
+    {% if pn %}
+    <aside class="callout">
+      <p class="kicker">{{ pn.kicker }}</p>
+      <h3>{{ pn.heading }}</h3>
+      <p>{{ pn.text | md_inline }}</p>
+    </aside>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section" id="program">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Program</p>
+      <h2>Three days, from shared vision to a roadmap</h2>
+      <p class="lead">{{ program.arc | md_inline }}</p>
+      <p class="meta-line">
+        <span class="chip{% if program.status == 'draft' %} chip-amber{% endif %}">{{ program.status | capitalize }} program</span>
+        <span>{{ program.timezone_label }}</span>
+      </p>
+      {% if program.status_note %}<p class="fine">{{ program.status_note }}</p>{% endif %}
+    </div>
+    <div class="tabs-root" data-tabs>
+      <div class="tabs" role="tablist" aria-label="Workshop days">
+        {% for d in program.days %}
+        <button class="tab" type="button" role="tab" id="tab-{{ d.id }}" aria-controls="panel-{{ d.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" data-id="{{ d.id }}">
+          <span class="tab-label">{{ d.label }}</span>
+          <span class="tab-theme">{{ d.theme }}</span>
+          <span class="tab-date">{{ d.date_label }}</span>
+        </button>
+        {% endfor %}
+      </div>
+      {% for d in program.days %}
+      <div class="panel" role="tabpanel" id="panel-{{ d.id }}" aria-labelledby="tab-{{ d.id }}"{% if not loop.first %} hidden{% endif %}>
+        <p class="day-summary">{{ d.summary | md_inline }}</p>
+        <ol class="timeline">
+          {% for s in d.sessions %}
+          <li class="tl-item is-{{ s.type }}">
+            <div class="tl-time">{{ s.time }}</div>
+            <div class="tl-body">
+              <h3 class="tl-title">{{ s.title }}</h3>
+              {% if s.type != 'break' and s.type in program.type_labels %}<span class="tl-type">{{ program.type_labels[s.type] }}</span>{% endif %}
+              {% if s.description %}<p>{{ s.description | md_inline }}</p>{% endif %}
+              {% if s.leads %}
+              <p class="tl-leads">{% for lead in s.leads %}{% if lead in team.by_name %}<a href="#person-{{ team.by_name[lead].slug }}">{{ lead }}</a>{% else %}<span>{{ lead }}</span>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+              {% endif %}
+              {% if s.resources %}
+              <ul class="tl-resources">{% for r in s.resources %}<li><a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.title }}</a></li>{% endfor %}</ul>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="participate">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ faq.kicker }}</p>
+      <h2>{{ faq.heading }}</h2>
+      <p class="lead">{{ faq.intro | md_inline }}</p>
+    </div>
+    <div class="grid grid-4 audiences">
+      {% for a in faq.audiences %}
+      <div class="card card-dark"><h3>{{ a.title }}</h3><p>{{ a.text | md_inline }}</p></div>
+      {% endfor %}
+    </div>
+    <div class="split outputs">
+      <div>
+        <h3>{{ faq.outputs.heading }}</h3>
+        <ul class="checklist">
+          {% for o in faq.outputs['items'] %}<li><svg class="ic"><use href="#i-check"/></svg><span>{{ o | md_inline }}</span></li>{% endfor %}
+        </ul>
+        {% if site.cta.primary %}
+        <div class="actions">
+          <a class="btn btn-light" href="{{ site.cta.primary.url }}"{% if site.cta.primary.new_window %} target="_blank" rel="noopener"{% endif %}>{{ site.cta.primary.label }}</a>
+          <span class="status-chip"><span class="dot"></span>{{ site.status_label }}</span>
+        </div>
+        {% endif %}
+      </div>
+      <div class="faq">
+        {% for q in faq.questions %}
+        <details>
+          <summary>{{ q.q }}<svg class="ic"><use href="#i-plus"/></svg></summary>
+          <div class="faq-a">{{ q.a | md }}</div>
+        </details>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-paper" id="venue">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ venue.kicker }}</p>
+      <h2>{{ venue.heading }}</h2>
+    </div>
+    <div class="split venue-split">
+      <div class="card venue-card">
+        <span class="icon-badge"><svg class="ic"><use href="#i-pin"/></svg></span>
+        <h3>{{ venue.venue.name }}</h3>
+        {% if venue.venue.detail %}<p>{{ venue.venue.detail }}</p>{% endif %}
+        <p class="addr">{{ venue.venue.address }}</p>
+        {% if venue.venue.map_url %}<a class="link-arrow" href="{{ venue.venue.map_url }}" target="_blank" rel="noopener">Campus map <svg class="ic ic-sm"><use href="#i-external"/></svg></a>{% endif %}
+      </div>
+      <div class="travel">
+        {% for t in venue.travel %}
+        <div class="travel-item"><h3>{{ t.title }}</h3><p>{{ t.text | md_inline }}</p></div>
+        {% endfor %}
+        {% if venue.notes %}
+        <ul class="fine-list">{% for n in venue.notes %}<li>{{ n | md_inline }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ team.kicker }}</p>
+      <h2>{{ team.heading }}</h2>
+      <p class="lead">{{ team.intro | md_inline }}</p>
+    </div>
+    {% for group, people in team.by_group %}
+    <h3 class="group-title">{{ group }}</h3>
+    <ul class="grid grid-4 people">
+      {% for p in people %}
+      <li class="card person" id="person-{{ p.slug }}">
+        {% if p.photo %}<img class="avatar" src="{{ p.photo }}" alt="" loading="lazy">{% else %}<span class="avatar monogram" aria-hidden="true">{{ p.name | initials }}</span>{% endif %}
+        <h4>{{ p.name }}</h4>
+        <p class="role">{{ p.role }}</p>
+        <p class="aff">{% if p.title %}{{ p.title }}<br>{% endif %}{{ p.affiliation }}</p>
+        {% if p.bio %}<p class="bio">{{ p.bio | md_inline }}</p>{% endif %}
+        {% if p.links %}
+        <ul class="links">{% for l in p.links %}<li><a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a></li>{% endfor %}</ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-paper" id="partners">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ partners.kicker }}</p>
+      <h2>{{ partners.heading }}</h2>
+      {% if partners.intro %}<p class="lead">{{ partners.intro | md_inline }}</p>{% endif %}
+    </div>
+    {% for tier, orgs in partners.by_tier %}
+    <h3 class="group-title">{{ tier }}</h3>
+    <ul class="logos">
+      {% for o in orgs %}
+      <li class="logo-tile">
+        {% if o.url %}<a href="{{ o.url }}" target="_blank" rel="noopener" aria-label="{{ o.name }}">{% endif %}
+        {% if o.logo %}<img src="{{ o.logo }}" alt="{{ o.name }}" loading="lazy">{% else %}<span class="logo-text">{{ o.name }}</span>{% endif %}
+        {% if o.url %}</a>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+    {% if partners.note %}<p class="fine center">{{ partners.note | md_inline }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="section" id="resources">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{{ resources.kicker }}</p>
+      <h2>{{ resources.heading }}</h2>
+      {% if resources.intro %}<p class="lead">{{ resources.intro | md_inline }}</p>{% endif %}
+    </div>
+    <ol class="reading">
+      {% for r in resources['items'] %}
+      <li class="reading-item">
+        <span class="kind">{{ r.kind or 'reading' }}</span>
+        <div>
+          <h3>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}</h3>
+          <p class="meta-line">{{ r.authors }}{% if r.venue %} · {{ r.venue }}{% endif %}</p>
+          {% if r.summary %}<p>{{ r.summary | md_inline }}</p>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if figures.gallery %}
+    <h3 class="group-title" id="figures">Concept figures</h3>
+    <ul class="gallery">
+      {% for f in figures.gallery %}
+      <li class="gallery-item">
+        <button type="button" class="fig-btn" data-lightbox data-src="{{ f.file }}" data-alt="{{ f.alt }}" data-caption="{{ f.caption }}" data-credit="{{ f.credit }}" aria-label="Enlarge figure">
+          <img src="{{ f.file }}" alt="{{ f.alt }}" loading="lazy">
+        </button>
+        <p class="cap">{{ f.caption }}</p>
+        <p class="credit">{{ f.credit }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

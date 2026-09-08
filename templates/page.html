@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ page.meta.title }} · {{ site.name }}{% endblock %}
+{% block description %}{{ page.meta.description or site.description }}{% endblock %}
+{% block canonical %}{{ page.slug }}.html{% endblock %}
+{% block bodyclass %}page{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">{{ page.meta.kicker or site.name }}</p>
+    <h1>{{ page.meta.title }}</h1>
+    {% if page.meta.description %}<p class="lead">{{ page.meta.description }}</p>{% endif %}
+  </div>
+</section>
+<section class="section section-paper">
+  <div class="wrap prose narrow">
+    {{ page_html }}
+    <p class="back"><a class="link-arrow" href="index.html"><svg class="ic ic-sm flip"><use href="#i-arrow"/></svg> Back to the workshop</a></p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,120 @@
+# ---------------------------------------------------------------------------
+# Why the workshop exists, the key numbers, and the Salish Sea prototype.
+# ---------------------------------------------------------------------------
+kicker: Why this workshop
+heading: Urban Sea Systems are coupled. Their governance is not.
+lead: >-
+  Urban Sea Systems run from mountain headwaters through rivers, estuaries, and
+  port cities to the coastal ocean. More than two hundred of them line the world's
+  coasts. They hold a large share of the human population, organize much of the
+  global economy, and are governed in pieces that do not match the scales on which
+  water, sediment, organisms, goods, and information actually move.
+body: >-
+  A digital twin, in the sense used here, is not one model or one dashboard. It is a
+  persistent, continuously updated set of domain models, each owned by the experts
+  who already run it, coupled to live observations and to each other, with
+  interfaces that decision-makers can use. The Salish Sea has five decades of
+  observation, modeling, and institutional investment behind it. The workshop asks
+  whether that foundation can be federated into a working prototype, and what a
+  first build would require.
+
+pillars:
+  - icon: globe
+    title: Urban Sea Systems
+    text: >-
+      Watershed, urban region, and adjacent sea form one system. Ports, cables,
+      shipping lanes, and data centers make these regions the nodes of global trade
+      and communication, and hot spots of pollution and risk.
+  - icon: layers
+    title: The governance mismatch
+    text: >-
+      Currents, rivers, and storms ignore borders. Land use, fisheries, water
+      quality, transport, and emergency management are each managed well in
+      isolation, and rarely together. Cumulative and cascading risks fall through
+      the gaps.
+  - icon: twin
+    title: Digital twins as infrastructure
+    text: >-
+      Shared, continuously updated representations of system conditions let
+      existing institutions see linkages they could not see before, test what-if
+      questions, and coordinate without waiting for governance to be redesigned.
+
+stats:
+  - value: "200+"
+    label: Urban Sea Systems along the world's coasts
+  - value: "2"
+    label: Nations sharing one Salish Sea
+  - value: "6"
+    label: Starting modules
+  - value: "3"
+    label: Working days in December
+
+figure: urban-seas-global
+
+foundations:
+  kicker: What complex adaptive means
+  heading: Federated, bounded, governed from within
+  intro: >-
+    Three ideas, taken in sequence, define the instrument the workshop sets out to
+    build. Each one imposes a design obligation.
+  items:
+    - name: John Holland
+      idea: Mechanism
+      text: >-
+        When many agents interact under local rules, system-level behavior emerges
+        from the couplings and cannot be deduced from the parts.
+      obligation: Federated build
+      obligation_text: >-
+        Couple many domain modules rather than perfect any one. The couplings are
+        the object.
+    - name: Simon Levin
+      idea: Limit
+      text: >-
+        Ecosystems are the foremost complex adaptive systems, and their emergent
+        behavior includes outcomes that no model will predict.
+      obligation: Bounded futures
+      obligation_text: >-
+        Characterize the range of plausible outcomes and let decision-makers
+        rehearse against them. Explore, do not forecast.
+    - name: Elinor Ostrom
+      idea: Remedy
+      text: >-
+        Communities can govern shared resources durably through their own evolving
+        rules. The decision-makers belong inside the system.
+      obligation: Governance inside
+      obligation_text: >-
+        The parties who must act on the system take part in the instrument that
+        represents it. A module, not a user.
+  figure: digital-twin-cycle
+
+prototype:
+  kicker: The prototype
+  heading: Start with the Salish Sea
+  body: >-
+    The Salish Sea is a large, complex mountain-to-seafloor basin shared by the
+    United States and Canada: the Strait of Juan de Fuca, the Strait of Georgia,
+    and Puget Sound, fed by the Fraser and nine other major rivers, with Vancouver,
+    Victoria, Seattle, Tacoma, and Olympia on its shores. Few coastal regions are
+    as well observed or as densely modeled. Few are governed by as many
+    jurisdictions. That combination makes it the right place to build a first
+    Urban Sea digital twin, and to learn how the pattern could travel to systems
+    at other stages of development.
+  points:
+    - title: Densely observed
+      text: >-
+        Cabled observatories, moorings, coastal radar, ferry-based sensors, and
+        daily forecast models on both sides of the border.
+    - title: Already coupled in places
+      text: >-
+        A US-run coastal forecast supplies daily boundary conditions to a Canadian
+        operational model. The coupling fabric is not a hypothesis; parts of it run
+        today.
+    - title: Two nations, many jurisdictions
+      text: >-
+        Federal, state, provincial, tribal, First Nation, and municipal authorities
+        share one ecosystem and one economy.
+    - title: Start small, think big
+      text: >-
+        Six modules where regional models and committed people already exist, and
+        a clear view of the seams between them.
+  figure: salish-sea-basin
