@@ -108,6 +108,25 @@
   <p class="lb-credit"></p>
 </dialog>
 
+<script>
+  // Review mode: open any page with ?review to load the Hypothesis comment
+  // sidebar. It stays on in that browser until ?review=off.
+  (function () {
+    var q = location.search, on;
+    try {
+      if (/[?&]review=off\b/.test(q)) localStorage.removeItem('cadt-review');
+      else if (/[?&]review\b/.test(q)) localStorage.setItem('cadt-review', '1');
+      on = localStorage.getItem('cadt-review') === '1';
+    } catch (e) {
+      on = /[?&]review\b/.test(q) && !/[?&]review=off\b/.test(q);
+    }
+    if (!on) return;
+    var s = document.createElement('script');
+    s.src = 'https://hypothes.is/embed.js';
+    s.async = true;
+    document.head.appendChild(s);
+  })();
+</script>
 <script src="assets/js/site.js" defer></script>
 </body>
 </html>
