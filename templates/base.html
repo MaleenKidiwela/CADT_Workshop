@@ -121,6 +121,8 @@
       on = /[?&]review\b/.test(q) && !/[?&]review=off\b/.test(q);
     }
     if (!on) return;
+    // Start with the panel open; its collapsed tab is easy to miss.
+    window.hypothesisConfig = function () { return { openSidebar: true }; };
     var s = document.createElement('script');
     s.src = 'https://hypothes.is/embed.js';
     s.async = true;
