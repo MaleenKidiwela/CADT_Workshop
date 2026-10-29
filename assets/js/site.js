@@ -77,7 +77,7 @@
   }
 
   // Mark the nav link of the section in view (aria-current), for the active-link style.
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]:not(.nav-cta)'));
   if (navLinks.length && 'IntersectionObserver' in window) {
     var byId = {};
     navLinks.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });

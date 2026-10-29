@@ -26,7 +26,7 @@ everything else. Body 16–17 px, line-height 1.65. Headings tight
 (line-height 1.1–1.2, slight negative tracking).
 
 Spacing: sections 5.5 rem top and bottom on desktop, 3.5 rem on mobile.
-Content width 1180 px. Cards 14 px radius, 1 px hairline border, soft
+Content width 1320 px, the hero included, so the page stays centered at any zoom. Cards 14 px radius, 1 px hairline border, soft
 shadow.
 
 ## Section rhythm
