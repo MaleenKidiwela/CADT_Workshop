@@ -58,13 +58,11 @@ atlas:
     The global survey of Urban Sea Systems on an interactive map, with the
     watershed behind each port city and nine case studies.
   url: atlas/
-  # Still image, and a looping turn of the atlas globe (frames captured from
-  # the atlas). The still shows when the viewer prefers reduced motion.
-  image: assets/img/atlas-globe-still.webp
-  animation: assets/img/atlas-globe.webp
+  # Screenshot of the atlas (Explore view, Rankings tab).
+  image: assets/img/atlas-preview.jpg
   image_alt: >-
-    The globe from the Urban Sea Atlas, turning slowly, with the survey's port
-    cities marked as colored dots.
+    The Urban Sea Atlas: a globe with the survey's port cities marked, beside a
+    ranking of entries by city size.
 
 foundations:
   kicker: What complex adaptive means

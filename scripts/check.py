@@ -155,7 +155,6 @@ def main() -> int:
         req(about["atlas"], ["label", "text", "url"], "about.yaml → atlas")
         check_url(about["atlas"].get("url"), "about.yaml → atlas")
         check_file(about["atlas"].get("image"), "about.yaml → atlas")
-        check_file(about["atlas"].get("animation"), "about.yaml → atlas")
     proto = about.get("prototype") or {}
     req(proto, ["kicker", "heading", "body", "points"], "about.yaml → prototype")
     check_fig_ref(proto.get("figure"), "about.yaml → prototype.figure")
