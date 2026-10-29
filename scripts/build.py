@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import re
 import shutil
 import subprocess
@@ -123,7 +124,9 @@ def build_context() -> dict:
     ctx["fig"] = figs
     ctx["pages"] = load_pages()
     now = dt.datetime.now(dt.timezone.utc)
-    ctx["build"] = {"time": now.strftime("%Y-%m-%d %H:%M UTC"), "year": now.year, "commit": git_short()}
+    # Short content hash of the CSS and JS, appended as ?v= so browsers reload them after a change.
+    assets_v = hashlib.sha1(b"".join((ROOT / f).read_bytes() for f in ("assets/css/site.css", "assets/js/site.js"))).hexdigest()[:8]
+    ctx["build"] = {"time": now.strftime("%Y-%m-%d %H:%M UTC"), "year": now.year, "commit": git_short(), "assets_v": assets_v}
     return ctx
 
 

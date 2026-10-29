@@ -40,7 +40,23 @@
       </p>
       {% endif %}
     </div>
-    {% if hero_fig %}
+    {% set cmp = site.hero.compare %}
+    {% set before_fig = fig.get(cmp.before) if cmp else none %}
+    {% if hero_fig and before_fig %}
+    <figure class="hero-figure compare" data-compare data-origin-x="{{ cmp.origin.x }}" data-origin-y="{{ cmp.origin.y }}">
+      <div class="cmp-stage">
+        <img class="cmp-before" src="{{ before_fig.file }}" alt="{{ before_fig.alt }}" loading="eager" style="left:{{ cmp.fit.left }}%;top:{{ cmp.fit.top }}%;width:{{ cmp.fit.width }}%;height:{{ cmp.fit.height }}%">
+        <img class="cmp-after" src="{{ hero_fig.file }}" alt="{{ hero_fig.alt }}" loading="eager" fetchpriority="high">
+      </div>
+      <div class="cmp-controls" hidden>
+        <button type="button" class="cmp-play" aria-label="Play the change from {{ cmp.before_label | lower }} to {{ cmp.after_label | lower }}"><svg class="ic"><use href="#i-play"/></svg></button>
+        <span class="cmp-end">{{ cmp.before_label }}</span>
+        <input class="cmp-range" type="range" min="0" max="1000" value="1000" aria-label="Time, from {{ cmp.before_label | lower }} to {{ cmp.after_label | lower }}" data-before-label="{{ cmp.before_label }}" data-after-label="{{ cmp.after_label }}">
+        <span class="cmp-end">{{ cmp.after_label }}</span>
+      </div>
+      <figcaption data-before-caption="{{ before_fig.caption }}" data-after-caption="{{ hero_fig.caption }}">{{ hero_fig.caption }}</figcaption>
+    </figure>
+    {% elif hero_fig %}
     <figure class="hero-figure">
       <img src="{{ hero_fig.file }}" alt="{{ hero_fig.alt }}" loading="eager" fetchpriority="high">
       <figcaption>{{ hero_fig.caption }}</figcaption>

@@ -49,6 +49,16 @@ hero:
     who model, observe, and govern it to design the first modules of a digital twin,
     and to decide what it would take to build one.
   figure: urban-sea-system
+  # Optional timelapse: `before` is revealed into `figure` by a slider. `fit`
+  # places the before image inside the figure's frame, in percent, so the two
+  # block outlines line up (fitted by maximizing silhouette overlap).
+  # `origin` is where the change spreads from (the harbor), in percent.
+  compare:
+    before: urban-sea-before
+    before_label: Before the city
+    after_label: Today
+    fit: {left: -1.87, top: 0.14, width: 102.59, height: 101.74}
+    origin: {x: 19, y: 40}
 
 cta:
   primary:

@@ -76,6 +76,82 @@
     }
   }
 
+  // Hero timelapse. The "today" image is masked by a soft circle that grows from
+  // the harbor, so the city spreads over the natural coast as time runs forward.
+  // Plays once on load (skipped with reduced motion); then the slider, a drag on
+  // the image, or the play button scrubs it. Without JS the "today" image shows.
+  var cmp = document.querySelector('[data-compare]');
+  if (cmp) {
+    var stage = cmp.querySelector('.cmp-stage');
+    var after = cmp.querySelector('.cmp-after');
+    var range = cmp.querySelector('.cmp-range');
+    var play = cmp.querySelector('.cmp-play');
+    var capEl = cmp.querySelector('figcaption');
+    var ox = parseFloat(cmp.getAttribute('data-origin-x')) / 100;
+    var oy = parseFloat(cmp.getAttribute('data-origin-y')) / 100;
+    var t = 1, anim = null;
+    var setMask = function (v) { after.style.webkitMaskImage = v; after.style.maskImage = v; };
+    var render = function () {
+      var w = stage.clientWidth, h = stage.clientHeight;
+      var cx = ox * w, cy = oy * h;
+      var far = Math.max(Math.hypot(cx, cy), Math.hypot(w - cx, cy), Math.hypot(cx, h - cy), Math.hypot(w - cx, h - cy));
+      var feather = 0.22 * w;
+      if (t >= 1) setMask('none');
+      else {
+        var r = t * (far + feather);
+        setMask('radial-gradient(circle at ' + cx + 'px ' + cy + 'px, #000 ' + Math.max(0, r - feather) + 'px, transparent ' + r + 'px)');
+      }
+      range.value = String(Math.round(t * 1000));
+      range.style.setProperty('--p', (t * 100) + '%');
+      var label = t < 0.5 ? range.getAttribute('data-before-label') : range.getAttribute('data-after-label');
+      range.setAttribute('aria-valuetext', label);
+      capEl.textContent = capEl.getAttribute(t < 0.5 ? 'data-before-caption' : 'data-after-caption');
+    };
+    var stop = function () { if (anim) { cancelAnimationFrame(anim); anim = null; } };
+    var animate = function (from, to, ms) {
+      stop();
+      var t0 = null;
+      var step = function (now) {
+        if (t0 === null) t0 = now;
+        var k = Math.min(1, (now - t0) / ms);
+        var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        t = from + (to - from) * e;
+        render();
+        anim = k < 1 ? requestAnimationFrame(step) : null;
+      };
+      anim = requestAnimationFrame(step);
+    };
+    range.addEventListener('input', function () { stop(); t = Number(range.value) / 1000; render(); });
+    play.addEventListener('click', function () { t = 0; render(); animate(0, 1, 4200); });
+    var dragging = false;
+    var fromPointer = function (e) {
+      var b = stage.getBoundingClientRect();
+      t = Math.min(1, Math.max(0, (e.clientX - b.left) / b.width));
+      render();
+    };
+    stage.addEventListener('pointerdown', function (e) { dragging = true; stop(); stage.setPointerCapture(e.pointerId); fromPointer(e); });
+    stage.addEventListener('pointermove', function (e) { if (dragging) fromPointer(e); });
+    stage.addEventListener('pointerup', function () { dragging = false; });
+    stage.addEventListener('pointercancel', function () { dragging = false; });
+    window.addEventListener('resize', render);
+
+    var imgs = Array.prototype.slice.call(stage.querySelectorAll('img'));
+    Promise.all(imgs.map(function (im) { return im.decode ? im.decode().catch(function () {}) : Promise.resolve(); })).then(function () {
+      cmp.classList.add('is-live');
+      cmp.querySelector('.cmp-controls').hidden = false;
+      var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (still) { t = 1; render(); return; }
+      t = 0; render();
+      // Start once the figure is mostly on screen (it sits below the fold on phones).
+      var go = function () { setTimeout(function () { if (t === 0 && !dragging) animate(0, 1, 4200); }, 700); };
+      if (!('IntersectionObserver' in window)) { go(); return; }
+      var io = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { io.disconnect(); go(); }
+      }, { threshold: 0.6 });
+      io.observe(stage);
+    });
+  }
+
   // Figure lightbox using the native dialog element.
   var dlg = document.getElementById('lightbox');
   if (dlg && typeof dlg.showModal === 'function') {

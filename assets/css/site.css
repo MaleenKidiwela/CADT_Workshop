@@ -161,12 +161,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .hero-bg { position: absolute; inset: 0; pointer-events: none; }
 .contours { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--teal-light); opacity: 0.16; }
-.hero-grid { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+.hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 3rem; align-items: center; }
+/* The figure runs past the right edge of --wrap, toward the window edge, so the
+   timelapse is large while the text stays aligned with the nav. */
+@media (min-width: 1025px) {
+  .hero-figure { margin-right: calc(-1 * max(0px, (100vw - var(--wrap)) / 2 - 1.5rem)); }
+}
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 1.4rem;
 }
-.hero h1 { color: #fff; font-size: clamp(2.2rem, 4.4vw, 3.5rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; max-width: 14ch; }
+.hero h1 { color: #fff; font-size: clamp(2.2rem, 4.2vw, 3.2rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; max-width: 14ch; }
 .hero h1 .accent { color: var(--teal-light); }
 .hero .lead { color: rgba(255, 255, 255, 0.82); font-size: 1.15rem; max-width: 38rem; margin-top: 1.4rem; }
 .meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.7rem; }
@@ -184,6 +189,48 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 .hero-figure figcaption { margin-top: 0.8rem; font-size: 0.84rem; color: rgba(255, 255, 255, 0.66); }
+
+/* Hero timelapse: the "today" image grows out of the "before" image from the harbor. */
+.cmp-stage {
+  position: relative; overflow: hidden; background: #fff; border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(255, 255, 255, 0.14);
+  touch-action: pan-y; -webkit-user-select: none; user-select: none;
+}
+.hero-figure .cmp-stage img { border: 0; border-radius: 0; box-shadow: none; }
+.cmp-after { position: relative; z-index: 1; display: block; }
+/* brightness lifts the before image's #f6f6f6 ground to the white of the today image */
+.cmp-before { position: absolute; max-width: none; z-index: 0; display: none; filter: brightness(1.037); }
+.compare.is-live .cmp-before { display: block; }
+.compare.is-live .cmp-stage { cursor: ew-resize; }
+.cmp-controls { display: flex; align-items: center; gap: 0.7rem; margin-top: 0.9rem; }
+.cmp-controls[hidden] { display: none; }
+.cmp-end { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); white-space: nowrap; }
+.cmp-play {
+  flex: none; display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  border: 1px solid rgba(143, 214, 217, 0.5); background: rgba(143, 214, 217, 0.12); color: var(--teal-light); cursor: pointer;
+}
+.cmp-play:hover { background: rgba(143, 214, 217, 0.24); }
+.cmp-play .ic { width: 0.9rem; height: 0.9rem; margin-left: 2px; }
+.cmp-range {
+  flex: 1; min-width: 0; height: 1.6rem; margin: 0; background: transparent; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+}
+.cmp-range::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--teal-light) var(--p, 100%), rgba(255, 255, 255, 0.2) var(--p, 100%));
+}
+.cmp-range::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.2); }
+.cmp-range::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--teal-light); }
+.cmp-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; margin-top: -7px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--teal); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.cmp-range::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--teal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.cmp-range:focus-visible { outline: 2px solid var(--teal-light); outline-offset: 4px; border-radius: 4px; }
+@media (max-width: 480px) { .cmp-end { font-size: 0.66rem; letter-spacing: 0.04em; } }
 
 /* ---------- stat band ---------- */
 .statband { background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -379,7 +426,7 @@ figcaption .credit::before { content: '· '; }
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-figure { max-width: 640px; }
+  .hero-figure { max-width: 860px; }
   .arch { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {

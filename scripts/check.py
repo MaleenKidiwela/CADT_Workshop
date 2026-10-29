@@ -138,6 +138,10 @@ def main() -> int:
             err(where, f"references unknown or unpublished figure {ref!r}")
 
     check_fig_ref((site.get("hero") or {}).get("figure"), f"{w} → hero.figure")
+    cmp = (site.get("hero") or {}).get("compare")
+    if cmp:
+        req(cmp, ["before", "before_label", "after_label", "fit", "origin"], f"{w} → hero.compare")
+        check_fig_ref(cmp.get("before"), f"{w} → hero.compare.before")
 
     # ---- about -----------------------------------------------------------
     about = data["about"]
