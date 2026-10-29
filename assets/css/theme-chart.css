@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Theme "chart", layered on site.css. Switch off with `theme: classic` in
+   content/site.yaml. Changes the look only, never the layout or content.
+
+   Drawn from nautical charts of the Salish Sea: chart-blue water tints for
+   light sections, navy ink, chart magenta as a small accent, condensed sans
+   labels for headings, italic serif for the names of water bodies (the chart
+   convention for hydrography), and mono numerals for times.
+   ========================================================================== */
+
+:root {
+  --ink: #0c2233;
+  --navy: #133a58;
+  --navy-deep: #091b2b;
+  --teal: #1f5f86;        /* chart blue: links, buttons, meters */
+  --teal-deep: #164a69;
+  --teal-soft: #dcebf4;
+  --teal-light: #a9d1ea;  /* chart blue on dark surfaces */
+  --magenta: #8e3a78;     /* chart magenta: the seams layer only */
+  --fog: #eef4f8;         /* shallow-water tint */
+  --fog-2: #dde8ef;
+  --stone: #536576;
+  --line: rgba(12, 34, 51, 0.14);
+  --shadow: none;
+  --shadow-lg: none;
+  --radius: 4px;
+  --radius-sm: 3px;
+  --font-head: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --font-hydro: 'Source Serif 4', Georgia, serif;
+}
+
+/* ---------- type ---------- */
+h1, h2, h3, h4, .num, .brand, .tab-theme, .points b, .logo-text, .monogram {
+  font-stretch: 87.5%; letter-spacing: 0; text-wrap: balance;
+}
+h2 { font-weight: 650; line-height: 1.12; letter-spacing: -0.005em; }
+h3, h4 { font-weight: 620; }
+p, .lead, figcaption { text-wrap: pretty; }
+/* Section labels in sentence case, one accent color. */
+.kicker { text-transform: none; letter-spacing: 0; font-size: 0.95rem; font-weight: 600; color: var(--teal); margin-bottom: 0.55rem; }
+.section-dark .kicker, .page-hero .kicker { color: var(--teal-light); }
+
+/* ---------- surfaces: flat, hairline, no lift ---------- */
+.section-dark { background: var(--ink); }
+.card { box-shadow: none; transition: border-color 0.15s; }
+.card:hover { transform: none; box-shadow: none; border-color: rgba(12, 34, 51, 0.34); }
+.card-dark:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.32); }
+.icon-badge { width: auto; height: auto; background: none; justify-content: flex-start; margin-bottom: 0.8rem; font-size: 1.45rem; color: var(--teal); }
+.fig-btn { box-shadow: none; }
+.callout { background: var(--paper); border-left: 4px solid var(--teal); }
+
+/* ---------- buttons and chips: squared ---------- */
+.btn { border-radius: var(--radius-sm); border-width: 1px; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s; }
+.btn:hover { transform: none; }
+.btn:active, .nav-cta:active, .cmp-play:active, .tab:active { transform: translateY(1px); }
+.chip { border-radius: var(--radius-sm); }
+.nav-cta { border-radius: var(--radius-sm); }
+.status-chip .dot { box-shadow: none; }
+.eyebrow .dot { display: none; }
+
+/* ---------- nav: solid ---------- */
+.nav, .nav.scrolled, body.page .nav { background: var(--ink); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.brand { font-weight: 650; letter-spacing: 0.01em; }
+/* Current section, set by site.js as you scroll. */
+.nav-links a[aria-current="true"] { color: #fff; box-shadow: inset 0 -2px 0 var(--teal-light); padding-bottom: 0.3rem; }
+
+/* ---------- hero: ink with a faint chart graticule and a chart-border scale ---------- */
+.hero-bg { display: none; }
+.hero, .page-hero {
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(169, 209, 234, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(169, 209, 234, 0.055) 1px, transparent 1px);
+  background-size: 120px 120px;
+  background-position: center top;
+}
+/* Alternating bars like the latitude scale along a chart's neatline. */
+.hero::after, .page-hero::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.82) 0 60px, var(--ink) 60px 120px);
+  background-position: center;
+}
+.page-hero { position: relative; }
+.hero h1 { font-weight: 650; font-size: clamp(2.3rem, 4.4vw, 3.4rem); line-height: 1.04; }
+.hero h1 .accent { font-family: var(--font-hydro); font-style: italic; font-weight: 500; font-stretch: normal; color: var(--teal-light); }
+.eyebrow { color: rgba(255, 255, 255, 0.72); }
+.meta { display: grid; gap: 0.45rem; margin-top: 1.6rem; }
+.meta li { border: 0; border-radius: 0; background: transparent; padding: 0; font-size: 0.97rem; align-items: flex-start; }
+.meta li .ic { margin-top: 0.2rem; }
+.meta .ic { color: var(--teal-light); }
+.countdown b { font-family: var(--font-mono); font-weight: 500; }
+.cmp-stage { border-radius: var(--radius-sm); box-shadow: none; }
+.cmp-play { border-radius: var(--radius-sm); }
+
+/* ---------- numbers ---------- */
+.stat .num { font-weight: 600; color: var(--navy); }
+.module .num { background: none; color: var(--teal); width: auto; height: auto; font-size: 1.7rem; font-weight: 600; }
+.tl-time { font-family: var(--font-mono); font-weight: 500; font-size: 0.95rem; padding-top: 0.15rem; font-variant-numeric: tabular-nums; }
+.tl-item.is-break .tl-time { font-family: var(--font-mono); }
+.tl-item.is-plenary .tl-type { background: var(--navy); }
+
+/* ---------- modules and layers ---------- */
+.tags li { border-radius: var(--radius-sm); background: var(--paper); border: 1px solid var(--line); }
+.seg { border-radius: 1px; }
+.layer .num { border-radius: var(--radius-sm); }
+.layer-4 { border-left-color: var(--magenta); }
+.layer-4 .num { background: var(--magenta); }
+
+/* ---------- people: no boxes, rounded-square portraits ---------- */
+.person { background: transparent; border: 0; padding: 0.5rem 0.25rem; }
+.person:hover { border: 0; }
+.avatar { box-shadow: none; border-radius: 10px; width: 92px; height: 92px; }
+.monogram { background: var(--paper); border: 1px solid var(--line); color: var(--navy); font-weight: 600; }
+
+/* ---------- lightbox ---------- */
+.lightbox { box-shadow: none; }
+.lightbox::backdrop { backdrop-filter: none; }

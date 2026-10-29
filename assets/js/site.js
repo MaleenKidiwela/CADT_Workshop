@@ -76,6 +76,22 @@
     }
   }
 
+  // Mark the nav link of the section in view (aria-current), for the active-link style.
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var byId = {};
+    navLinks.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var a = byId[en.target.id];
+        if (a) a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(byId).forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+  }
+
   // Hero timelapse. The "today" image is masked by a soft circle that grows from
   // the harbor, so the city spreads over the natural coast as time runs forward.
   // Plays once on load (skipped with reduced motion); then the slider, a drag on

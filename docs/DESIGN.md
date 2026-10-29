@@ -71,3 +71,22 @@ Figures are JPEG, max 1800 px wide, quality 85, optimized with
 `scripts/import_figure.py`. Diagrams with fine text may use PNG. Every image
 has real `alt` text describing what it shows. Partner logos are SVG when
 possible.
+
+## Themes
+
+`content/site.yaml` → `theme` picks the look. Layout and content are the same
+in both.
+
+- `classic`: `site.css` alone, with the tokens and type above.
+- `chart` (current): `assets/css/theme-chart.css` layered on `site.css`. Drawn
+  from nautical charts of the Salish Sea. Archivo semi-condensed for headings,
+  IBM Plex Sans for text, IBM Plex Mono for times and countdown numbers, and
+  Source Serif 4 italic only for the name of a water system (the hero's
+  "Urban Sea Systems"), as charts set hydrographic names in italic. Ink hero
+  with a faint graticule and a chart-border scale along its foot. Chart blue
+  (`#1f5f86`) is the single accent; chart magenta marks only the seams layer.
+  Shallow-water tint (`#eef4f8`) for alternate sections. Square corners
+  (3–4 px), hairline borders, no shadows or hover lift. Section labels in
+  sentence case. People sit on spacing, not cards.
+
+To go back to the original look, set `theme: classic` and rebuild.

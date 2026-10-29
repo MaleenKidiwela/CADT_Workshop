@@ -125,7 +125,7 @@ def build_context() -> dict:
     ctx["pages"] = load_pages()
     now = dt.datetime.now(dt.timezone.utc)
     # Short content hash of the CSS and JS, appended as ?v= so browsers reload them after a change.
-    assets_v = hashlib.sha1(b"".join((ROOT / f).read_bytes() for f in ("assets/css/site.css", "assets/js/site.js"))).hexdigest()[:8]
+    assets_v = hashlib.sha1(b"".join((ROOT / f).read_bytes() for f in ("assets/css/site.css", "assets/css/theme-chart.css", "assets/js/site.js"))).hexdigest()[:8]
     ctx["build"] = {"time": now.strftime("%Y-%m-%d %H:%M UTC"), "year": now.year, "commit": git_short(), "assets_v": assets_v}
     return ctx
 

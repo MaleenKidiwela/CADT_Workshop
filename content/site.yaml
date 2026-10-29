@@ -15,6 +15,10 @@ url: https://maleenkidiwela.github.io/CADT_Workshop/
 repo: https://github.com/mdenolle/CADT_workshop_2026
 og_image: assets/img/figures/urban-sea-system.jpg
 
+# Look of the site. classic: the original design (site.css alone).
+# chart: nautical-chart restyle layered on top (assets/css/theme-chart.css).
+theme: chart
+
 event:
   start: 2026-12-15
   end: 2026-12-17
