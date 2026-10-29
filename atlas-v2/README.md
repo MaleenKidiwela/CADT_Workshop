@@ -44,6 +44,12 @@ works). Links copied with "Copy link" reopen the same view.
 - **Chart.** Scatter of any two numeric fields with a rank correlation. Hover
   a dot to find it on the map; drag a box to select a group and filter the map
   to it.
+- **Patterns.** Thirteen patterns found in the survey, for example where the
+  largest cities sit, how container traffic concentrates, which ports are
+  inland, and how the ranking scores are built. Every number is computed from
+  the catalog when the tab opens, so the text follows the data. "Show on the
+  map" filters and frames the entries behind a pattern; "Plot it" opens the
+  matching chart.
 - **Case studies.** Nine systems, including Tokyo Bay, New Orleans / Mississippi and New York Harbor / Hudson. Drainage units are colored by WRI Aqueduct
   water stress, depletion or variability. Click any unit to light up
   everything upstream, outline the path downstream, and list the stress mix and

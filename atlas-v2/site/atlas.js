@@ -80,7 +80,7 @@ const S = {
   mode: 'explore',
   q: '', tier: '', regions: new Set(), types: new Set(), bands: new Set(),
   strategic: false, crossBorder: false, hasCase: false, group: '',
-  brush: null, hidden: new Set(), topN: 0,
+  brush: null, pattern: null, hidden: new Set(), topN: 0,
   colorBy: 'type', sizeBy: 'population',
   selected: null, hover: null,
   tab: 'rank', wide: false,
@@ -444,7 +444,7 @@ function renderLeftExplore() {
       <div class="search">${ICON_SEARCH}<input id="q" type="search" placeholder="Search city, country, river…" value="${esc(S.q)}" autocomplete="off" aria-label="Search entries"><kbd>/</kbd><div id="suggest" class="suggest" hidden></div></div>
       <div class="counter"><b>${visible.length}</b><span>of ${E.length} port-metro entries · ${mapped} on the map</span></div>
       <div class="bar-total"><i style="width:${(visible.length / E.length * 100).toFixed(1)}%"></i></div>
-      ${S.brush ? `<p class="hint"><span class="badge">Chart selection: ${S.brush.size}</span> <button class="linkbtn" data-clear-brush>Clear</button></p>` : ''}
+      ${S.brush ? `<p class="hint"><span class="badge">${S.pattern ? 'Pattern' : 'Chart selection'}: ${S.brush.size}</span> <button class="linkbtn" data-clear-brush>Clear</button></p>` : ''}
       ${S.topN ? `<p class="hint"><span class="badge">Top ${S.topN} on ${esc(axisById[S.axis].name.toLowerCase())}</span> <button class="linkbtn" data-clear-top>Clear</button></p>` : ''}
     </div>
     <div class="section">
@@ -509,7 +509,7 @@ function renderRight() {
   const right = $('#right');
   right.classList.toggle('wide', S.wide && S.mode === 'explore');
   if (S.mode === 'cases') { renderRightCases(); return; }
-  const tabs = [['entry', 'Entry'], ['rank', 'Rankings'], ['chart', 'Chart'], ['list', 'List']];
+  const tabs = [['entry', 'Entry'], ['rank', 'Rankings'], ['chart', 'Chart'], ['patterns', 'Patterns'], ['list', 'List']];
   right.innerHTML = `
     <div class="tabs" role="tablist">
       ${tabs.map(([k, l]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${l}</button>`).join('')}
@@ -522,6 +522,7 @@ function renderRight() {
   if (S.tab === 'entry') body.innerHTML = entryHTML();
   if (S.tab === 'rank') renderRankings(body);
   if (S.tab === 'chart') renderChart(body);
+  if (S.tab === 'patterns') renderPatterns(body);
   if (S.tab === 'list') renderList(body);
 }
 
@@ -771,9 +772,10 @@ function wireChart(sx, sy, pts, W, H) {
     const [x, y] = toLocal(ev);
     const [x0, x1] = [Math.min(x, start[0]), Math.max(x, start[0])], [y0, y1] = [Math.min(y, start[1]), Math.max(y, start[1])];
     start = null; rect.setAttribute('visibility', 'hidden');
-    if (x1 - x0 < 4 && y1 - y0 < 4) { if (S.brush) { S.brush = null; update(); } return; }
+    if (x1 - x0 < 4 && y1 - y0 < 4) { if (S.brush) { S.brush = null; S.pattern = null; update(); } return; }
     const ids = new Set($$('#dots circle.dot').filter(c => { const cx = +c.getAttribute('cx'), cy = +c.getAttribute('cy'); return cx >= x0 && cx <= x1 && cy >= y0 && cy <= y1; }).map(c => +c.dataset.id));
     S.brush = ids.size ? ids : null;
+    S.pattern = null;
     update();
     if (ids.size) fitEntries([...ids].map(i => byId.get(i)));
   });
@@ -798,6 +800,166 @@ function renderList(body) {
     <div>${list.slice(0, limit).map(e => `<button class="listrow" data-select="${e.id}" data-id="${e.id}"><span>${esc(e.name)}</span><span class="pop">${key === 'name' || key === 'population' ? fmt(e.population) + ' M' : key === 'gdp' ? '$' + fmt(e.gdp) + 'B' : fmt(e.containers) + ' k TEU'}</span><small>${esc(e.country)} · ${esc(e.type)}${e.points.length ? '' : ' · <span class="nomap">not on map</span>'}</small></button>`).join('')}</div>`;
 }
 map.on('moveend', () => { if (S.mode === 'explore' && S.tab === 'list' && S.listView) renderRight(); });
+
+// ---------- patterns ----------
+// Every number in a pattern is computed from the catalog when the tab opens.
+const median = xs => { const s = [...xs].sort((a, b) => a - b), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+const pct = (a, b) => Math.round(a / b * 100);
+const tally = (list, fn) => [...count(list, fn)].sort((a, b) => b[1] - a[1]);
+const andList = (xs, and = 'and') => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} ${and} ${xs.at(-1)}`);
+const names = (list, n = list.length) => andList(list.slice(0, n).map(e => esc(short(e.name))));
+const regionName = r => esc(r === 'Middle East' ? 'the Middle East' : r);
+const TYPE_PROSE = {'Estuary/Delta': 'estuaries and deltas', 'Open coast': 'open coasts', Bay: 'bays', River: 'rivers', Gulf: 'gulfs', Strait: 'straits', Lake: 'lakes', Lagoon: 'lagoons', Fjord: 'fjords', 'Inland sea': 'inland seas', 'Semi-enclosed': 'semi-enclosed seas'};
+const rho = (a, b) => spearman(E.map(e => [val(e, a), val(e, b)]).filter(p => p[0] !== null && p[1] !== null));
+function pbars(rows, {color = () => 'var(--teal)', unit = ''} = {}) {
+  const max = Math.max(...rows.map(r => r[1]));
+  const row = ([k, v, c]) => `<span title="${esc(k)}">${esc(k)}</span><span class="t"><i style="width:${(v / max * 100).toFixed(1)}%;background:${c || color(k)}"></i></span><span class="v">${fmt(v)}${unit}</span>`;
+  return `<div class="pbars">${rows.map(r => (r[3] ? `<button class="hbar" data-select="${r[3]}" data-id="${r[3]}">${row(r)}</button>` : `<div class="hbar">${row(r)}</div>`)).join('')}</div>`;
+}
+const regionColor = r => COLOR_BY.region.color(r);
+const PATTERNS = [
+  {id: 'megacities', theme: 'Cities and water', title: 'Big cities gather on estuaries and deltas.', color: 'type', size: 'population',
+    ids: () => E.filter(e => e.population >= 10),
+    body(list) {
+      const t = tally(list, e => e.type), est = E.filter(e => e.type === 'Estuary/Delta'), coast = E.filter(e => e.type === 'Open coast');
+      return {text: `Of the ${list.length} entries with 10 million people or more, ${t.find(x => x[0] === 'Estuary/Delta')?.[1] || 0} sit on an estuary or delta and ${t.find(x => x[0] === 'River')?.[1] || 0} on a river. Across all ${E.length} entries, the median estuary or delta metro has ${fmt(median(est.map(e => e.population)))} million people; the median open-coast metro has ${fmt(median(coast.map(e => e.population)))} million.`,
+        viz: pbars(t.slice(0, 6), {color: k => TYPE_COLORS[k]})};
+    }},
+  {id: 'hotspots', theme: 'Cities and water', title: 'Where big cities meet sensitive water.', color: 'type', size: 'population',
+    ids: () => E.filter(e => e.population >= 5 && e.ecology >= 4).sort((a, b) => b.population - a.population),
+    body(list) {
+      const types = tally(list, e => e.type).map(x => TYPE_PROSE[x[0]] || x[0].toLowerCase());
+      return {text: `${list.length} entries combine at least 5 million people with an Ecological stakes score of 4 or more. All of them sit on ${andList(types, 'or')}. They pair a large city with the kind of enclosed, sensitive water that the Salish Sea prototype studies.`,
+        viz: pbars(list.slice(0, 8).map(e => [short(e.name), e.population, TYPE_COLORS[e.type], e.id]), {unit: ' M'})};
+    }},
+  {id: 'eastasia', theme: 'Ports', title: 'Container traffic is concentrated in East Asia.', color: 'region', size: 'containers',
+    ids: () => [...E].sort((a, b) => b.containers - a.containers).slice(0, 25),
+    body(list) {
+      const top10 = list.slice(0, 10), total = E.reduce((s, e) => s + e.containers, 0);
+      let acc = 0, half = 0;
+      for (const e of [...E].sort((a, b) => b.containers - a.containers)) { acc += e.containers; half++; if (acc >= total / 2) break; }
+      return {text: `${top10.filter(e => e.region === 'East Asia').length} of the 10 largest container ports in the survey are in East Asia, and ${list.filter(e => e.region === 'East Asia').length} of the top 25. Half of all the container volume listed in the survey passes through ${half} entries, ${pct(half, E.length)}% of the ${E.length}.`,
+        viz: pbars(top10.map(e => [short(e.name), e.containers, regionColor(e.region), e.id]), {unit: 'k'})};
+    }},
+  {id: 'hubs', theme: 'Ports', title: 'Some of the busiest ports serve small cities.', color: 'cargo', size: 'containers',
+    ids: () => E.filter(e => e.containers >= 3000 && e.population <= 1.5).sort((a, b) => b.containers - a.containers),
+    body(list) {
+      const tr = list.filter(e => e.cargo === 'Transship').length, [a, b] = list.filter(e => e.population >= 1);
+      return {text: `${list.length} entries handle at least 3 million TEU with a metro of 1.5 million people or fewer. ${tr} of them are marked as transshipment ports, which move containers between ships rather than to a hinterland. ${esc(short(a.name))} handles ${fmt(a.containers)}k TEU for a metro of ${fmt(a.population)} million; ${esc(short(b.name))} ${fmt(b.containers)}k TEU for ${fmt(b.population)} million.`,
+        viz: pbars(list.slice(0, 8).map(e => [short(e.name), e.containers, COLOR_BY.cargo.color(e.cargo), e.id]), {unit: 'k'}), plot: ['population', 'containers']};
+    }},
+  {id: 'quietgiants', theme: 'Ports', title: 'Some of the largest metros have small ports.', color: 'tier', size: 'population',
+    ids: () => E.filter(e => e.population >= 8 && e.containers / e.population < 50).sort((a, b) => a.containers / a.population - b.containers / b.population),
+    body(list) {
+      const inl = list.filter(e => e.tier === 'I').length;
+      return {text: `Among metros of 8 million people or more, ${list.length} handle less than 50k TEU per million residents; ${inl} of those ${list.length} are inland. ${names(list.filter(e => e.tier === 'I'), 3)} are large cities on rivers and lakes whose ports are small next to their size. Across all entries, the rank correlation between population and container volume is ${rho('population', 'containers').toFixed(2)}: related, but loosely.`,
+        viz: pbars(list.map(e => [short(e.name), e.population, COLOR_BY.tier.color(e.tier), e.id]), {unit: ' M'}), plot: ['population', 'containers']};
+    }},
+  {id: 'cargo', theme: 'Ports', title: 'Each region leans on different cargo.', color: 'cargo', ids: null,
+    body() {
+      const regs = byCount(e => e.region), share = (r, c) => { const x = E.filter(e => e.region === r); return pct(x.filter(e => e.cargo === c).length, x.length); };
+      const lead = regs.filter(r => tally(E.filter(e => e.region === r), e => e.cargo)[0][0] !== 'Diversified');
+      const energy = [...regs].sort((a, b) => share(b, 'Energy') - share(a, 'Energy')).slice(0, 2);
+      const cont = [...regs].sort((a, b) => share(b, 'Container') - share(a, 'Container'))[0];
+      const cats = COLOR_BY.cargo.cats;
+      const rows = regs.map(r => { const x = E.filter(e => e.region === r); return `<div class="stack"><span>${esc(r)}</span><span class="t">${cats.map(c => { const n = x.filter(e => e.cargo === c).length; return n ? `<i style="width:${(n / x.length * 100).toFixed(1)}%;background:${COLOR_BY.cargo.color(c)}" title="${esc(c)}: ${n}"></i>` : ''; }).join('')}</span></div>`; }).join('');
+      return {text: `Diversified is the most common cargo focus in every region${lead.length ? ` except ${andList(lead.map(r => { const c = tally(E.filter(e => e.region === r), e => e.cargo)[0][0]; return `${regionName(r)} (${esc(c.toLowerCase())}, ${share(r, c)}%)`; }))}` : ''}. Energy ports are ${share(energy[0], 'Energy')}% of entries in ${regionName(energy[0])} and ${share(energy[1], 'Energy')}% in ${regionName(energy[1])}. Container-focused ports are ${share(cont, 'Container')}% of entries in ${regionName(cont)}, the highest share of any region.`,
+        viz: `<div class="pbars">${rows}</div><div class="legend-mini">${cats.map(c => `<span><i style="background:${COLOR_BY.cargo.color(c)}"></i>${esc(c)}</span>`).join('')}</div>`};
+    }},
+  {id: 'inland', theme: 'Inland', title: 'Inland ports are mostly European and North American.', color: 'region', size: 'population',
+    ids: () => E.filter(e => e.tier === 'I'),
+    body(list) {
+      const t = tally(list, e => e.region), none = byCount(e => e.region).filter(r => !t.some(x => x[0] === r));
+      const eu = t.find(x => x[0] === 'Europe')?.[1] || 0, na = t.find(x => x[0] === 'North America')?.[1] || 0;
+      const big = [...list].sort((a, b) => b.population - a.population).slice(0, 4);
+      return {text: `Europe has ${eu} inland entries and North America ${na}: ${eu + na} of the ${list.length}. ${none.length ? `${andList(none.map(regionName)).replace(/^the/, 'The')} ${none.length > 1 ? 'have' : 'has'} none. ` : ''}The largest inland metros are elsewhere: ${names(big)}.`,
+        viz: pbars(t.map(([r, n]) => [r, n, regionColor(r)]))};
+    }},
+  {id: 'deep', theme: 'Inland', title: 'Ships reach 1,000 km or more inland.', color: 'tier', size: 'population',
+    ids: () => E.filter(e => e.distance >= 1000).sort((a, b) => b.distance - a.distance),
+    body(list) {
+      const [a] = list, gl = list.filter(e => e.distance === 1800);
+      return {text: `${list.length} entries sit 1,000 km or more from the open ocean by navigable water. ${esc(short(a.name))} is ${fmt(a.distance)} km inland on the ${esc(short(a.water))}. ${names(gl)} are ${fmt(1800)} km in, by the St. Lawrence and the Great Lakes. The survey gives these as approximate distances, and many are rounded to the same value.`,
+        viz: pbars(list.slice(0, 9).map(e => [short(e.name), e.distance, COLOR_BY.tier.color(e.tier), e.id]), {unit: ' km'}), plot: ['distance', 'population']};
+    }},
+  {id: 'chokepoints', theme: 'Borders and chokepoints', title: 'Strategic ports cluster between Suez and the Arabian Sea.', color: 'region', size: 'containers',
+    ids: () => E.filter(e => e.strategic),
+    fit: list => list.filter(e => /Persian Gulf|Gulf of Oman|Arabian Sea|Red Sea|Gulf of Aden|Bab-el-Mandeb|Hormuz|Aqaba|Suez/.test(e.water)),
+    body(list) {
+      const near = this.fit(list), t = tally(list, e => e.region);
+      return {text: `The survey marks ${list.length} entries as strategic or chokepoint ports. ${near.length} of them face the Red Sea, the Gulf of Aden, the Gulf of Oman, the Persian Gulf or the Arabian Sea, from Port Said to Gwadar. Others guard Gibraltar, the Bosporus, Panama and the Strait of Malacca.`,
+        viz: pbars(t.map(([r, n]) => [r, n, regionColor(r)]))};
+    }},
+  {id: 'crossborder', theme: 'Borders and chokepoints', title: 'Shared rivers make shared ports.', color: 'type', size: 'population',
+    ids: () => E.filter(e => e.crossBorder),
+    body(list) {
+      const g = [['Rhine', /Rhine/], ['Danube', /Danube/], ['Caspian Sea', /Caspian/], ['Black Sea', /Black Sea|Azov/], ['Mekong', /Mekong/], ['Salish Sea', /Salish/], ['Baltic and Øresund', /Baltic|Øresund/]]
+        .map(([k, re]) => [k, list.filter(e => re.test(`${e.water} ${e.watershed}`)).length]).filter(x => x[1]);
+      const rd = list.filter(e => /Rhine|Danube/.test(`${e.water} ${e.watershed}`)).length;
+      return {text: `${list.length} entries are marked cross-border: their watershed-port interface spans national borders. ${rd} of them are on the Rhine or the Danube. Most of the rest share an enclosed sea or a border river: the Caspian, the Black Sea, the Mekong, the Øresund, the Detroit River and the Salish Sea.`,
+        viz: pbars(g)};
+    }},
+  {id: 'ecotype', theme: 'How the scores work', title: 'The ecology score mostly follows water type.', color: 'type', size: 'population', ids: null,
+    body() {
+      const m = E.reduce((s, e) => s + e.ecology, 0) / E.length, tss = E.reduce((s, e) => s + (e.ecology - m) ** 2, 0);
+      const types = byCount(e => e.type), means = Object.fromEntries(types.map(t => { const x = E.filter(e => e.type === t); return [t, x.reduce((s, e) => s + e.ecology, 0) / x.length]; }));
+      const r2 = 1 - E.reduce((s, e) => s + (e.ecology - means[e.type]) ** 2, 0) / tss;
+      const uniform = types.filter(t => new Set(E.filter(e => e.type === t).map(e => e.waterVulnerability)).size === 1).length;
+      const top = E.filter(e => e.biodiversity === 5);
+      return {text: `Water setting alone accounts for ${pct(r2, 1)}% of the variation in Ecological stakes. Water vulnerability takes a single value within ${uniform === types.length ? `every one of the ${types.length} settings` : `${uniform} of the ${types.length} settings`}. The biodiversity component has only ${new Set(E.map(e => e.biodiversity)).size} values, and only ${top.length} entries score 5: ${names(top)}. Ranking F is close to a ranking of water types, which the survey itself describes as provisional.`,
+        viz: pbars(types.map(t => [t, means[t], TYPE_COLORS[t]]).sort((a, b) => b[1] - a[1])), plot: ['waterVulnerability', 'ecology']};
+    }},
+  {id: 'pressure', theme: 'How the scores work', title: 'The pressure score follows port volume, not population.', color: 'type', size: 'containers', ids: () => E.filter(e => e.ecoPressure === 5),
+    body(list) {
+      const minTeu = Math.min(...list.map(e => e.containers)), quiet = E.filter(e => e.ecoPressure === 1).sort((a, b) => b.population - a.population)[0];
+      return {text: `The pressure component has a rank correlation of ${rho('containers', 'ecoPressure').toFixed(2)} with container volume and ${rho('population', 'ecoPressure').toFixed(2)} with population. All ${list.length} entries with the top pressure score handle at least ${fmt(minTeu)}k TEU. ${esc(short(quiet.name))}, with ${fmt(quiet.population)} million people, scores 1. As scored, it says more about shipping than about the size of the city on the shore.`,
+        viz: pbars([1, 2, 3, 4, 5].map(p => [`Pressure ${p}`, median(E.filter(e => e.ecoPressure === p).map(e => e.containers))]), {unit: 'k'}), vizNote: 'Median container volume at each pressure score', plot: ['containers', 'ecoPressure']};
+    }},
+  {id: 'corridor', theme: 'How the scores work', title: 'Hinterland reach repeats watershed size.', color: 'tier', size: 'population', ids: null,
+    body() {
+      const same = E.filter(e => e.corridor === 6 - e.watershedTier).length;
+      return {text: `The corridor component equals the watershed score in ${same} of ${E.length} entries. Hinterland reach and watershed size have a rank correlation of ${rho('watershedScore', 'hinterland').toFixed(2)}, so Rankings B and E order the entries in nearly the same way. Weighting the corridor component down in the Rankings tab separates them.`,
+        viz: pbars([1, 2, 3, 4, 5].map(w => [`Watershed ${w}`, E.filter(e => 6 - e.watershedTier === w).reduce((s, e, _, a) => s + e.hinterland / a.length, 0)])), vizNote: 'Mean Hinterland reach at each watershed score', plot: ['watershedScore', 'hinterland']};
+    }},
+];
+const patternById = Object.fromEntries(PATTERNS.map(p => [p.id, p]));
+function renderPatterns(body) {
+  const themes = [...new Set(PATTERNS.map(p => p.theme))];
+  body.innerHTML = `
+    <p class="kicker">Patterns in the survey</p>
+    <p class="small">Every number here is computed from the ${E.length} entries. The survey is a convenience sample, populations and port figures are approximate, and the 1 to 5 scores are working analyst classifications. Read these as patterns in the survey, not measurements of the world.</p>
+    ${themes.map(th => `<span class="label" style="margin-top:16px">${esc(th)}</span>${PATTERNS.filter(p => p.theme === th).map(p => {
+      const list = p.ids ? p.ids() : null, b = p.body(list);
+      return `<article class="pattern ${S.pattern === p.id ? 'on' : ''}" id="pat-${p.id}">
+        <h3>${esc(p.title)}</h3><p>${b.text}</p>${b.viz}${b.vizNote ? `<p class="hint">${esc(b.vizNote)}</p>` : ''}
+        <div class="pattern-actions"><button class="btn small ${S.pattern === p.id ? 'primary' : ''}" data-pattern="${p.id}">${list ? `Show ${list.length} on the map` : 'Color the map'}</button>${b.plot ? `<button class="btn small ghost" data-plot="${b.plot.join(',')}">Plot it</button>` : ''}</div>
+      </article>`;
+    }).join('')}`).join('')}`;
+}
+function showPattern(id) {
+  const p = patternById[id];
+  if (!p) return;
+  stopSpin();
+  const top = $('#tabbody')?.scrollTop || 0;
+  const redraw = () => { renderRight(); const b = $('#tabbody'); if (b) b.scrollTop = top; };
+  if (S.pattern === id) { S.pattern = null; S.brush = null; update({keepRight: true}); redraw(); return; }
+  S.pattern = id;
+  const list = p.ids ? p.ids() : null;
+  S.brush = list ? new Set(list.map(e => e.id)) : null;
+  if (p.color) { S.colorBy = p.color; S.hidden.clear(); }
+  if (p.size) S.sizeBy = p.size;
+  update({keepRight: true});
+  redraw();
+  requestAnimationFrame(() => $('#pat-' + id)?.scrollIntoView({block: 'nearest', behavior: 'smooth'}));
+  const fit = list && (p.fit ? p.fit(list) : list);
+  const pts = fit ? fit.flatMap(e => e.points) : [];
+  const xs = pts.map(q => q[0]), ys = pts.map(q => q[1]);
+  syncPadding();
+  if (pts.length && Math.max(...xs) - Math.min(...xs) < 100 && Math.max(...ys) - Math.min(...ys) < 60) fitEntries(fit);
+  // A worldwide set: show the whole globe, turned toward the middle of the set.
+  else map.flyTo({center: pts.length ? [(Math.max(...xs) + Math.min(...xs)) / 2, Math.max(-30, Math.min(40, (Math.max(...ys) + Math.min(...ys)) / 2))] : [15, 22], zoom: isNarrow() ? 0.9 : 1.6, duration: 1400});
+  if (isNarrow()) closeSheets();
+}
 
 // ---------- case studies ----------
 const caseData = {};
@@ -1178,6 +1340,7 @@ function renderAbout() {
     <h2>The survey</h2>
     <p>${esc(C.source.filename)}. Definitions follow ${esc(C.source.definitionReference.replace(/\.$/, ''))}. Population, GDP and container figures are approximate source estimates. Scores of 1 to 5 are the survey's own rubric.</p>
     <ul>${C.limits.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
+    <p>The Patterns tab describes regularities in the survey. Its numbers are computed from these ${k.entries} entries when the tab opens. They describe the survey, with the limits above, not measured conditions in the world.</p>
     <h2>How places are mapped</h2>
     <p>A circle marks a named city from Natural Earth that matches the entry's name and country. It is a reference point, not a port footprint or metro boundary. Entries without a confident match are listed but not drawn.</p>
     <h2>Case-study geography</h2>
@@ -1266,8 +1429,10 @@ document.addEventListener('click', ev => {
     set.has(d.v) ? set.delete(d.v) : set.add(d.v); update(); return;
   }
   if (d.legend !== undefined) { S.hidden.has(d.legend) ? S.hidden.delete(d.legend) : S.hidden.add(d.legend); update(); return; }
-  if (d.reset !== undefined) { Object.assign(S, {q: '', tier: '', strategic: false, crossBorder: false, hasCase: false, group: '', brush: null, topN: 0}); S.regions.clear(); S.types.clear(); S.bands.clear(); S.hidden.clear(); update(); return; }
-  if (d.clearBrush !== undefined) { S.brush = null; update(); return; }
+  if (d.reset !== undefined) { Object.assign(S, {q: '', tier: '', strategic: false, crossBorder: false, hasCase: false, group: '', brush: null, pattern: null, topN: 0}); S.regions.clear(); S.types.clear(); S.bands.clear(); S.hidden.clear(); update(); return; }
+  if (d.clearBrush !== undefined) { S.brush = null; S.pattern = null; update(); return; }
+  if (d.pattern) { showPattern(d.pattern); return; }
+  if (d.plot) { [S.cx, S.cy] = d.plot.split(','); S.tab = 'chart'; renderRight(); saveHash(); return; }
   if (d.clearTop !== undefined) { S.topN = 0; update(); return; }
   if (d.pick) { S.q = ''; sugIndex = -1; update(); select(+d.pick); return; }
   if (d.select) { select(+d.select); return; }
@@ -1431,6 +1596,7 @@ function saveHash() {
       if (S.q) p.set('q', S.q);
       if (S.topN) p.set('top', S.topN);
       if (S.tab === 'chart') { p.set('x', S.cx); p.set('y', S.cy); }
+      if (S.pattern) p.set('pattern', S.pattern);
     }
     history.replaceState(null, '', '#' + p.toString());
   }, 250);
@@ -1451,7 +1617,8 @@ function loadHash() {
   if (get('top')) S.topN = +get('top') || 0;
   if (get('x') && numByKey[get('x')]) S.cx = get('x');
   if (get('y') && numByKey[get('y')]) S.cy = get('y');
-  if (['entry', 'rank', 'chart', 'list'].includes(get('tab'))) S.tab = get('tab');
+  if (['entry', 'rank', 'chart', 'patterns', 'list'].includes(get('tab'))) S.tab = get('tab');
+  if (get('pattern') && patternById[get('pattern')]) { const pt = patternById[get('pattern')]; S.pattern = pt.id; S.brush = pt.ids ? new Set(pt.ids().map(e => e.id)) : null; }
   if (get('e') && byId.has(+get('e'))) { S.selected = +get('e'); if (!get('tab')) S.tab = 'entry'; }
   if (get('ind') && (AQ[get('ind')] || get('ind') === 'none')) S.indicator = get('ind');
   if (get('basin')) S.basin = +get('basin');
