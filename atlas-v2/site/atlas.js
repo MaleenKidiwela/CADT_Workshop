@@ -276,7 +276,8 @@ function addAtlasLayers() {
   styleSeen = true;
 }
 let styleSeen = false;
-map.on('style.load', () => { clearTimeout(styleTimer); addAtlasLayers(); $('#loading').classList.add('done'); });
+map.on('style.load', () => { clearTimeout(styleTimer); syncPadding(); addAtlasLayers(); $('#loading').classList.add('done'); });
+window.addEventListener('resize', () => syncPadding());
 // milliseconds since navigation, for checking load speed in the console
 window.atlasTiming = {script: Math.round(performance.now())};
 map.once('style.load', () => { atlasTiming.style = Math.round(performance.now()); });
@@ -338,7 +339,8 @@ map.on('click', 'entries', ev => {
   const id = ev.features[0].properties.eid;
   if (S.mode === 'cases') { casePopup(byId.get(id), ev.lngLat); return; }
   select(id, {fly: false});
-  map.easeTo({center: ev.lngLat, zoom: Math.max(map.getZoom(), 3.5), padding: padding(), duration: 900});
+  syncPadding();
+  map.easeTo({center: ev.lngLat, zoom: Math.max(map.getZoom(), 3.5), duration: 900});
 });
 
 let popup = null;
@@ -364,6 +366,22 @@ function startSpin() {
 const stopSpin = () => { spinning = false; };
 ['mousedown', 'touchstart', 'wheel', 'keydown'].forEach(t => window.addEventListener(t, stopSpin, {once: true, passive: true}));
 
+// Panel space is set on the map itself with setPadding. Camera calls must not
+// pass `padding`: easeTo/flyTo/jumpTo store it on the map and fitBounds adds
+// its own on top, so repeated moves stacked padding until nothing could fit.
+let lastPad = '';
+function syncPadding() {
+  const p = padding(), key = JSON.stringify(p);
+  if (key !== lastPad) { lastPad = key; map.setPadding(p); }
+}
+function safeFit(bounds, opts) {
+  syncPadding();
+  try { map.fitBounds(bounds, opts); }
+  catch (_) {
+    const [[w, s], [e, n]] = bounds;
+    map.easeTo({center: [(w + e) / 2, (s + n) / 2], duration: opts.duration ?? 1000});
+  }
+}
 function padding() {
   const bottom = tourStep >= 0 ? 190 : 40;
   if (isNarrow()) return {top: 30, bottom: bottom + 20, left: 30, right: 30};
@@ -373,17 +391,18 @@ function padding() {
 function flyToEntry(e) {
   if (!e.points.length) return;
   if (e.points.length === 1) {
-    map.flyTo({center: [e.points[0][0], e.points[0][1]], zoom: Math.max(map.getZoom(), 5), padding: padding(), duration: 1400});
+    syncPadding();
+    map.flyTo({center: [e.points[0][0], e.points[0][1]], zoom: Math.max(map.getZoom(), 5), duration: 1400});
   } else {
     const xs = e.points.map(p => p[0]), ys = e.points.map(p => p[1]);
-    map.fitBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], {padding: padding(), maxZoom: 7, duration: 1400});
+    safeFit([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], {maxZoom: 7, duration: 1400});
   }
 }
 function fitEntries(list) {
   const pts = list.flatMap(e => e.points);
   if (!pts.length) return;
   const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-  map.fitBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], {padding: padding(), maxZoom: 6, duration: 1300});
+  safeFit([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], {maxZoom: 6, duration: 1300});
 }
 
 // ---------- selection ----------
@@ -839,11 +858,7 @@ let mapReady = false, pendingFit = null;
 function fitBox(b, opts = {}) {
   if (!b) return;
   if (!mapReady) { pendingFit = [b, opts]; return; }
-  try {
-    map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: padding(), duration: 1200, essential: true, ...opts});
-  } catch (_) {
-    map.jumpTo({center: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2], zoom: 4});
-  }
+  safeFit([[b[0], b[1]], [b[2], b[3]]], {duration: 1200, essential: true, ...opts});
 }
 function upstreamOf(d, id) {
   const out = [id], seen = new Set(out);
@@ -949,11 +964,11 @@ function pickBasin(id, {silent = false, fly = !silent} = {}) {
   if (!d || !d.byB.has(id)) return;
   S.basin = id;
   const up = upstreamOf(d, id), down = downstreamOf(d, id);
-  // Frame the area that drains here; zoom out if needed, but do not jump in far.
-  if (fly) fitBox(bboxOf(up.map(b => d.featById.get(b))), {maxZoom: Math.max(map.getZoom(), 6)});
   map.setFilter('c-up', ['in', ['get', 'id'], ['literal', up]]);
   map.setFilter('c-down', ['in', ['get', 'id'], ['literal', down]]);
   map.setFilter('c-pick', ['==', ['get', 'id'], id]);
+  // Frame the area that drains here; zoom out if needed, but do not jump in far.
+  if (fly) fitBox(bboxOf(up.map(b => d.featById.get(b))), {maxZoom: Math.max(map.getZoom(), 6)});
   if (!silent) { renderRight(); saveHash(); }
 }
 function clearBasin() {
@@ -1179,8 +1194,9 @@ let tourStep = -1, tourTimer = null, tourPlay = true;
 function tour(step) {
   stopSpin();
   clearTimeout(tourTimer);
-  if (step < 0 || step >= TOUR.length) { $('#tour').hidden = true; tourStep = -1; return; }
+  if (step < 0 || step >= TOUR.length) { $('#tour').hidden = true; tourStep = -1; syncPadding(); return; }
   tourStep = step;
+  syncPadding();
   const s = TOUR[step];
   s.go();
   const el = $('#tour');
@@ -1215,6 +1231,7 @@ function setMode(mode, caseId) {
     refreshEntries(); renderLeft(); renderRight();
   }
   if (prev !== mode) resetScroll();
+  if (map.isStyleLoaded()) syncPadding();
   closeSheets();
   saveHash();
 }
@@ -1248,7 +1265,7 @@ document.addEventListener('click', ev => {
   if (d.select) { select(+d.select); return; }
   if (d.selectRank) { select(+d.selectRank, {tab: 'rank'}); return; }
   if (d.tab) { S.tab = d.tab; renderRight(); saveHash(); return; }
-  if (d.wide !== undefined) { S.wide = !S.wide; renderRight(); return; }
+  if (d.wide !== undefined) { S.wide = !S.wide; renderRight(); syncPadding(); return; }
   if (d.axis) { S.axis = d.axis; S.weights = null; rankLimit = 120; rankCache = null; if (S.colorBy === 'band') S.hidden.clear(); update(); return; }
   if (d.gotoAxis) { S.axis = d.gotoAxis; S.weights = null; S.tab = 'rank'; update(); requestAnimationFrame(() => $('.rk.sel')?.scrollIntoView({block: 'center', behavior: 'smooth'})); return; }
   if (d.resetWeights !== undefined) {
@@ -1443,7 +1460,8 @@ S.caseId = start.caseId;
 setMode(start.mode, start.caseId);
 if (S.selected !== null) map.once('style.load', () => {
   const e = byId.get(S.selected);
-  if (e.points.length) map.jumpTo({center: [e.points[0][0], e.points[0][1]], zoom: 4.5, padding: padding()});
+  syncPadding();
+  if (e.points.length) map.jumpTo({center: [e.points[0][0], e.points[0][1]], zoom: 4.5});
 });
 window.atlas = {S, map, select, setMode, update, tour};
 })();
