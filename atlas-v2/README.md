@@ -50,6 +50,12 @@ works). Links copied with "Copy link" reopen the same view.
   the catalog when the tab opens, so the text follows the data. "Show on the
   map" filters and frames the entries behind a pattern; "Plot it" opens the
   matching chart.
+- **Systems (draft).** The survey entries grouped into Urban Sea Systems as
+  Greene and Delaney (2025) define them: port cities, the nearby sea and the
+  whole watershed. Each system is drawn as its watershed plus its sea, colored
+  by size class, climate zone, countries, or land draining into each km² of
+  sea, with its own Patterns tab. Explore is unchanged: it still works on the
+  583 port-metro entries.
 - **Case studies.** Nine systems, including Tokyo Bay, New Orleans / Mississippi and New York Harbor / Hudson. Drainage units are colored by WRI Aqueduct
   water stress, depletion or variability. Click any unit to light up
   everything upstream, outline the path downstream, and list the stress mix and
@@ -81,6 +87,27 @@ pixi run python atlas-v2/extra-cases.py
 node atlas-v2/prepare.mjs
 ```
 
+## Urban Sea Systems (draft)
+
+`systems/draft.py` groups the survey entries into systems. It places each
+entry at its most seaward city, follows the water downstream through
+HydroBASINS level 6 (all eight regions, from ~/Downloads) to the sea, and
+joins entries that share a river, a bay or sound of up to 50,000 km², or one of
+a hand-made list of semi-enclosed seas (`SEMI_ENCLOSED`). The sea a river opens
+onto comes from Natural Earth's 10m marine areas, using the name in the
+survey's Water body column where it gives one. Caspian ports are left out
+because the paper requires a connection to the open ocean.
+
+The paper does not settle how large the nearby sea can be, so the script also
+reports three other versions (shared watershed only, bays only, any enclosed
+sea up to 600,000 km²). The list of semi-enclosed seas, the treatment of open
+coasts and the size-class boundary are choices made here for review.
+
+```sh
+python3 atlas-v2/systems/draft.py   # writes systems/draft.json and systems-geo.json
+node atlas-v2/prepare.mjs           # writes site/data/systems.js
+```
+
 ## Rebuild the data
 
 The data files in `site/data/` come from the derived snapshots in
@@ -105,7 +132,8 @@ extra-cases-content.json   their facts, lenses and sources
 site/index.html    page shell
 site/atlas.css     styles
 site/atlas.js      app (map, filters, rankings, chart, cases, tour)
-site/data/         catalog.js, world.js, and one case-<id>.js per case study
+site/data/         catalog.js, world.js, systems.js, and one case-<id>.js per case study
+systems/           draft.py and seas.py (Urban Sea Systems); draft.json and systems-geo.json are their output
 site/vendor/       MapLibre GL JS and CSS
 source/            Natural Earth 1:110m land, lakes and borders (public domain)
 ```

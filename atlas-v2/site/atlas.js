@@ -87,6 +87,7 @@ const S = {
   axis: 'A', weights: null,
   cx: 'population', cy: 'gdp',
   listView: false, listSort: 'population',
+  sys: null, sysColor: 'size', sysQ: '', sysTab: 'system', sysSet: null, sysPattern: null,
   caseId: 'salish', lens: 'water', indicator: 'bws', basin: null, oahuLayer: 'watersheds',
   layers: {basins: true, rivers: true, lakes: true, marine: true, borders: true, cities: true, ports: true, entries: true},
 };
@@ -183,13 +184,14 @@ function entriesGeoJSON() {
   fidsByEntry.clear();
   const features = [];
   let fid = 0;
-  const showAll = S.mode === 'cases';
+  const showAll = S.mode === 'cases' || S.mode === 'systems';
+  const inSys = S.mode === 'systems' && S.sys !== null ? new Set((sysById.get(S.sys)?.members || []).map(m => m[0])) : null;
   for (const e of (showAll ? E : visible)) {
     if (!e.points.length) continue;
     const v = S.sizeBy === 'none' ? null : e[S.sizeBy];
     const r = S.sizeBy === 'none' ? 5 : v === null ? 3 : 3 + 17 * Math.sqrt(v / maxV);
     const k = cs.get(e);
-    const caseLinked = showAll && (e.caseId === S.caseId || e.groups.includes(caseById[S.caseId]?.family));
+    const caseLinked = S.mode === 'systems' ? !!(inSys && inSys.has(e.id)) : showAll && (e.caseId === S.caseId || e.groups.includes(caseById[S.caseId]?.family));
     for (const p of e.points) {
       features.push({type: 'Feature', id: fid, geometry: {type: 'Point', coordinates: [p[0], p[1]]},
         properties: {eid: e.id, name: short(e.name), r, color: showAll ? (caseLinked ? '#e8590c' : '#5f7f8a') : cs.color(k) || '#888', pop: e.population ?? 0, linked: caseLinked ? 1 : 0}});
@@ -273,6 +275,7 @@ function addAtlasLayers() {
       paint: {'text-color': '#142b33', 'text-halo-color': 'rgba(255,255,255,.9)', 'text-halo-width': 1.4}});
   }
   if (S.mode === 'cases') showCase(S.caseId, {fly: !styleSeen});
+  if (S.mode === 'systems') addSystemLayers();
   styleSeen = true;
 }
 let styleSeen = false;
@@ -346,6 +349,7 @@ map.on('click', 'entries', ev => {
   ev.preventDefault();
   const id = ev.features[0].properties.eid;
   if (S.mode === 'cases') { casePopup(byId.get(id), ev.lngLat); return; }
+  if (S.mode === 'systems') { if (sysOfEntry.has(id)) pickSystem(sysOfEntry.get(id), {fly: false}); else toast(`${short(byId.get(id).name)} is not in a draft system: its water does not reach the open ocean.`); return; }
   select(id, {fly: false});
   syncPadding();
   map.easeTo({center: ev.lngLat, zoom: Math.max(map.getZoom(), 3.5), duration: 900});
@@ -509,6 +513,7 @@ function renderRight() {
   const right = $('#right');
   right.classList.toggle('wide', S.wide && S.mode === 'explore');
   if (S.mode === 'cases') { renderRightCases(); return; }
+  if (S.mode === 'systems') { renderRightSystems(); return; }
   const tabs = [['entry', 'Entry'], ['rank', 'Rankings'], ['chart', 'Chart'], ['patterns', 'Patterns'], ['list', 'List']];
   right.innerHTML = `
     <div class="tabs" role="tablist">
@@ -1345,11 +1350,27 @@ function renderAbout() {
     <p>A circle marks a named city from Natural Earth that matches the entry's name and country. It is a reference point, not a port footprint or metro boundary. Entries without a confident match are listed but not drawn.</p>
     <h2>Case-study geography</h2>
     <p>Drainage units are HydroBASINS v1c (Lehner and Grill, 2013): level 6, except Tokyo Bay and New York at the finer level 8, where each unit shows the water-risk value of the level 6 unit that contains it. Water stress, depletion and variability come from ${esc(C.waterPressure.citation)}. ${esc(C.waterPressure.baseline)} Oʻahu layers are Hawaiʻi State datasets: CWRM watersheds, DAR streams, and aquifer sectors with 2019 sustainable yields.</p>
+    ${systemsAbout()}
     <h2>Map</h2>
     <p>Basemap from OpenFreeMap with OpenMapTiles and OpenStreetMap contributors. Rendering by MapLibre GL.</p>
     <p>The atlas is part of the <a href="../">CADT Workshop 2026</a> website.</p>
     <p><button class="btn primary" data-mode-link="explore">Back to the map</button></p>
   </article>`;
+}
+
+function systemsAbout() {
+  if (!SYS) { loadSystems().then(() => { if (S.mode === 'about') renderAbout(); }).catch(() => {}); return '<h2>Urban Sea Systems (draft)</h2><p class="muted">Loading…</p>'; }
+  const semi = Object.keys(SYS.semiEnclosed);
+  return `<h2 id="systems-method">Urban Sea Systems (draft)</h2>
+    <p>The Systems view groups the survey's entries into Urban Sea Systems as Greene and Delaney (2025) define them: one or more port cities, the nearby sea connected to the open ocean, and the entire watershed that drains into it. Grouped this way, the entries form ${SYS.systems.length} systems.</p>
+    <ul>
+      <li>Each entry is placed at its most seaward city. Its water is followed downstream through HydroBASINS level 6 drainage units to the sea.</li>
+      <li>Entries whose water reaches the sea through the same river form one system, with the whole river basin.</li>
+      <li>Entries on the same bay or sound of up to 50,000 km², or on one of these semi-enclosed seas, form one system with every watershed that drains into that water: ${esc(semi.join(', '))}.</li>
+      <li>The sea a river opens onto comes from Natural Earth's named marine areas, using the name in the survey's Water body column where it gives one.</li>
+      <li>${SYS.hard.endorheic.length} entries drain to the Caspian Sea and are left out, because the paper requires a connection to the open ocean. ${SYS.hard.islands.length} small islands missing from HydroBASINS are systems of their own, with area not yet measured. ${SYS.hard.notMapped} entries without a mapped location are not placed.</li>
+    </ul>
+    <p>From the paper: the three parts of a system, the open-ocean requirement, the whole watershed, the size classes and the climate bands. Not settled by the paper, and chosen here for review: how large the nearby sea can be, the list of semi-enclosed seas, treating open coasts as their watershed alone, and starting Macro at 100,000 km² where the paper's Meso and Macro ranges overlap. Other reasonable choices give between ${SYS.versions.seas} and ${SYS.versions.watershed} systems.</p>`;
 }
 
 // ---------- tour ----------
@@ -1386,6 +1407,279 @@ function tour(step) {
   }
 }
 
+// ---------- Urban Sea Systems (draft) ----------
+// Survey entries grouped into systems by the Greene and Delaney (2025) definition:
+// port cities, the nearby sea and the whole watershed. Built by systems/draft.py;
+// loaded only when this view opens.
+let SYS = null, sysPending = null;
+const sysById = new Map(), sysOfEntry = new Map();
+function loadSystems() {
+  if (SYS) return Promise.resolve(SYS);
+  if (sysPending) return sysPending;
+  sysPending = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'data/systems.js?v=2';
+    s.onload = () => {
+      const d = window.ATLAS_SYSTEMS;
+      delete window.ATLAS_SYSTEMS;
+      for (const fc of [d.land, d.sea]) { for (const f of fc.features) f.geometry.coordinates = decodeCoords(f.geometry.coordinates, fc.enc); delete fc.enc; }
+      const boxes = new Map();
+      const grow = (id, f) => { const b = bboxOf([f]); boxes.set(id, unionBox(boxes.get(id), b)); };
+      for (const f of d.land.features) grow(f.properties.id, f);
+      for (const f of d.sea.features) grow(f.properties.id, f);
+      for (const s of d.systems) {
+        s.box = boxes.get(s.id) || [s.lon - 1, s.lat - 1, s.lon + 1, s.lat + 1];
+        s.ratio = s.sea ? s.land / s.sea : null;
+        s.reach = Math.max(0, ...s.members.map(m => m[1]));
+        sysById.set(s.id, s);
+        for (const [eid] of s.members) sysOfEntry.set(eid, s.id);
+      }
+      SYS = d;
+      resolve(d);
+    };
+    s.onerror = () => { sysPending = null; reject(new Error('load failed')); };
+    document.head.appendChild(s);
+  });
+  return sysPending;
+}
+const SYS_COLOR = {
+  size: {label: 'Size class (paper)', cats: ['Micro', 'Meso', 'Macro', 'Mega', 'Island'], color: {Micro: '#c4e6e1', Meso: '#5fb3a6', Macro: '#3f7fa6', Mega: '#173f63', Island: '#e3a21a'}, get: s => (s.by === 'island' ? 'Island' : s.size)},
+  climate: {label: 'Climate zone (paper)', cats: ['Tropical', 'Sub-tropical', 'Temperate or Mediterranean', 'Sub-polar or Boreal', 'Polar or Arctic'], color: {Tropical: '#d9711c', 'Sub-tropical': '#e3a21a', 'Temperate or Mediterranean': '#2ca25f', 'Sub-polar or Boreal': '#3a7fa8', 'Polar or Arctic': '#7b6fd0'}, get: s => s.climate},
+  countries: {label: 'Countries with a survey entry', cats: ['1', '2', '3–4', '5 or more'], color: {1: '#c6dbe8', 2: '#7fb2c4', '3–4': '#2f7f9e', '5 or more': '#0b3c5d'}, get: s => (n => (n <= 2 ? String(n) : n <= 4 ? '3–4' : '5 or more'))(s.countries.length)},
+  ratio: {label: 'Land draining into each km² of sea', cats: ['Under 5', '5 to 20', '20 to 100', '100 or more', 'No sea defined'], color: {'Under 5': '#cfe8d8', '5 to 20': '#7cc0a0', '20 to 100': '#2c8a6a', '100 or more': '#0b4d3a', 'No sea defined': '#d5d9d6'}, get: s => (s.ratio === null ? 'No sea defined' : s.ratio < 5 ? 'Under 5' : s.ratio < 20 ? '5 to 20' : s.ratio < 100 ? '20 to 100' : '100 or more')},
+  by: {label: 'What joins the system', cats: ['A shared sea or bay', 'A shared river', 'An island'], color: {'A shared sea or bay': '#2c7fb8', 'A shared river': '#7fa65a', 'An island': '#e3a21a'}, get: s => ({sea: 'A shared sea or bay', watershed: 'A shared river', island: 'An island'})[s.by]},
+};
+const sysColor = s => SYS_COLOR[S.sysColor].color[SYS_COLOR[S.sysColor].get(s)] || '#bbb';
+const SYS_LAYERS = ['sys-sea', 'sys-land', 'sys-line', 'sys-sel-line', 'sys-isle'];
+function sysLandData() {
+  return {type: 'FeatureCollection', features: SYS.land.features.map(f => ({...f, properties: {id: f.properties.id, color: sysColor(sysById.get(f.properties.id))}}))};
+}
+function sysIsleData() {
+  return {type: 'FeatureCollection', features: SYS.systems.filter(s => s.by === 'island').map(s => ({type: 'Feature', id: s.id, properties: {id: s.id, color: sysColor(s)}, geometry: {type: 'Point', coordinates: [s.lon, s.lat]}}))};
+}
+function clearSystemLayers() {
+  for (const l of SYS_LAYERS) if (map.getLayer(l)) map.removeLayer(l);
+  for (const s of ['sys-land', 'sys-sea', 'sys-isle']) if (map.getSource(s)) map.removeSource(s);
+}
+function addSystemLayers() {
+  // The atlas's own sources exist once the style has loaded; isStyleLoaded() is false while tiles stream in.
+  if (!SYS || !map.getSource('entries') || map.getSource('sys-land')) return;
+  const before = map.getLayer('sel-line') ? 'sel-line' : undefined;
+  map.addSource('sys-land', {type: 'geojson', data: sysLandData()});
+  map.addSource('sys-sea', {type: 'geojson', data: SYS.sea});
+  map.addSource('sys-isle', {type: 'geojson', data: sysIsleData()});
+  map.addLayer({id: 'sys-sea', type: 'fill', source: 'sys-sea', paint: {'fill-color': '#2c7fb8', 'fill-opacity': 0.28}}, before);
+  map.addLayer({id: 'sys-land', type: 'fill', source: 'sys-land', paint: {
+    'fill-color': ['get', 'color'],
+    'fill-opacity': ['case', ['boolean', ['feature-state', 'sel'], false], 0.78, ['boolean', ['feature-state', 'dim'], false], 0.08, ['boolean', ['feature-state', 'hover'], false], 0.68, 0.42]}}, before);
+  map.addLayer({id: 'sys-line', type: 'line', source: 'sys-land', paint: {'line-color': '#24414b', 'line-opacity': ['case', ['boolean', ['feature-state', 'dim'], false], 0.15, 0.55], 'line-width': 0.6}}, before);
+  map.addLayer({id: 'sys-sel-line', type: 'line', source: 'sys-land', filter: ['==', ['get', 'id'], -1], paint: {'line-color': '#e8590c', 'line-width': 2.2}}, before);
+  map.addLayer({id: 'sys-isle', type: 'circle', source: 'sys-isle', paint: {'circle-radius': 7, 'circle-color': ['get', 'color'], 'circle-opacity': 0.55, 'circle-stroke-color': '#24414b', 'circle-stroke-width': 0.8}}, before);
+  sysStyle();
+}
+function sysStyle() {
+  if (!map.getSource('sys-land')) return;
+  try { map.removeFeatureState({source: 'sys-land'}); } catch (_) { /* none */ }
+  for (const s of SYS.systems) {
+    if (S.sys === s.id) map.setFeatureState({source: 'sys-land', id: s.id}, {sel: true});
+    else if (S.sysSet && !S.sysSet.has(s.id)) map.setFeatureState({source: 'sys-land', id: s.id}, {dim: true});
+  }
+  map.setFilter('sys-sel-line', ['==', ['get', 'id'], S.sys ?? -1]);
+  map.setFilter('sys-sea', S.sysSet ? ['in', ['get', 'id'], ['literal', [...S.sysSet]]] : null);
+  map.setPaintProperty('sys-sea', 'fill-opacity', S.sys !== null ? ['case', ['==', ['get', 'id'], S.sys], 0.55, 0.18] : 0.28);
+}
+function sysRecolor() {
+  if (!map.getSource('sys-land')) return;
+  map.getSource('sys-land').setData(sysLandData());
+  map.getSource('sys-isle').setData(sysIsleData());
+  sysStyle();
+}
+async function showSystems() {
+  stopSpin();
+  if (!SYS) { renderLeft(); renderRight(); }
+  try { await loadSystems(); } catch (_) { toast('The systems layer could not load. Check the connection and try again.'); return; }
+  if (S.mode !== 'systems') return;
+  addSystemLayers();
+  refreshEntries();
+  renderLeft(); renderRight();
+  if (S.sys !== null && sysById.has(S.sys)) fitBox(sysById.get(S.sys).box, {maxZoom: 7});
+}
+function pickSystem(id, {fly = true} = {}) {
+  S.sys = id;
+  sysStyle(); refreshEntries();
+  S.sysTab = 'system';
+  renderRight();
+  $$('#left [data-sys]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.sys === id));
+  if (id !== null && fly) fitBox(sysById.get(id).box, {maxZoom: 7});
+  if (isNarrow() && id !== null) openSheet('right');
+  saveHash();
+}
+let sysListLimit = 60;
+function renderLeftSystems() {
+  const left = $('#left');
+  if (!SYS) { left.innerHTML = '<div class="section"><p class="kicker">Urban Sea Systems</p><p class="muted">Loading systems…</p></div>'; return; }
+  const cs = SYS_COLOR[S.sysColor];
+  const q = S.sysQ.trim().toLowerCase();
+  let list = SYS.systems;
+  if (q) list = list.filter(s => (s.name + ' ' + s.countries.join(' ') + ' ' + s.members.map(m => byId.get(m[0])?.name || '').join(' ')).toLowerCase().includes(q));
+  if (S.sysSet) list = list.filter(s => S.sysSet.has(s.id));
+  list = [...list].sort((a, b) => b.members.length - a.members.length || (b.area || 0) - (a.area || 0));
+  const counts = count(SYS.systems, s => cs.get(s));
+  const multi = SYS.systems.filter(s => s.members.length > 1).length;
+  left.innerHTML = `
+    <button class="sheet-close btn small" data-close-sheet>Close</button>
+    <div class="section">
+      <p class="kicker">Urban Sea Systems <span class="badge">Draft</span></p>
+      <h2 class="case-title" style="font-size:24px">Port cities, their sea and the whole watershed</h2>
+      <p class="small" style="margin:0;color:var(--ink-2)">Greene and Delaney (2025) define an Urban Sea System as one or more port cities, the nearby sea connected to the open ocean, and the entire watershed that drains into it. Grouped that way, the survey's ${E.length} port-metro entries form <b>${SYS.systems.length}</b> systems; ${multi} of them hold more than one entry.</p>
+      <p class="hint">A draft: the paper leaves open how large the nearby sea can be. <button class="linkbtn" data-mode-link="about">How the systems are drawn</button></p>
+    </div>
+    <div class="section">
+      <div class="search">${ICON_SEARCH}<input id="sysq" type="search" placeholder="Search a system, city or country" value="${esc(S.sysQ)}" autocomplete="off" aria-label="Search systems"></div>
+      ${S.sysSet ? `<p class="hint"><span class="badge">Pattern: ${S.sysSet.size} systems</span> <button class="linkbtn" data-sys-clear-set>Clear</button></p>` : ''}
+    </div>
+    <div class="section">
+      <label><span class="label">Color systems by</span><select class="sel" id="sysColor">${Object.entries(SYS_COLOR).map(([k, v]) => `<option value="${k}" ${S.sysColor === k ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select></label>
+      <div class="legend">${cs.cats.filter(c => counts.get(c) || c === 'Mega').map(c => `<div class="stepnote"><i class="sw" style="background:${cs.color[c]}"></i><span>${esc(c)}</span><span class="n" style="margin-left:auto">${counts.get(c) || 0}</span></div>`).join('')}</div>
+      ${S.sysColor === 'size' ? '<p class="hint">Sea plus watershed area. Micro under 1,000 km², Meso to 100,000 km², Macro to 10 million km², Mega above. No system reaches Mega.</p>' : ''}
+      ${S.sysColor === 'ratio' ? '<p class="hint">Watershed area divided by sea area, for systems joined by a sea or bay.</p>' : ''}
+    </div>
+    <div class="section">
+      <span class="label">${list.length} ${list.length === 1 ? 'system' : 'systems'}, most survey entries first</span>
+      <div>${list.slice(0, sysListLimit).map(s => `<button class="listrow" data-sys="${s.id}" aria-pressed="${S.sys === s.id}"><span><i class="sw" style="background:${sysColor(s)};display:inline-block;margin-right:6px"></i>${esc(s.name)}</span><span class="pop">${s.members.length}</span><small>${s.area ? fmt(s.area) + ' km²' : 'area not measured'} · ${esc(s.countries.join(', '))}</small></button>`).join('')}</div>
+      ${list.length > sysListLimit ? `<button class="btn small" data-sys-more style="margin-top:8px">Show ${Math.min(60, list.length - sysListLimit)} more</button>` : ''}
+    </div>`;
+}
+function renderRightSystems() {
+  const right = $('#right');
+  const tabs = [['system', 'System'], ['patterns', 'Patterns']];
+  right.innerHTML = `
+    <div class="tabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-sys-tab="${k}" aria-selected="${S.sysTab === k}">${l}</button>`).join('')}<span class="spacer"></span><button class="icon sheet-close" data-close-sheet aria-label="Close">✕</button></div>
+    <div class="tabbody" id="tabbody"></div>`;
+  const body = $('#tabbody');
+  if (!SYS) { body.innerHTML = '<p class="muted">Loading systems…</p>'; return; }
+  body.innerHTML = S.sysTab === 'patterns' ? sysPatternsHTML() : systemHTML();
+}
+function systemHTML() {
+  const s = sysById.get(S.sys);
+  if (!s) {
+    const picks = ['Salish Sea', 'Chesapeake Bay', 'Baltic Sea', 'Black Sea'].map(n => SYS.systems.find(x => x.name === n)).filter(Boolean);
+    const big = [...SYS.systems].sort((a, b) => b.members.length - a.members.length).slice(0, 4).filter(x => !picks.includes(x));
+    return `<p class="kicker">Urban Sea Systems</p><h3 class="lens-title">Select a system</h3>
+      <p class="small">Each colored area is one system's watershed; blue is its sea where the system is joined by a sea or bay. Click an area, a city, or a name in the list.</p>
+      <div class="similar">${[...picks, ...big].map(x => `<button data-sys="${x.id}"><span>${esc(x.name)}</span><small>${x.members.length} survey ${x.members.length > 1 ? 'entries' : 'entry'} · ${x.area ? fmt(x.area) + ' km²' : ''}</small></button>`).join('')}</div>`;
+  }
+  const by = {sea: 'Joined by a shared sea or bay', watershed: 'Joined by a shared river', island: 'An island system'}[s.by];
+  const members = s.members.map(([id, up]) => { const e = byId.get(id); return `<button class="listrow" data-open-entry="${id}" data-id="${id}"><span>${esc(e.name)}</span><span class="pop">${up > 0 ? fmt(up) + ' km up' : 'coast'}</span><small>${esc(e.country)} · ${fmt(e.population)} million people</small></button>`; }).join('');
+  return `<p class="kicker">${esc(by)} <span class="badge">Draft</span></p>
+    <h3 class="lens-title" style="font-size:22px">${esc(s.name)}</h3>
+    <div class="chips" style="margin:6px 0 12px">${s.by !== 'island' ? `<span class="chip" aria-pressed="false">${esc(s.size)}</span>` : ''}<span class="chip">${esc(s.climate)}</span>${s.coastal ? '' : '<span class="chip">No survey port at the coast</span>'}</div>
+    <div class="stats">
+      <div class="stat"><b>${s.land ? fmt(s.land) : 'n/a'}</b><span>km² of watershed</span></div>
+      <div class="stat"><b>${s.sea ? fmt(s.sea) : '–'}</b><span>${s.sea ? 'km² of sea' : 'no sea area defined'}</span></div>
+      <div class="stat"><b>${s.ratio ? fmt(s.ratio) : '–'}</b><span>km² of land per km² of sea</span></div>
+      <div class="stat"><b>${s.countries.length}</b><span>${s.countries.length > 1 ? 'countries' : 'country'} with a survey entry</span></div>
+    </div>
+    ${s.opens ? `<p class="small">Opens onto: <b>${esc(s.opens)}</b>${s.seas.length > 1 ? ` (${esc(s.seas.join(', '))})` : ''}</p>` : ''}
+    ${s.by === 'island' ? '<p class="small">This island is too small for HydroBASINS level 6, so its area is not measured yet. The paper treats an island (Oʻahu) as one system.</p>' : ''}
+    ${s.caseId ? `<p><button class="btn small" data-open-case="${s.caseId}">Open the ${esc(caseById[s.caseId].name)} case study</button></p>` : ''}
+    <span class="label" style="margin-top:14px">${s.members.length} survey ${s.members.length > 1 ? 'entries' : 'entry'}</span>
+    <div>${members}</div>
+    <p class="hint">Distances are along the river network to the sea. Click an entry to open it in Explore.</p>`;
+}
+
+// patterns at the system level, computed from the systems data
+const SYS_PATTERNS = [
+  {id: 'grouping', title: 'Most systems hold one survey entry; a few rivers and seas hold many.',
+    ids: () => SYS.systems.filter(s => s.members.length >= 3),
+    body(list) {
+      const one = SYS.systems.filter(s => s.members.length === 1).length, top = [...SYS.systems].sort((a, b) => b.members.length - a.members.length).slice(0, 8);
+      const inTop = list.reduce((a, s) => a + s.members.length, 0), placed = SYS.systems.reduce((a, s) => a + s.members.length, 0);
+      return {text: `The survey's ${E.length} entries form ${SYS.systems.length} systems. ${one} systems hold a single entry. The ${list.length} systems with three or more entries hold ${inTop} of the ${placed} placed entries, so the survey's rankings count these waters several times.`,
+        viz: pbars(top.map(s => [s.name, s.members.length, '#1d4f73']))};
+    }},
+  {id: 'ratio', title: 'Big rivers pour into small seas; open seas drain little land.',
+    ids: () => SYS.systems.filter(s => s.ratio !== null && s.sea >= 5000),
+    body(list) {
+      const sorted = [...list].sort((a, b) => b.ratio - a.ratio), named = n => SYS.systems.find(s => s.name === n);
+      const ex = ['Chesapeake Bay', 'Salish Sea', 'Baltic Sea', 'Black Sea'].map(named).filter(Boolean);
+      return {text: `For the ${list.length} systems joined by a sea or bay of at least 5,000 km², the land draining into each km² of sea ranges from ${fmt(sorted.at(-1).ratio)} to ${fmt(sorted[0].ratio)}. ${ex.map(s => `${esc(s.name)} ${fmt(s.ratio)}`).join(', ')}. A high value means a large watershed delivers its runoff to a small body of water.`,
+        viz: pbars(sorted.slice(0, 8).map(s => [s.name, s.ratio, '#2c8a6a'])), vizNote: 'km² of land per km² of sea, highest eight'};
+    }},
+  {id: 'borders', title: 'Shared seas cross the most borders.',
+    ids: () => SYS.systems.filter(s => s.countries.length >= 3),
+    body(list) {
+      const top = [...list].sort((a, b) => b.countries.length - a.countries.length);
+      return {text: `${list.length} systems have survey entries in three or more countries. ${esc(top[0].name)} has ${top[0].countries.length}. The paper found cross-border systems the hardest to characterize, because each country reports its data differently.`,
+        viz: pbars(top.slice(0, 8).map(s => [s.name, s.countries.length, '#0b3c5d']))};
+    }},
+  {id: 'size', title: 'No system reaches the paper\'s Mega class.',
+    ids: () => SYS.systems.filter(s => s.size === 'Macro'),
+    body(list) {
+      const c = count(SYS.systems.filter(s => s.by !== 'island'), s => s.size), big = SYS.systems.reduce((a, s) => ((s.area || 0) > (a.area || 0) ? s : a));
+      return {text: `The paper's Appendix A puts Mega above 10 million km² of sea plus watershed. The largest system here, ${esc(big.name)}, is ${fmt(big.area)} km². ${c.get('Meso') || 0} systems are Meso and ${c.get('Macro') || 0} Macro. The paper names Chesapeake Bay, Shanghai and New York–Newark as Mega, so its thresholds and its examples disagree.`,
+        viz: pbars(['Micro', 'Meso', 'Macro', 'Mega'].map(k => [k, c.get(k) || 0, SYS_COLOR.size.color[k]]))};
+    }},
+  {id: 'climate', title: 'Most systems are tropical or sub-tropical.',
+    ids: () => SYS.systems.filter(s => s.climate === 'Tropical' || s.climate === 'Sub-tropical'),
+    body(list) {
+      const c = count(SYS.systems, s => s.climate);
+      return {text: `Using the paper's latitude bands at each system's most seaward city, ${list.length} of ${SYS.systems.length} systems are tropical or sub-tropical. The paper's three examples, the Salish Sea, Chesapeake Bay and Oʻahu, span temperate to tropical.`,
+        viz: pbars(SYS_COLOR.climate.cats.map(k => [k, c.get(k) || 0, SYS_COLOR.climate.color[k]]))};
+    }},
+  {id: 'reach', title: 'Some systems reach thousands of kilometres inland.',
+    ids: () => SYS.systems.filter(s => s.reach >= 1000),
+    body(list) {
+      const top = [...list].sort((a, b) => b.reach - a.reach);
+      return {text: `In ${list.length} systems the farthest survey entry sits 1,000 km or more upstream of the sea along the river network. Under "the entire watershed", those inland ports belong to the coastal system. ${SYS.systems.filter(s => !s.coastal).length} systems have survey entries but no survey port at the coast.`,
+        viz: pbars(top.slice(0, 8).map(s => [s.name, s.reach, '#d9711c'])), vizNote: 'km from the farthest survey entry to the sea'};
+    }},
+  {id: 'tier', title: 'The survey\'s watershed tier only loosely matches measured basin size.',
+    ids: null,
+    body() {
+      const by = new Map();
+      for (const s of SYS.systems) for (const [id, up] of s.members) { const e = byId.get(id); if (up === 0 && e.watershedTier && s.land) { if (!by.has(e.watershedTier)) by.set(e.watershedTier, []); by.get(e.watershedTier).push(s.land); } }
+      const rows = [1, 2, 3, 4, 5].filter(t => by.has(t)).map(t => [`Tier ${t}`, median(by.get(t))]);
+      return {text: `The survey scores each entry's watershed from 1 (very large basin) to 5 (minimal). Measured with HydroBASINS, the median watershed falls from ${fmt(rows[0][1])} km² at tier 1 to ${fmt(rows.at(-1)[1])} km² at tier 5, but the ranges overlap widely. The survey tier and the measured area should be read as different things.`,
+        viz: pbars(rows.map(r => [...r, '#3a7fa8'])), vizNote: 'Median measured watershed, km², coastal entries by survey tier'};
+    }},
+];
+function sysPatternsHTML() {
+  return `<p class="kicker">Patterns across systems <span class="badge">Draft</span></p>
+    <p class="small">Computed from the ${SYS.systems.length} draft systems. Areas come from HydroBASINS and Natural Earth; entries and countries from the survey.</p>
+    ${SYS_PATTERNS.map(p => { const list = p.ids ? p.ids() : null, b = p.body(list);
+      return `<article class="pattern ${S.sysPattern === p.id ? 'on' : ''}"><h3>${esc(p.title)}</h3><p>${b.text}</p>${b.viz}${b.vizNote ? `<p class="hint">${esc(b.vizNote)}</p>` : ''}
+      ${list ? `<div class="pattern-actions"><button class="btn small ${S.sysPattern === p.id ? 'primary' : ''}" data-sys-pattern="${p.id}">Show ${list.length} on the map</button></div>` : ''}</article>`; }).join('')}`;
+}
+function showSysPattern(id) {
+  const p = SYS_PATTERNS.find(x => x.id === id);
+  if (S.sysPattern === id) { S.sysPattern = null; S.sysSet = null; }
+  else { S.sysPattern = id; S.sysSet = new Set(p.ids().map(s => s.id)); }
+  const top = $('#tabbody')?.scrollTop || 0;
+  sysStyle(); renderLeft(); renderRight();
+  const b = $('#tabbody'); if (b) b.scrollTop = top;
+  saveHash();
+}
+map.on('click', ev => {
+  if (S.mode !== 'systems' || ev.defaultPrevented || !map.getLayer('sys-land')) return;
+  const f = map.queryRenderedFeatures(ev.point, {layers: ['sys-isle', 'sys-land']})[0];
+  if (f) pickSystem(f.properties.id, {fly: false});
+});
+let sysHover = null;
+map.on('mousemove', ev => {
+  if (S.mode !== 'systems' || !map.getLayer('sys-land')) return;
+  if (map.queryRenderedFeatures(ev.point, {layers: ['entries']}).length) return;
+  const f = map.queryRenderedFeatures(ev.point, {layers: ['sys-isle', 'sys-land']})[0];
+  const id = f ? f.properties.id : null;
+  if (sysHover !== null && sysHover !== id && map.getSource('sys-land')) map.setFeatureState({source: 'sys-land', id: sysHover}, {hover: false});
+  sysHover = id;
+  map.getCanvas().style.cursor = f ? 'pointer' : '';
+  if (!f) { hideTip(); return; }
+  if (f.layer.id === 'sys-land') map.setFeatureState({source: 'sys-land', id}, {hover: true});
+  const s = sysById.get(id);
+  showTip(ev.originalEvent.clientX, ev.originalEvent.clientY, `<b>${esc(s.name)}</b><span>${s.members.length} survey ${s.members.length > 1 ? 'entries' : 'entry'} · ${s.area ? fmt(s.area) + ' km²' : 'island'}</span>`);
+});
+
 // ---------- modes ----------
 function setMode(mode, caseId) {
   const prev = S.mode;
@@ -1395,8 +1689,13 @@ function setMode(mode, caseId) {
   $('#about').hidden = mode !== 'about';
   if (mode === 'about') renderAbout();
   if (mode !== 'cases' && prev === 'cases') { clearCaseLayers(); oahuPick = null; }
+  if (mode !== 'systems' && prev === 'systems') clearSystemLayers();
   if (mode === 'cases') { stopSpin(); oahuPick = null; showCase(caseId || S.caseId); }
-  else {
+  else if (mode === 'systems') {
+    for (const l of ['entries', 'entry-labels', 'sel-ring', 'sel-line']) if (map.getLayer(l)) map.setLayoutProperty(l, 'visibility', l === 'entries' || l === 'entry-labels' ? 'visible' : 'none');
+    refreshEntries(); showSystems();
+    if (prev !== 'systems' && S.sys === null && mapReady) { syncPadding(); map.flyTo({center: [15, 30], zoom: 1.7, duration: 1400}); }
+  } else {
     S.layers.entries = true;
     for (const l of ['entries', 'entry-labels', 'sel-ring', 'sel-line']) if (map.getLayer(l)) map.setLayoutProperty(l, 'visibility', 'visible');
     refreshEntries(); renderLeft(); renderRight();
@@ -1406,7 +1705,7 @@ function setMode(mode, caseId) {
   closeSheets();
   saveHash();
 }
-function renderLeft() { if (S.mode === 'cases') renderLeftCases(); else renderLeftExplore(); }
+function renderLeft() { if (S.mode === 'cases') renderLeftCases(); else if (S.mode === 'systems') renderLeftSystems(); else renderLeftExplore(); }
 function resetScroll() { $('#left').scrollTop = 0; const b = $('#tabbody'); if (b) b.scrollTop = 0; }
 function update({keepRight = false} = {}) {
   rankCache = null;
@@ -1451,6 +1750,11 @@ document.addEventListener('click', ev => {
   if (d.setGroup) { S.group = d.setGroup; update({keepRight: true}); fitEntries(groupById[d.setGroup].entryIds.map(i => byId.get(i))); return; }
   if (d.openCase) { S.basin = null; setMode('cases', d.openCase); return; }
   if (d.openEntry) { if (popup) popup.remove(); setMode('explore'); select(+d.openEntry); return; }
+  if (d.sys !== undefined) { pickSystem(+d.sys === S.sys ? null : +d.sys); if (S.sys === null) sysStyle(); return; }
+  if (d.sysTab) { S.sysTab = d.sysTab; renderRight(); saveHash(); return; }
+  if (d.sysPattern) { showSysPattern(d.sysPattern); return; }
+  if (d.sysClearSet !== undefined) { S.sysSet = null; S.sysPattern = null; sysStyle(); renderLeft(); renderRight(); return; }
+  if (d.sysMore !== undefined) { sysListLimit += 60; renderLeft(); return; }
   if (d.caseEntry) {
     const e = byId.get(+d.caseEntry);
     if (e.points.length) {
@@ -1486,6 +1790,13 @@ function zoomUp() {
 
 document.addEventListener('input', ev => {
   const t = ev.target;
+  if (t.id === 'sysq') {
+    S.sysQ = t.value; sysListLimit = 60;
+    const pos = t.selectionStart;
+    renderLeft();
+    const n = $('#sysq'); n.focus(); n.setSelectionRange(pos, pos);
+    return;
+  }
   if (t.id === 'q') {
     S.q = t.value; sugIndex = -1;
     rankCache = null; refilter(); refreshEntries();
@@ -1507,6 +1818,7 @@ document.addEventListener('input', ev => {
 });
 document.addEventListener('change', ev => {
   const t = ev.target;
+  if (t.id === 'sysColor') { S.sysColor = t.value; sysRecolor(); renderLeft(); saveHash(); return; }
   if (t.id === 'group') { S.group = t.value; update(); if (t.value) fitEntries(groupById[t.value].entryIds.map(i => byId.get(i))); }
   if (t.id === 'fStrategic') { S.strategic = t.checked; update(); }
   if (t.id === 'fCross') { S.crossBorder = t.checked; update(); }
@@ -1581,6 +1893,7 @@ function saveHash() {
     const p = new URLSearchParams();
     p.set('m', S.mode);
     if (S.mode === 'cases') { p.set('case', S.caseId); if (S.indicator !== 'bws') p.set('ind', S.indicator); if (S.basin) p.set('basin', S.basin); }
+    else if (S.mode === 'systems') { if (S.sys !== null) p.set('sys', S.sys); if (S.sysColor !== 'size') p.set('sc', S.sysColor); if (S.sysTab !== 'system') p.set('st', S.sysTab); }
     else {
       if (S.selected !== null) p.set('e', S.selected);
       if (S.tab !== 'rank') p.set('tab', S.tab);
@@ -1622,7 +1935,10 @@ function loadHash() {
   if (get('e') && byId.has(+get('e'))) { S.selected = +get('e'); if (!get('tab')) S.tab = 'entry'; }
   if (get('ind') && (AQ[get('ind')] || get('ind') === 'none')) S.indicator = get('ind');
   if (get('basin')) S.basin = +get('basin');
-  const mode = ['explore', 'cases', 'about'].includes(get('m')) ? get('m') : 'explore';
+  if (get('sys') !== null && Number.isInteger(+get('sys'))) S.sys = +get('sys');
+  if (get('sc') && SYS_COLOR[get('sc')]) S.sysColor = get('sc');
+  if (['system', 'patterns'].includes(get('st'))) S.sysTab = get('st');
+  const mode = ['explore', 'systems', 'cases', 'about'].includes(get('m')) ? get('m') : 'explore';
   const caseId = caseById[get('case')] ? get('case') : 'salish';
   return {mode, caseId};
 }

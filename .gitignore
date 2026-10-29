@@ -19,3 +19,6 @@ __pycache__/
 
 # Local-only agent settings
 .claude/settings.local.json
+
+# Urban Sea Systems: rebuilt sea raster cache
+atlas-v2/systems/.seas-cache.pkl

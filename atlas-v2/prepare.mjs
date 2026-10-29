@@ -242,4 +242,32 @@ const written = [await write('catalog.js', 'ATLAS_CATALOG', catalog), await writ
 for (const c of [...studio.cases, ...extraContent.cases]) {
   written.push(await write(`case-${c.id}.js`, `ATLAS_CASE_${c.id.toUpperCase()}`, caseLayers(c.id)));
 }
+
+// Urban Sea Systems (draft): survey entries grouped by the Greene and Delaney (2025)
+// definition, built by systems/draft.py. Loaded only when the Systems view opens.
+const sysDir = path.join(here, 'systems');
+try {
+  const draft = JSON.parse(await fs.readFile(path.join(sysDir, 'draft.json'), 'utf8'));
+  const geo = JSON.parse(await fs.readFile(path.join(sysDir, 'systems-geo.json'), 'utf8'));
+  const v = draft.variants.enclosed;
+  const caseIds = new Map(entries.filter(e => e.caseId).map(e => [e.id, e.caseId]));
+  const systems = v.systems.map(s => ({
+    id: s.id, name: s.name, by: s.definedBy, seas: s.seas, opens: s.receivingWater,
+    members: s.members.map(m => [m.id, Math.round(m.upstreamKm || 0)]),
+    countries: s.countries, land: s.watershedKm2, sea: s.seaKm2, area: s.areaKm2,
+    size: s.sizeClass, climate: s.climate, lon: s.lon, lat: s.lat, coastal: s.coastalPort,
+    caseId: s.members.map(m => caseIds.get(m.id)).find(Boolean) || null,
+  }));
+  TOL = 0; SCALE = 100;
+  const payload = {
+    rule: v.label, definition: draft.definition, semiEnclosed: draft.semiEnclosed,
+    versions: Object.fromEntries(Object.entries(draft.variants).map(([k, x]) => [k, x.count])),
+    hard: {endorheic: draft.hardCases.endorheic.map(x => x.name), islands: draft.hardCases.islands.map(x => x.name), notMapped: draft.hardCases.notMapped.length},
+    systems, land: encodeFC(geo.land), sea: encodeFC(geo.sea),
+  };
+  TOL = 0; SCALE = 1000;
+  written.push(await write('systems.js', 'ATLAS_SYSTEMS', payload));
+} catch (e) {
+  if (e.code !== 'ENOENT') throw e;
+}
 console.log(Object.fromEntries(written));
