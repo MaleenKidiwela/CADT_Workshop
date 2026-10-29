@@ -156,7 +156,7 @@ const STYLE = 'https://tiles.openfreemap.org/styles/positron';
 const FALLBACK_STYLE = {version: 8, sources: {}, layers: [{id: 'background', type: 'background', paint: {'background-color': '#d6e4ea'}}]};
 const map = new maplibregl.Map({
   container: 'map', style: STYLE, center: [15, 22], zoom: 2.1, minZoom: 1, maxZoom: 13,
-  attributionControl: {compact: true, customAttribution: 'Survey: Urban Sea Systems · Natural Earth · HydroBASINS · WRI Aqueduct'},
+  attributionControl: {compact: true, customAttribution: 'Survey: J.R. Delaney and R. Delaney, 2026 · Natural Earth · HydroBASINS · WRI Aqueduct'},
   dragRotate: false, pitchWithRotate: false,
 });
 map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-right');
@@ -1343,7 +1343,7 @@ function renderAbout() {
       <div><b>${C.cases.length}</b><span>case studies with drainage maps</span></div>
     </div>
     <h2>The survey</h2>
-    <p>${esc(C.source.filename)}. Definitions follow ${esc(C.source.definitionReference.replace(/\.$/, ''))}. Population, GDP and container figures are approximate source estimates. Scores of 1 to 5 are the survey's own rubric.</p>
+    <p>Survey compiled by John R. Delaney and Ryan Delaney, 2026. Source file: ${esc(C.source.filename)}. Definitions follow ${esc(C.source.definitionReference.replace(/\.$/, ''))}. Population, GDP and container figures are approximate source estimates. Scores of 1 to 5 are the survey's own rubric.</p>
     <ul>${C.limits.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
     <p>The Patterns tab describes regularities in the survey. Its numbers are computed from these ${k.entries} entries when the tab opens. They describe the survey, with the limits above, not measured conditions in the world.</p>
     <h2>How places are mapped</h2>
