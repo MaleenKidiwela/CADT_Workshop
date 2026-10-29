@@ -281,10 +281,18 @@ window.addEventListener('resize', () => syncPadding());
 // milliseconds since navigation, for checking load speed in the console
 window.atlasTiming = {script: Math.round(performance.now())};
 map.once('style.load', () => { atlasTiming.style = Math.round(performance.now()); });
+// Ready once the camera has drawn a frame with the loaded style; waiting for
+// 'load' instead would also wait for every first basemap tile.
+function markReady() {
+  if (mapReady) return;
+  mapReady = true;
+  atlasTiming.ready = Math.round(performance.now());
+  if (pendingFit) { const [b, o] = pendingFit; pendingFit = null; fitBox(b, {...o, duration: 0}); }
+}
+map.on('style.load', () => map.once('render', markReady));
 map.on('load', () => {
   atlasTiming.load = Math.round(performance.now());
-  mapReady = true;
-  if (pendingFit) { const [b, o] = pendingFit; pendingFit = null; fitBox(b, {...o, duration: 0}); }
+  markReady();
   startSpin();
 });
 map.once('idle', () => { atlasTiming.idle = Math.round(performance.now()); setTimeout(prefetchCases, 1500); });
