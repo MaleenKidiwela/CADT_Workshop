@@ -11,6 +11,7 @@ intro: >-
 
 groups:
   - Conveners
+  - Speakers
   - Organizing committee
   - Advisors
 
@@ -29,6 +30,20 @@ people:
       - {label: Interactive Oceans, url: "https://interactiveoceans.washington.edu/"}
     published: true
 
+  - name: Kate Moran
+    role: Convener
+    title: ""
+    affiliation: Ocean Networks Canada / University of Victoria
+    group: Conveners
+    photo: null
+    bio: >-
+      Ocean Networks Canada operates the cabled ocean observatories off British
+      Columbia, including arrays in the Strait of Georgia and Saanich Inlet.
+    links:
+      - {label: Ocean Networks Canada, url: "https://www.oceannetworks.ca/"}
+    published: true
+    note: Confirm her current title with her before adding one.
+
   - name: H. Gary Greene
     role: Convener
     title: Marine geologist, Center for Habitat Studies
@@ -40,17 +55,15 @@ people:
       the 2025 characterization of Urban Sea Systems.
     published: true
 
-  - name: Kate Moran
-    role: Co-convener
-    title: President and Chief Executive Officer
-    affiliation: Ocean Networks Canada
-    group: Conveners
+  - name: Richard Spinrad
+    role: Opening keynote
+    title: Former Administrator
+    affiliation: National Oceanic and Atmospheric Administration
+    group: Speakers
     photo: null
     bio: >-
-      Leads Ocean Networks Canada, which operates the cabled ocean observatories off
-      British Columbia, including arrays in the Strait of Georgia and Saanich Inlet.
-    links:
-      - {label: Ocean Networks Canada, url: "https://www.oceannetworks.ca/"}
+      Opening keynote on Day 1: Urban Seas, digital twins, and the blue (and new
+      blue) economy.
     published: true
 
   - name: Marine Denolle

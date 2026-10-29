@@ -114,6 +114,8 @@ def main() -> int:
             check_url(c.get("url"), f"{w} → cta.{key}")
     req(site.get("hero") or {}, ["eyebrow", "heading", "lead"], f"{w} → hero")
     req(site.get("contact") or {}, ["name", "email"], f"{w} → contact")
+    for i, c in enumerate(site.get("contacts_more") or []):
+        req(c, ["name", "email"], f"{w} → contacts_more[{i}]")
     check_file(site.get("og_image"), f"{w} → og_image")
 
     # ---- figures ---------------------------------------------------------

@@ -91,12 +91,16 @@
       <h4>Contact</h4>
       <ul>
         <li><a href="mailto:{{ site.contact.email }}">{{ site.contact.name }}</a>{% if site.contact.note %}<br><span class="fine">{{ site.contact.note }}</span>{% endif %}</li>
+        {% for c in site.contacts_more or [] %}
+        <li><a href="mailto:{{ c.email }}">{{ c.name }}</a>{% if c.note %}<br><span class="fine">{{ c.note }}</span>{% endif %}</li>
+        {% endfor %}
         <li><a href="{{ site.repo }}" target="_blank" rel="noopener">Source on GitHub</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap footer-bottom">
     <p>© <span data-year>{{ build.year }}</span> {{ site.footer.copyright_holder }}. {{ site.footer.license_note }}</p>
+    {% if site.footer.credit %}<p class="fine">{{ site.footer.credit }}</p>{% endif %}
     <p class="fine">{{ site.footer.attribution }}</p>
     <p class="fine">Built {{ build.time }} · {{ build.commit }}</p>
   </div>

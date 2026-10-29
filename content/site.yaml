@@ -7,9 +7,10 @@ short_name: CADT 2026
 title: Complex Adaptive Digital Twins for Urban Sea Systems
 tagline: A working meeting to design the first modules of a digital twin of the Salish Sea.
 description: >-
-  A three-day, invitation-based working meeting in Seattle, December 2026, to test
+  A three-day meeting in Seattle, 15 to 17 December 2026. Day 1 is open to all who
+  register. Days 2 and 3 are a working meeting of invited participants, to test
   whether a complex adaptive digital twin can help steward the Salish Sea, and to
-  scope its first six modules.
+  scope its first seven modules.
 url: https://maleenkidiwela.github.io/CADT_Workshop/
 repo: https://github.com/mdenolle/CADT_workshop_2026
 og_image: assets/img/figures/urban-sea-system.jpg
@@ -17,19 +18,21 @@ og_image: assets/img/figures/urban-sea-system.jpg
 event:
   start: 2026-12-15
   end: 2026-12-17
-  dates_confirmed: false
-  dates_note: Provisional dates, to be confirmed with the co-conveners.
+  dates_confirmed: true
+  dates_note: Dates confirmed.
   timezone_label: Pacific Standard Time (UTC-8)
-  countdown_iso: "2026-12-15T09:00:00-08:00"
+  countdown_iso: "2026-12-15T08:45:00-08:00"
   city: Seattle, Washington
   host: University of Washington
-  format: In-person working meeting
-  attendance: By invitation, about 50 participants
+  format: In person, at the UW Center for Urban Horticulture
+  attendance: Day 1 open to all who register. Days 2 and 3 for about 50 invited participants.
 
 # One of the keys in status_labels.
-status: planning
+status: registration_soon
 status_labels:
   planning: Planning underway
+  registration_soon: Day 1 registration opening soon
+  registration: Day 1 registration open
   interest: Expressions of interest open
   invitations: Invitations sent
   full: Participation confirmed
@@ -49,8 +52,10 @@ hero:
 
 cta:
   primary:
-    label: Express interest
-    url: "mailto:mdenolle@uw.edu?subject=CADT%20Workshop%202026%20expression%20of%20interest"
+    # Swap in the registration form URL when it exists, set new_window: true,
+    # and set status: registration.
+    label: Registration opens soon
+    url: "#participate"
     new_window: false
   secondary:
     label: Read the concept
@@ -70,10 +75,17 @@ nav:
 contact:
   name: Marine Denolle
   email: mdenolle@uw.edu
-  note: Workshop coordination and website
+  note: Workshop coordination
+
+# Further contacts, listed in the footer after `contact`.
+contacts_more:
+  - name: John R. Delaney
+    email: jdelaney@uw.edu
+    note: Convener
 
 footer:
   tagline: A working meeting on digital twins for the Salish Sea and the world's Urban Sea Systems.
+  credit: Website by Marine Denolle and Maleen Kidiwela.
   attribution: >-
     Site template adapted from the University of Washington eScience Institute hackweek
     splash page and the SCOPED 2024 workshop site.

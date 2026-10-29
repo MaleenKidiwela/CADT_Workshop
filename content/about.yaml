@@ -5,8 +5,8 @@ kicker: Why this workshop
 heading: Urban Sea Systems are coupled. Their governance is not.
 lead: >-
   Urban Sea Systems run from mountain headwaters through rivers, estuaries, and
-  port cities to the coastal ocean. More than two hundred of them line the world's
-  coasts. They hold a large share of the human population, organize much of the
+  port cities to the coastal ocean. More than five hundred of them line the world's
+  coasts, and the global inventory lists 583. They hold a large share of the human population, organize much of the
   global economy, and are governed in pieces that do not match the scales on which
   water, sediment, organisms, goods, and information actually move.
 body: >-
@@ -40,11 +40,11 @@ pillars:
       questions, and coordinate without waiting for governance to be redesigned.
 
 stats:
-  - value: "200+"
+  - value: "500+"
     label: Urban Sea Systems along the world's coasts
   - value: "2"
     label: Nations sharing one Salish Sea
-  - value: "6"
+  - value: "7"
     label: Starting modules
   - value: "3"
     label: Working days in December
@@ -115,6 +115,6 @@ prototype:
         share one ecosystem and one economy.
     - title: Start small, think big
       text: >-
-        Six modules where regional models and committed people already exist, and
+        Seven modules where regional models and committed people already exist, and
         a clear view of the seams between them.
   figure: salish-sea-basin

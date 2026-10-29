@@ -1,14 +1,14 @@
 # ---------------------------------------------------------------------------
-# The six starting modules, their readiness, and the four-layer architecture.
+# The seven starting modules, their readiness, and the four-layer architecture.
 # readiness is an integer index into readiness_scale (1 = first label).
 # ---------------------------------------------------------------------------
 kicker: Think big, start small
-heading: Six modules, one coupled system
+heading: Seven modules, one coupled system
 intro: >-
   A digital twin of an Urban Sea System is not one model. It is a federation of
   domain modules, each owned by the experts who already run it, coupled through
   well-defined exchanges of state, flux, and boundary conditions. The workshop
-  starts with six modules where regional models and committed people already
+  starts with seven modules where regional models and committed people already
   exist, and treats the couplings among them as the real work.
 
 readiness_scale:
@@ -102,11 +102,23 @@ modules:
       The human-generated half has no single owner yet. The workshop will decide how
       much of it the first twin attempts.
 
+  # Added in agenda v2.3 as the seventh module. Readiness (0 hides the meter)
+  # and existing capabilities still to be confirmed with the conveners.
+  - id: ecology
+    number: 7
+    icon: fish
+    name: Ecological systems
+    subtitle: the living sea
+    summary: >-
+      Salmon, orcas, shellfish, eelgrass and other habitat, and the food webs that
+      link them, across the whole basin and across the border.
+    readiness: 0
+
 architecture:
   kicker: Four layers
   heading: Baseline, live observations, modules, seams
   intro: >-
-    The six modules are peers. Beneath them sit two foundations. Above them sits
+    The seven modules are peers. Beneath them sit two foundations. Above them sits
     the coupling fabric that turns a set of models into one adaptive system.
   layers:
     - number: 4
@@ -118,7 +130,7 @@ architecture:
     - number: 3
       name: Domain modules
       text: >-
-        Six expert-owned models that turn live flow into understanding, each with
+        Seven expert-owned models that turn live flow into understanding, each with
         its own maturity and its own community.
     - number: 2
       name: Observing layer
@@ -133,7 +145,11 @@ architecture:
         The quiet substrate the system stands on.
   figure: layered-architecture
 
+# Held until the tribal reviewer, and Kate Moran on the Canadian side, have
+# reviewed the wording. Set published: true only after that review.
 partnership:
+  published: false
+  note: Public wording should come from the nations. Hold until reviewed.
   kicker: Partners in the whole
   heading: Coast Salish knowledge and governance
   text: >-

@@ -41,12 +41,3 @@ items:
     summary: >-
       The international effort to build digital twins of the open ocean, the
       complement to the coastal and urban problem addressed here.
-
-  - title: CARE Principles for Indigenous Data Governance
-    authors: Global Indigenous Data Alliance
-    venue: GIDA, 2019
-    url: "https://www.gida-global.org/care"
-    kind: website
-    summary: >-
-      Collective benefit, authority to control, responsibility, and ethics. The
-      framework the workshop follows for Indigenous data.

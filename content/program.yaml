@@ -2,15 +2,24 @@
 # Program. status: draft | confirmed | final
 # Session type: plenary | talk | working | session | social | break
 # leads: names that match team.yaml exactly become links.
+#
+# Source: draft agenda v2.3 (28 October 2026). Names appear only where the
+# agenda does not mark them as tentative. Held back until confirmed or
+# reviewed: the Welcome to the land (tribal reviewer), the 9:55 keynote
+# (Zachary Penney, in discussion), the 10:35 keynote (Francisco Werner),
+# the circulation panelist, the ACLIM speakers, the Internet of Things and
+# salmon speakers, the experimental Vltava interlude, and the Day 3 Esri talk
+# (Kevin Butler).
 # ---------------------------------------------------------------------------
 status: draft
 status_note: >-
-  Draft program. Times and sessions will change as the agenda is developed with
-  participants.
+  Draft program. Times, titles, and speakers may change.
 timezone_label: All times Pacific Standard Time (UTC-8)
 arc: >-
-  Three days move from a shared vision, to a buildable first set of modules and
-  their couplings, to the practical path forward.
+  Day 1 is open to all and sets out why Urban Seas matter, from hazards to the
+  living sea. Day 2 builds a first specification of how the seven modules connect,
+  and tests it against three worked cascades. Day 3 turns the specification into
+  decisions: who holds the twin, what to build first, and who will carry it.
 
 type_labels:
   plenary: Plenary
@@ -23,142 +32,248 @@ type_labels:
 days:
   - id: day-1
     label: Day 1
-    theme: Shared vision
+    theme: Open to all
     date: 2026-12-15
     summary: >-
-      What Urban Sea Systems are, why they matter, what digital twins can and
-      cannot do, and a first critique of the candidate modules.
+      Open to anyone who registers. Hazards come first, right after the opening
+      keynote. The morning goes from why Urban Seas matter to the physical system
+      of the Salish Sea. The afternoon covers ports, measurement, and the living
+      sea, then turns to complex adaptive twins and gives the open audience a
+      voice. Day 1 plenaries are recorded, with consent requested.
     sessions:
-      - time: "08:30"
+      - time: "08:15"
         title: Registration and coffee
         type: break
+      - time: "08:50"
+        title: "Urban Sea Systems around the world: the Southwest Pacific and the Baltic"
+        type: talk
+        leads: [H. Gary Greene]
       - time: "09:00"
-        title: Welcome and charge to the workshop
+        title: Ocean Networks Canada and its plans for the Pacific Northwest
+        type: talk
+        leads: [Kate Moran]
+      - time: "09:10"
+        title: "Keynote: Urban Seas, digital twins, and the blue (and new blue) economy"
         type: plenary
-        leads: [John R. Delaney, H. Gary Greene, Kate Moran]
-      - time: "09:30"
-        title: Urban Sea Systems, and why they matter globally
+        leads: [Richard Spinrad]
+      - time: "09:40"
+        title: The goals of the Paros Geohazards Program
         type: talk
-        description: >-
-          The coupled watershed, urban, and marine system. The two hundred systems
-          along the world's coasts. The governance mismatch, and what better
-          stewardship could look like.
-      - time: "10:45"
-        title: Break
+        leads: [William Wilcock]
+      - time: "09:55"
+        title: Keynote
+        type: plenary
+        description: Speaker to be announced.
+      - time: "10:15"
+        title: Coffee
         type: break
-      - time: "11:00"
-        title: Digital twins now, and what they can become
-        type: talk
+      - time: "10:35"
+        title: "Keynote: digital twins of the global ocean and in industry"
+        type: plenary
         description: >-
-          An accessible account of digital twins across domains, what evolving AI
-          adds, and what an active user community makes possible. Technical,
-          scientific, and societal facets, plus data flow, management, and
-          interoperability.
+          Including a report from the DITTO Summit in Yokohama. Speaker to be
+          announced.
+      - time: "10:55"
+        title: The Salish Urban Sea
+        type: talk
+        leads: [Kathryn Sobocinski]
+      - time: "11:15"
+        title: "Panel: the physical system"
+        type: session
+        description: >-
+          Weather in the Salish Sea and the Pacific Northwest (Cecilia Bitz).
+          Watershed dynamics (Brad Butman). Circulation of the Salish Sea (speaker
+          to be announced). The Fraser and the other rivers (Gwyn Lintern).
+        leads: [John R. Delaney]
+      - time: "12:00"
+        title: Questions to the panel
+        type: session
       - time: "12:15"
         title: Lunch
         type: break
-      - time: "13:30"
-        title: The candidate modules, open for critique
+      - time: "13:15"
+        title: Port operations and shipping
+        type: talk
+        leads: [Paul Blomerus, Clear Seas]
+      - time: "13:25"
+        title: Talk, title to come
+        type: talk
+        leads: [Joshua Berger, Maritime Blue]
+      - time: "13:35"
+        title: Measuring the system in real time
+        type: session
+        description: >-
+          The Internet of Things above sea level (speaker to be announced). Marine
+          measurements (Jan Newton, UW Applied Physics Laboratory, and Jordan
+          Watson, Ocean Networks Canada).
+      - time: "14:05"
+        title: Salmon, orcas, and vessel traffic
+        type: talk
+        description: Speaker to be announced.
+      - time: "14:15"
+        title: "The modelers respond: what do you actually want over the next two decades?"
+        type: session
+        description: Followed by questions.
+      - time: "14:30"
+        title: Coffee
+        type: break
+      - time: "15:00"
+        title: "Digital twins in practice: ports and infrastructure"
+        type: talk
+        leads: [Shiori Sasaki, Esri]
+      - time: "15:15"
+        title: Why an Urban Sea System needs a Complex Adaptive Digital Twin
+        type: talk
+        leads: [John R. Delaney]
+      - time: "15:30"
+        title: What we could learn from ACLIM
+        type: talk
+        description: Speakers to be announced.
+      - time: "15:55"
+        title: "Open forum: every voice"
         type: working
         description: >-
-          Domain experts tell us what is missing, what is miscued, and what should
-          divide or combine. The goal is a module set the room can own.
-      - time: "15:00"
-        title: Break
-        type: break
-      - time: "15:15"
-        title: Coast Salish perspectives and partnership
-        type: session
-        description: Shaped with Indigenous partners.
-      - time: "16:30"
-        title: Synthesis of day 1
+          First the room reads one figure together: which of these signs is your
+          work? Then small tables: what should this place look like in 2060, and
+          what would we need to know to get there?
+      - time: "16:45"
+        title: What happens on Days 2 and 3; breakout sign-up
         type: plenary
-      - time: "18:00"
-        title: Reception
+        leads: [Kate Moran]
+      - time: "17:00"
+        title: Posters and conversation
         type: social
-        description: Details to be announced.
+      - time: "17:30"
+        title: Cash bar; dinner on your own
+        type: social
 
   - id: day-2
     label: Day 2
-    theme: Building a team
+    theme: Breakouts
     date: 2026-12-16
     summary: >-
-      Turn the refined modules and their couplings into something buildable, with
-      owners, data readiness, and a scoped first build.
+      For invited participants. Day 2 builds the specification from two directions.
+      The system lens asks how the region's models must connect. The user lens asks
+      who will use the twin and what they need to know. The two meet in the
+      afternoon's worked cascades. Each session runs in three spaces at once.
     sessions:
-      - time: "09:00"
-        title: Recap and working method
+      - time: "08:30"
+        title: Coffee; what the Day 1 couplings board tells us
+        type: break
+      - time: "08:45"
+        title: "How today works: the system lens and the user lens"
         type: plenary
-      - time: "09:30"
-        title: "Module working groups I: owners, scope, existing assets"
-        type: working
-        description: >-
-          Each module identifies who owns it, what already runs, and what a first
-          contribution to the twin would be.
-      - time: "11:00"
-        title: Break
-        type: break
-      - time: "11:15"
-        title: "Seams: what actually passes between modules"
-        type: working
-        description: >-
-          Structured capture of the state, fluxes, and boundary conditions each
-          module needs and provides, and of data readiness at each interface.
-      - time: "12:30"
-        title: Lunch
-        type: break
-      - time: "13:30"
-        title: "Observing layer and baseline: data flow, management, interoperability"
-        type: session
-        description: >-
-          Marine sensing, civic telemetry, and the geospatial baseline that every
-          module draws on. What an integration substrate has to provide.
-      - time: "15:00"
-        title: Break
-        type: break
-      - time: "15:15"
-        title: "Module working groups II: scoping a first build"
-        type: working
-      - time: "16:30"
-        title: Roadmap readout
-        type: plenary
-
-  - id: day-3
-    label: Day 3
-    theme: Mapping a future
-    date: 2026-12-17
-    summary: >-
-      The mismatches to bridge, the resources required, who benefits, who decides,
-      and the commitments that leave the room.
-    sessions:
+        leads: [John R. Delaney, Shiori Sasaki]
       - time: "09:00"
-        title: Mismatches across the Salish system
-        type: session
+        title: "Round A: the seven modules, in three spaces"
+        type: working
         description: >-
-          Jurisdictional, national, cultural, economic, and resilience gaps, and how
-          a shared representation could help bridge them.
-      - time: "10:30"
-        title: Break
+          The physical system: hydrodynamics and circulation, weather and climate,
+          watersheds and runoff. The living and polluted system: ecological systems,
+          pollution of air and water. The built and hazardous system: ports and
+          supply chains, hazards. Each group corrects and extends a coupling table
+          already filled in from the module summaries.
+      - time: "10:15"
+        title: Coffee
         type: break
-      - time: "10:45"
-        title: "What it takes: funding, compute, data, security, and trust"
-        type: session
-        description: >-
-          The practical steps toward a first build. Where the twin lives, who pays,
-          and how data from many communities can be shared with confidence.
+      - time: "10:35"
+        title: "Round A continues: finish the table and mark the three missing couplings that matter most"
+        type: working
+      - time: "11:25"
+        title: Report-backs, five minutes per module
+        type: plenary
       - time: "12:00"
         title: Lunch
         type: break
-      - time: "13:00"
-        title: Who benefits, and who decides
+      - time: "12:45"
+        title: "Round B: three cross-cutting groups"
         type: working
         description: >-
-          Which communities gain from what-if questions, and how results earn trust
-          across boundaries.
-      - time: "14:30"
-        title: Commitments and next steps
+          Real-time sensing above sea level. Sub-sea measurement, from streams and
+          estuaries out to the Pacific. Educational gaming and public use. Each group
+          also names the people who would use its part of the twin.
+      - time: "14:15"
+        title: Coffee
+        type: break
+      - time: "14:45"
+        title: Worked cascades, through the eyes of the people who must decide
+        type: working
+        description: >-
+          A Rainier debris flow into the Nisqually valley, as a county emergency
+          manager lives it. Watershed nutrients and a summer heat wave in southern
+          Puget Sound, as a shellfish grower and a public health officer see it.
+          Rising tanker traffic through Haro Strait, underwater noise, and the
+          orcas, as a port operations manager and a whale researcher weigh it.
+      - time: "16:00"
+        title: Report-backs, ten minutes per cascade
         type: plenary
-        leads: [John R. Delaney, H. Gary Greene, Kate Moran]
-      - time: "15:30"
+      - time: "16:30"
+        title: The day's open questions, and what Day 3 must decide
+        type: plenary
+      - time: "17:00"
+        title: Close
+        type: break
+      - time: "18:30"
+        title: Hosted dinner for workshop participants
+        type: social
+
+  - id: day-3
+    label: Day 3
+    theme: Governance and what persists
+    date: 2026-12-17
+    summary: >-
+      For invited participants. Day 3 turns the specification into decisions: who
+      holds the twin, what to build first, and who will carry it. It ends with a
+      joint statement. We close at 3:00 so people can travel.
+    sessions:
+      - time: "08:30"
+        title: Coffee; the whole board on one screen
+        type: plenary
+        description: >-
+          The seven modules' coupling tables, combined overnight into one map of the
+          region's connections.
+      - time: "09:00"
+        title: Cross-border society and governance
+        type: talk
+        leads: [Natalie Baloy]
+      - time: "09:30"
+        title: Governance breakouts, one per space
+        type: working
+        description: >-
+          Who hosts and who governs. Data: sharing, protection, and open formats.
+          What persists: people, funding, and hosting after December.
+      - time: "10:50"
+        title: Coffee
+        type: break
+      - time: "11:10"
+        title: Report-backs
+        type: plenary
+      - time: "11:40"
+        title: Lunch
+        type: break
+      - time: "12:30"
+        title: "Prioritize: impact against effort"
+        type: working
+        description: >-
+          The room places candidate first projects on a two-by-two of impact and
+          effort.
+        leads: [Shiori Sasaki]
+      - time: "13:30"
+        title: The pilot and a phased roadmap, with owners
+        type: working
+        description: >-
+          Choose one pilot for 2027, sketch the phases beyond it, and name a working
+          group and its members.
+      - time: "14:15"
+        title: The joint statement
+        type: plenary
+        description: >-
+          The conveners read a draft prepared from Days 1 and 2. The room amends it,
+          and those willing sign.
+        leads: [John R. Delaney, Kate Moran, H. Gary Greene]
+      - time: "14:45"
+        title: Closing words
+        type: plenary
+      - time: "15:00"
         title: Close
         type: break

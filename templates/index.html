@@ -150,10 +150,12 @@
         <p class="tags-label">Existing capabilities</p>
         <ul class="tags">{% for t in m.existing %}<li>{{ t }}</li>{% endfor %}</ul>
         {% endif %}
+        {% if m.readiness %}
         <div class="meter" role="img" aria-label="Readiness: {{ m.readiness_label }}">
           <span class="segs">{% for i in range(m.readiness_max) %}<span class="seg{% if i < m.readiness %} on{% endif %}"></span>{% endfor %}</span>
           <span class="meter-label">{{ m.readiness_label }}</span>
         </div>
+        {% endif %}
         {% if m.note %}<p class="note">{{ m.note | md_inline }}</p>{% endif %}
       </li>
       {% endfor %}
@@ -182,7 +184,7 @@
     </div>
 
     {% set pn = modules.partnership %}
-    {% if pn %}
+    {% if pn and pn.published %}
     <aside class="callout">
       <p class="kicker">{{ pn.kicker }}</p>
       <h3>{{ pn.heading }}</h3>

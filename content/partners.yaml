@@ -34,15 +34,14 @@ organizations:
     tier: Supporters
     url: "https://www.onr.navy.mil/"
     logo: null
-    published: false
-    note: Residual grant funds support the workshop. Confirm whether ONR may be listed.
+    published: true
 
-  - name: Paros GeoHazards Center, UW College of the Environment
+  - name: Paros Center for Geohazards Research
     tier: Supporters
     url: null
     logo: null
-    published: false
-    note: Contributing support. Confirm listing and URL.
+    published: true
+    note: URL to add.
 
   - name: Circum-Pacific Council
     tier: Collaborators
@@ -56,7 +55,7 @@ organizations:
     url: "https://www.esri.com/"
     logo: null
     published: false
-    note: In discussion about an organizing and facilitation role on day 2. Confirm before listing.
+    note: Facilitates Days 2 and 3 in agenda v2.3. Ask Esri before listing them as a partner.
 
   - name: GAIA HazLab
     tier: Collaborators
