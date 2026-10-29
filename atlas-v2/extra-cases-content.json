@@ -1,0 +1,292 @@
+{
+  "note": "Narrative for the cases added in atlas v2. Every value and statement comes from the source named on it. Checked against the sources on 2026-10-28.",
+  "sources": {
+    "tokyoCarbon": {
+      "label": "Kubo and Kanda (2020), Coastal urbanization alters carbon cycling in Tokyo Bay, Scientific Reports",
+      "url": "https://doi.org/10.1038/s41598-020-77385-4",
+      "period": "Observations in 2011–2012 compared with the 1970s"
+    },
+    "tokyoCO2": {
+      "label": "Kubo, Maeda and Kanda (2017), A significant net sink for CO2 in Tokyo Bay, Scientific Reports",
+      "url": "https://doi.org/10.1038/srep44355",
+      "period": "Upwelling statistics for 2007–2010"
+    },
+    "tokyoHypoxia": {
+      "label": "Endo et al. (2023), Frontiers in Marine Science",
+      "url": "https://doi.org/10.3389/fmars.2022.1016199",
+      "period": "Seasonal pattern described in the study"
+    },
+    "tokyoSubsidence": {
+      "label": "IAH Commission on Groundwater in Urban Areas, Urban Groundwater Database: Tokyo",
+      "url": "https://www.utsc.utoronto.ca/~gwater/IAHCGUA/UGD/tokyo.html",
+      "period": "Subsidence record 1918–1987"
+    },
+    "msNps": {
+      "label": "National Park Service, Mississippi River facts",
+      "url": "https://www.nps.gov/miss/riverfacts.htm",
+      "period": "Reference values"
+    },
+    "msHypoxia": {
+      "label": "NOAA NCCOS, Below-average summer 2025 dead zone measured in Gulf",
+      "url": "https://coastalscience.noaa.gov/news/below-average-summer-2025-dead-zone-measured-in-gulf/",
+      "period": "Summer 2025 survey, released July 31, 2025"
+    },
+    "msLand": {
+      "label": "Couvillion et al. (2017), Land area change in coastal Louisiana (1932 to 2016), USGS SIM 3381",
+      "url": "https://pubs.usgs.gov/publication/sim3381",
+      "period": "1932–2016"
+    },
+    "msOldRiver": {
+      "label": "NASA Earthdata, A tale of two rivers",
+      "url": "https://www.earthdata.nasa.gov/news/feature-articles/tale-two-rivers",
+      "period": "Feature article; structure design values"
+    },
+    "nyEstuary": {
+      "label": "NYSDEC, Hudson River Estuary",
+      "url": "https://dec.ny.gov/nature/waterbodies/oceans-estuaries/hudson-estuary",
+      "period": "Program description"
+    },
+    "nyCso": {
+      "label": "NYSDEC, New York City combined sewer overflows",
+      "url": "https://dec.ny.gov/environmental-protection/water/cso/nyc-cso",
+      "period": "Program facts; 2023 long-term control plan modification"
+    },
+    "nyPcbs": {
+      "label": "US EPA, Hudson River PCBs Superfund site cleanup",
+      "url": "https://www.epa.gov/hudsonriverpcbs/hudson-river-cleanup",
+      "period": "Discharges ending 1977; listed 1984; dredging 2009–2015"
+    },
+    "nySeaLevel": {
+      "label": "NOAA Tides and Currents, relative sea level trend, The Battery (8518750)",
+      "url": "https://tidesandcurrents.noaa.gov/trends-and-extremes/main-product.html?tab=trends&plot=relative-sea-level-change&station-id=8518750",
+      "period": "Monthly means 1856–2025"
+    }
+  },
+  "cases": [
+    {
+      "id": "tokyo",
+      "name": "Tokyo Bay",
+      "kind": "Semi-enclosed bay of a megacity",
+      "question": "What reaches a bay when a megacity treats its wastewater?",
+      "tagline": "About 31 million people live around one shallow bay.",
+      "entry": 119,
+      "family": null,
+      "point": [
+        139.8,
+        35.55
+      ],
+      "facts": [
+        {
+          "value": "≈31 million",
+          "label": "People in the surrounding metropolitan area",
+          "scope": "Tokyo metropolitan area around the bay, as given in the study",
+          "source": "tokyoCarbon"
+        },
+        {
+          "value": "≈920 km²",
+          "label": "Bay area, mean depth 19 m",
+          "scope": "Bay as defined in the 2020 study; a 2017 study by the same group uses about 1,320 km²",
+          "source": "tokyoCarbon"
+        },
+        {
+          "value": "4.5 m",
+          "label": "Subsidence in parts of the Koto lowland",
+          "scope": "1918 to 1987, from confined groundwater withdrawal",
+          "source": "tokyoSubsidence"
+        }
+      ],
+      "lenses": {
+        "water": {
+          "title": "River water layers on top of the bay each summer.",
+          "text": "Stratification appears from May to September as river runoff and water temperatures rise. Bottom hypoxic and anoxic waters develop from early summer to autumn in the central bay and in navigation channels and borrow pits.",
+          "source": "tokyoHypoxia",
+          "path": [
+            "River runoff",
+            "Summer stratification",
+            "Bottom water cut off",
+            "Hypoxia"
+          ]
+        },
+        "life": {
+          "title": "Oxygen-poor bottom water sometimes rises to the surface.",
+          "text": "Coastal upwelling events, generally in the northeastern part of the bay in late summer, bring anoxic bottom water up and turn the water a milky turquoise as hydrogen sulfide oxidizes. From 2007 to 2010 these events were observed on 11.4 days a year on average, with a maximum area of 80 km².",
+          "source": "tokyoCO2",
+          "path": [
+            "Anoxic bottom water",
+            "Late-summer upwelling",
+            "Milky turquoise water"
+          ]
+        },
+        "people": {
+          "title": "Sewage treatment changed what the rivers deliver.",
+          "text": "Nutrient concentrations in the bay rose with urbanization of the watershed from the 1950s to the 1980s and fell after that as effluent and sewage treatment improved. Treated effluent discharged into the bay grew by 48% between 1974 and 2012. The study links changes in the bay's carbon cycling since the 1970s largely to sewage treatment.",
+          "source": "tokyoCarbon",
+          "path": [
+            "Urban growth",
+            "Sewage treatment",
+            "Less labile carbon",
+            "Changed carbon cycling"
+          ]
+        },
+        "change": {
+          "title": "The lowland sank below sea level.",
+          "text": "Confined groundwater withdrawal lowered the Tokyo lowland. Parts of the Koto area subsided 4.5 m from 1918 to 1987. Almost all of the lowland is below sea level and is protected by dikes and drainage systems. Withdrawal limits were tightened in 1975, and groundwater levels have risen since.",
+          "source": "tokyoSubsidence",
+          "path": [
+            "Groundwater withdrawal",
+            "Subsidence",
+            "Land below sea level",
+            "Dikes and drainage"
+          ]
+        }
+      }
+    },
+    {
+      "id": "neworleans",
+      "name": "New Orleans / Mississippi",
+      "kind": "Continental river and delta",
+      "question": "What does a delta city receive from half a continent upstream?",
+      "tagline": "The river drains about 40% of the continental United States past one delta city.",
+      "entry": 478,
+      "family": "mississippi",
+      "point": [
+        -90.07,
+        29.95
+      ],
+      "facts": [
+        {
+          "value": "3.2 million km²",
+          "label": "Mississippi River drainage area",
+          "scope": "About 40% of the continental United States; all or parts of 31 states and two Canadian provinces",
+          "source": "msNps"
+        },
+        {
+          "value": "4,402 sq mi",
+          "label": "Gulf hypoxic zone, summer 2025",
+          "scope": "Five-year average 4,755 sq mi; Hypoxia Task Force goal is a five-year average under 1,900 sq mi by 2035",
+          "source": "msHypoxia"
+        },
+        {
+          "value": "−4,833 km²",
+          "label": "Net land change in coastal Louisiana",
+          "scope": "1932 to 2016, about 25% of the 1932 land area",
+          "source": "msLand"
+        }
+      ],
+      "lenses": {
+        "water": {
+          "title": "A control structure decides where the river goes.",
+          "text": "By the 1940s the Atchafalaya had captured about a third of the Mississippi's flow. The Old River Control Structure is designed to send up to 30 percent of the Mississippi's flow down the Atchafalaya. The rest stays in the channel past Baton Rouge and New Orleans.",
+          "source": "msOldRiver",
+          "path": [
+            "Upper basin runoff",
+            "Old River Control",
+            "Mississippi channel",
+            "Gulf"
+          ]
+        },
+        "life": {
+          "title": "Nutrients from the basin starve the Gulf floor of oxygen.",
+          "text": "Excess nutrients from the Mississippi-Atchafalaya River Basin stimulate an overgrowth of algae in the Gulf. As the algae die and sink, they deplete oxygen near the bottom. Fish and shrimp leave the low-oxygen area.",
+          "source": "msHypoxia",
+          "path": [
+            "Basin nutrients",
+            "Algal overgrowth",
+            "Oxygen used at the bottom",
+            "Fish and shrimp leave"
+          ]
+        },
+        "people": {
+          "title": "One river connects many port cities.",
+          "text": "The Mississippi flows 2,350 miles from Lake Itasca to the Gulf and drains all or parts of 31 states and two Canadian provinces. The survey lists 14 port-metro entries in its Mississippi / Ohio group.",
+          "source": "msNps",
+          "path": [
+            "Minneapolis",
+            "St. Louis",
+            "Memphis",
+            "Baton Rouge",
+            "New Orleans"
+          ]
+        },
+        "change": {
+          "title": "Coastal Louisiana has lost a quarter of its land since 1932.",
+          "text": "From 1932 to 2016, coastal Louisiana had a net land change of about −4,833 km² (modeled estimate −5,197 ± 443 km²), about 25 percent of the 1932 land area.",
+          "source": "msLand"
+        }
+      }
+    },
+    {
+      "id": "newyork",
+      "name": "New York Harbor / Hudson",
+      "kind": "Tidal estuary and harbor",
+      "question": "What does a harbor city receive from its river and its own sewers?",
+      "tagline": "The Hudson is tidal for 153 miles above New York Harbor.",
+      "entry": 459,
+      "family": null,
+      "point": [
+        -74.02,
+        40.7
+      ],
+      "facts": [
+        {
+          "value": "≈18 billion gal",
+          "label": "Combined sewage discharged each year",
+          "scope": "From 398 overflow outfalls; about 60% of New York City has combined sewers",
+          "source": "nyCso"
+        },
+        {
+          "value": "200 miles",
+          "label": "Hudson River PCBs Superfund site",
+          "scope": "Hudson Falls to the Battery, listed in 1984",
+          "source": "nyPcbs"
+        },
+        {
+          "value": "1.16 in per decade",
+          "label": "Relative sea-level rise at the Battery",
+          "scope": "NOAA tide-gauge trend (±0.02), 1856–2025",
+          "source": "nySeaLevel"
+        }
+      ],
+      "lenses": {
+        "water": {
+          "title": "A river that flows two ways.",
+          "text": "The Hudson estuary stretches 153 miles from Troy to New York Harbor and usually has two high and two low tides a day. In spring the salt front, the leading edge of dilute sea water, sits downriver in the Tappan Zee; it moves north in summer and during droughts.",
+          "source": "nyEstuary",
+          "path": [
+            "Troy",
+            "Tidal Hudson",
+            "Salt front",
+            "New York Harbor"
+          ]
+        },
+        "life": {
+          "title": "PCBs from two factories reached 200 miles of river.",
+          "text": "During a 30-year period ending in 1977, about 1.3 million pounds of PCBs were discharged into the Hudson from two General Electric capacitor plants at Fort Edward and Hudson Falls. Most contaminated sediment sat in hot spots in a 40-mile stretch between Fort Edward and the Troy Dam. PCBs in the sediment affect fish and wildlife. Dredging ran from 2009 to fall 2015.",
+          "source": "nyPcbs",
+          "path": [
+            "Capacitor plants",
+            "River sediment",
+            "Fish and wildlife",
+            "Dredging 2009–2015"
+          ]
+        },
+        "people": {
+          "title": "When it rains, sewers overflow into the harbor.",
+          "text": "About 60% of New York City has a combined sewer system, with 398 overflow outfalls that discharge about 18 billion gallons of combined sewage a year. Under a 2023 plan modification, the city must cut overflows by 1.67 billion gallons a year by 2040.",
+          "source": "nyCso",
+          "path": [
+            "Rainfall",
+            "Combined sewers",
+            "398 outfalls",
+            "Harbor waters"
+          ]
+        },
+        "change": {
+          "title": "The sea at the Battery has been rising since 1856.",
+          "text": "NOAA's tide gauge at the Battery shows relative sea level rising 1.16 inches per decade (±0.02), from monthly means between 1856 and 2025.",
+          "source": "nySeaLevel"
+        }
+      }
+    }
+  ]
+}

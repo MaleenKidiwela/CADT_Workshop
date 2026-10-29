@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Urban Sea Atlas</title>
+<meta name="description" content="An interactive atlas of 583 port-metro entries, their watersheds and receiving waters, with six detailed case studies.">
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link href="vendor/maplibre-gl.css" rel="stylesheet">
+<link href="atlas.css?v=4" rel="stylesheet">
+</head>
+<body data-mode="explore">
+<header class="top">
+  <a class="brand" href="#" data-mode-link="explore" aria-label="Urban Sea Atlas home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 12c4-4 8-4 13 0s9 4 13 0M3 20c4-4 8-4 13 0s9 4 13 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span>Urban Sea <b>Atlas</b></span>
+  </a>
+  <nav class="modes" aria-label="Atlas mode">
+    <button data-mode-link="explore" aria-pressed="true">Explore</button>
+    <button data-mode-link="cases" aria-pressed="false"><span class="long">Case studies</span><span class="short">Cases</span></button>
+    <button data-mode-link="about" aria-pressed="false"><span class="long">About the data</span><span class="short">About</span></button>
+  </nav>
+  <div class="top-actions">
+    <button id="tourBtn" class="btn ghost" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4l10 6-10 6z" fill="currentColor"/></svg>Take the tour</button>
+    <button id="shareBtn" class="btn ghost" type="button" title="Copy a link to this view">Copy link</button>
+  </div>
+</header>
+
+<div id="map" aria-label="Map"></div>
+
+<aside id="left" class="panel left" aria-label="Controls"></aside>
+<aside id="right" class="panel right" aria-label="Details"></aside>
+
+<button id="leftToggle" class="sheet-toggle left-toggle" type="button" aria-controls="left">Filters</button>
+<button id="rightToggle" class="sheet-toggle right-toggle" type="button" aria-controls="right">Details</button>
+
+<div id="about" class="about" hidden></div>
+<div id="tooltip" class="tooltip" role="status" hidden></div>
+<div id="tour" class="tour" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="loading" class="loading">Loading the atlas…</div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="data/catalog.js?v=6"></script>
+<script src="data/world.js?v=4"></script>
+<script src="atlas.js?v=10"></script>
+</body>
+</html>

@@ -138,6 +138,10 @@ def build(out: Path = SITE) -> Path:
     (out / "index.html").write_text(
         env.get_template("index.html").render(**ctx, is_index=True), encoding="utf-8"
     )
+    # Same home page with the comment sidebar on, served at <site>/review.
+    (out / "review.html").write_text(
+        env.get_template("index.html").render(**ctx, is_index=True, review=True), encoding="utf-8"
+    )
     for page in ctx["pages"]:
         html = env.get_template("page.html").render(
             **ctx, is_index=False, page=page, page_html=render_markdown(page["body"])
@@ -148,9 +152,15 @@ def build(out: Path = SITE) -> Path:
     )
 
     shutil.copytree(ASSETS, out / "assets")
+    # The Urban Sea Atlas is a self-contained static app, published at atlas/.
+    atlas = ROOT / "atlas-v2" / "site"
+    if atlas.exists():
+        shutil.copytree(atlas, out / "atlas")
     (out / ".nojekyll").write_text("")
     base = ctx["site"]["url"]
     urls = [base] + [f"{base}{p['slug']}.html" for p in ctx["pages"]]
+    if (out / "atlas").exists():
+        urls.append(f"{base}atlas/")
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

@@ -6,6 +6,7 @@
   <title>{% block title %}{{ site.title }} · {{ site.name }}{% endblock %}</title>
   <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
   <meta name="author" content="{{ site.name }}">
+  {% if review %}<meta name="robots" content="noindex">{% endif %}
   <link rel="canonical" href="{{ site.url }}{% block canonical %}{% endblock %}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name }}">
@@ -109,18 +110,22 @@
 </dialog>
 
 <script>
-  // Review mode: open any page with ?review to load the Hypothesis comment
-  // sidebar. It stays on in that browser until ?review=off.
+  // Review mode loads the Hypothesis comment sidebar. It is on for review.html
+  // (served at <site>/review) and for any page opened with ?review. Links to
+  // other pages carry it along; the plain site never shows it.
   (function () {
-    var q = location.search, on;
-    try {
-      if (/[?&]review=off\b/.test(q)) localStorage.removeItem('cadt-review');
-      else if (/[?&]review\b/.test(q)) localStorage.setItem('cadt-review', '1');
-      on = localStorage.getItem('cadt-review') === '1';
-    } catch (e) {
-      on = /[?&]review\b/.test(q) && !/[?&]review=off\b/.test(q);
-    }
+    // Older builds remembered review mode in localStorage; clear that.
+    try { localStorage.removeItem('cadt-review'); } catch (e) {}
+    var on = {{ 'true' if review else 'false' }} || /[?&]review\b/.test(location.search);
     if (!on) return;
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('a[href]').forEach(function (a) {
+        var h = a.getAttribute('href'), m = h.match(/^([\w-]+)\.html(#.*)?$/);
+        if (!m) return;
+        a.setAttribute('href', m[1] === 'index' ? 'review.html' + (m[2] || '')
+                                               : m[1] + '.html?review' + (m[2] || ''));
+      });
+    });
     // Start with the panel open; its collapsed tab is easy to miss.
     window.hypothesisConfig = function () { return { openSidebar: true }; };
     var s = document.createElement('script');
