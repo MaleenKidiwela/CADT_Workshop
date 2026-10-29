@@ -1344,6 +1344,7 @@ function renderAbout() {
     </div>
     <h2>The survey</h2>
     <p>Survey compiled by John R. Delaney and Ryan Delaney, 2026. Source file: ${esc(C.source.filename)}. Definitions follow ${esc(C.source.definitionReference.replace(/\.$/, ''))}. Population, GDP and container figures are approximate source estimates. Scores of 1 to 5 are the survey's own rubric.</p>
+    ${(C.excluded || []).length ? `<p>The workbook has ${k.workbookEntries} rows; the atlas shows ${k.entries}. Left out: ${C.excluded.map(x => `<b>${esc(x.name)}</b>. ${esc(x.reason)}`).join(' ')}</p>` : ''}
     <ul>${C.limits.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
     <p>The Patterns tab describes regularities in the survey. Its numbers are computed from these ${k.entries} entries when the tab opens. They describe the survey, with the limits above, not measured conditions in the world.</p>
     <h2>How places are mapped</h2>
@@ -1418,7 +1419,7 @@ function loadSystems() {
   if (sysPending) return sysPending;
   sysPending = new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'data/systems.js?v=2';
+    s.src = 'data/systems.js?v=3';
     s.onload = () => {
       const d = window.ATLAS_SYSTEMS;
       delete window.ATLAS_SYSTEMS;

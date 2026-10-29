@@ -30,7 +30,7 @@ works). Links copied with "Copy link" reopen the same view.
 
 ## What it does
 
-- **Explore.** All 583 entries on a 3D globe, sized by population, GDP or
+- **Explore.** All 582 entries on a 3D globe, sized by population, GDP or
   container volume and colored by water setting, region, cargo, marine or
   inland, or ranking band. Live filters and search with suggestions. Click a
   legend item to hide a category.
@@ -55,7 +55,7 @@ works). Links copied with "Copy link" reopen the same view.
   whole watershed. Each system is drawn as its watershed plus its sea, colored
   by size class, climate zone, countries, or land draining into each km² of
   sea, with its own Patterns tab. Explore is unchanged: it still works on the
-  583 port-metro entries.
+  582 port-metro entries.
 - **Case studies.** Nine systems, including Tokyo Bay, New Orleans / Mississippi and New York Harbor / Hudson. Drainage units are colored by WRI Aqueduct
   water stress, depletion or variability. Click any unit to light up
   everything upstream, outline the path downstream, and list the stress mix and

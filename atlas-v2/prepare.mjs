@@ -107,6 +107,10 @@ const feature = (g, properties, id) => ({type: 'Feature', ...(id !== undefined ?
 const num = v => (v === null || v === undefined || String(v).trim() === '' || !Number.isFinite(Number(v)) ? null : Number(v));
 
 // ---------- catalog ----------
+// Survey rows left out of the atlas, each with the reason shown on the About page.
+const EXCLUDED = new Map([
+  [470, 'Roberts Bank is part of the Port of Vancouver, which is already an entry. Its containers (Deltaport) are counted in Vancouver\'s 3.5 million TEU, so keeping both would count them twice. The survey review of 28 October 2026 flagged the overlap.'],
+]);
 const locById = new Map(locations.records.map(r => [r.id, r]));
 const caseByEntry = new Map(workspace.catalogLinks.map(l => [l.recordId, l.caseId]));
 for (const c of [...studio.cases, ...extraContent.cases]) if (!caseByEntry.has(c.entry)) caseByEntry.set(c.entry, c.id);
@@ -116,7 +120,7 @@ for (const g of analysis.groups) for (const id of g.entryIds) {
   groupsByEntry.get(id).push(g.id);
 }
 
-const entries = rows.map(r => {
+const entries = rows.filter(r => !EXCLUDED.has(r.id)).map(r => {
   const loc = locById.get(r.id);
   const ranks = {};
   for (const [axis, v] of Object.entries(rankings.recordIndex[r.id]?.axes || {})) ranks[axis] = [v.rank, v.band, v.value];
@@ -142,6 +146,25 @@ const entries = rows.map(r => {
   };
 });
 
+// Ranks came from the full workbook. Close the gaps left by excluded rows: an
+// entry's rank becomes 1 + the number of kept entries ranked strictly above it.
+for (const {id: axis} of rankings.axes) {
+  const old = entries.filter(e => e.ranks[axis]).map(e => e.ranks[axis][0]).sort((a, b) => a - b);
+  for (const e of entries) {
+    const r = e.ranks[axis];
+    if (!r) continue;
+    let lo = 0, hi = old.length;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (old[m] < r[0]) lo = m + 1; else hi = m; }
+    r[0] = lo + 1;
+  }
+}
+const excluded = rows.filter(r => EXCLUDED.has(r.id)).map(r => ({id: r.id, name: r.name, country: r.country, reason: EXCLUDED.get(r.id)}));
+const counts = {...analysis.counts, ...locations.counts, entries: entries.length, workbookEntries: rows.length};
+for (const x of excluded) {
+  const st = locById.get(x.id)?.status || 'unresolved';
+  if (typeof counts[st] === 'number') counts[st] -= 1;
+}
+
 const axes = rankings.axes.map(a => ({
   id: a.id, name: a.name, key: a.key, unit: a.unit, description: a.description,
   method: a.method, bands: a.bands.map(b => b.label),
@@ -162,10 +185,11 @@ const cases = [...studio.cases, ...extraContent.cases].map(c => {
 
 const catalog = {
   source: {filename: source.filename, definitionReference: source.definitionReference, sha256: source.sha256},
-  counts: {...analysis.counts, ...locations.counts},
+  counts,
+  excluded,
   limits: analysis.limits,
   entries, axes,
-  groups: analysis.groups.map(g => ({id: g.id, name: g.name, entryIds: g.entryIds})),
+  groups: analysis.groups.map(g => ({id: g.id, name: g.name, entryIds: g.entryIds.filter(id => !EXCLUDED.has(id))})),
   cases,
   sources: {...studio.sources, ...extraContent.sources},
   lakes: studio.lakes,

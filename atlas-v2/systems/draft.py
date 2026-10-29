@@ -4,7 +4,7 @@
 
 A system is one or more port cities, the proximal sea connected to the open
 ocean, and the entire watershed draining to it. This script applies that
-definition mechanically to the 583 survey entries and reports three variants
+definition mechanically to the 582 survey entries in the atlas and reports three variants
 of the one choice the paper leaves open: how large a "proximal sea" can be.
 
 Inputs: atlas-v2/site/data/catalog.js (survey entries and mapped points),
