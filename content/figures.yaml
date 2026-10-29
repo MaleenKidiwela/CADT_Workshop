@@ -58,8 +58,9 @@ figures:
       modules: climate and weather, watersheds and runoff, hazards, pollution of
       air and water, hydrodynamics, and ports and supply chains.
     caption: >-
-      Six starting modules of a complex adaptive digital twin for an Urban Sea
-      System. Each is a domain model owned by experts and coupled to the others.
+      The six modules first proposed for a complex adaptive digital twin of an
+      Urban Sea System. Ecological systems has since been added as a seventh. Each
+      module is a domain model owned by experts and coupled to the others.
     credit: J.R. Delaney
     published: true
 
