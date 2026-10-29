@@ -329,6 +329,11 @@ dl.facts dd { margin: 0; }
 .toast { position: fixed; z-index: 45; left: 50%; top: calc(var(--top) + 16px); transform: translateX(-50%); background: #102a33; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); }
 .loading { position: fixed; inset: var(--top) 0 0 0; z-index: 50; display: grid; place-items: center; background: #dfe9ee; font-family: var(--serif); font-size: 20px; color: var(--ink-2); transition: opacity .4s; }
 .loading.done { opacity: 0; pointer-events: none; }
+.loading.failed { font-family: inherit; font-size: 16px; padding: 24px 16px; }
+.loading.failed > div { max-width: 34rem; display: grid; gap: 10px; line-height: 1.5; }
+.loading.failed b { font-family: var(--serif); font-size: 20px; font-weight: 600; }
+.loading.failed .ua { font-size: 13px; color: var(--ink-2); }
+.loading.failed code { display: block; margin-top: 4px; padding: 6px 8px; background: #fff; border-radius: 4px; word-break: break-all; user-select: all; }
 
 /* ---------- narrow screens ---------- */
 @media (max-width: 900px) {

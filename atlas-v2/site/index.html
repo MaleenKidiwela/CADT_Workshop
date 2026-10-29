@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link href="vendor/maplibre-gl.css" rel="stylesheet">
-<link href="atlas.css?v=7" rel="stylesheet">
+<link href="atlas.css?v=8" rel="stylesheet">
 </head>
 <body data-mode="explore">
 <header class="top">
@@ -48,6 +48,29 @@
 <!-- MapLibre from Cloudflare's CDN (fast worldwide); the bundled copy is the fallback. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/maplibre-gl.js" integrity="sha384-5+cfbwT0iiub6VsQAdn6yz16nr6sDiQoHx6tm4O8OVYXHYOxcffFmCJBL0dgdvGp" crossorigin="anonymous"></script>
 <script>window.maplibregl || document.write('<script src="vendor/maplibre-gl.js"><\/script>');</script>
+<script>
+// If the map cannot start, say why on the loading screen instead of loading forever.
+// atlas.js adds .done to #loading once the map style has loaded.
+(function () {
+  var shown = false;
+  function fail(why) {
+    var el = document.getElementById('loading');
+    if (shown || !el || el.classList.contains('done')) return;
+    shown = true;
+    var ua = String(navigator.userAgent).replace(/[<>&]/g, '');
+    el.classList.add('failed');
+    el.innerHTML = '<div><p><b>The atlas could not start.</b></p><p>' + why + '</p>' +
+      '<p>Try an up-to-date Chrome, Edge, Firefox or Safari, and check that hardware acceleration is on in the browser settings.</p>' +
+      '<p class="ua">If it still fails, send this line to the site team:<br><code>' + ua + '</code></p></div>';
+  }
+  var gl = null;
+  try { gl = document.createElement('canvas').getContext('webgl2'); } catch (e) { gl = null; }
+  if (!window.maplibregl) fail('The map library did not load. A firewall or content blocker may be stopping it.');
+  else if (!gl) fail('This browser has WebGL 2 turned off or does not support it. The map needs it to draw the globe.');
+  window.addEventListener('error', function (e) { fail('A script error stopped the map: ' + String(e.message || 'unknown error').replace(/[<>&]/g, '') + '.'); });
+  setTimeout(function () { fail('The map did not start within 30 seconds. The connection may be very slow, or something on this network is blocking it.'); }, 30000);
+})();
+</script>
 <script src="data/catalog.js?v=8"></script>
 <script src="data/world.js?v=4"></script>
 <script src="atlas.js?v=19"></script>
