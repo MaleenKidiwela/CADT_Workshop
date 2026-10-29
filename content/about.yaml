@@ -51,6 +51,21 @@ stats:
 
 figure: urban-seas-global
 
+# Link to the Urban Sea Atlas, shown under the world map.
+atlas:
+  label: Explore the Urban Sea Atlas
+  text: >-
+    The global survey of Urban Sea Systems on an interactive map, with the
+    watershed behind each port city and nine case studies.
+  url: atlas/
+  # Still image, and a looping turn of the atlas globe (frames captured from
+  # the atlas). The still shows when the viewer prefers reduced motion.
+  image: assets/img/atlas-globe-still.webp
+  animation: assets/img/atlas-globe.webp
+  image_alt: >-
+    The globe from the Urban Sea Atlas, turning slowly, with the survey's port
+    cities marked as colored dots.
+
 foundations:
   kicker: What complex adaptive means
   heading: Federated, bounded, governed from within

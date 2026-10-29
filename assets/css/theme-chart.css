@@ -95,6 +95,11 @@ p, .lead, figcaption { text-wrap: pretty; }
 .cmp-stage { border-radius: var(--radius-sm); box-shadow: none; }
 .cmp-play { border-radius: var(--radius-sm); }
 
+/* ---------- atlas portal ---------- */
+.atlas-portal { border-radius: var(--radius); }
+.ap-kicker { text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
+.ap-title { font-stretch: 87.5%; font-weight: 650; }
+
 /* ---------- numbers ---------- */
 .stat .num { font-weight: 600; color: var(--navy); }
 .module .num { background: none; color: var(--teal); width: auto; height: auto; font-size: 1.7rem; font-weight: 600; }

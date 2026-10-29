@@ -93,6 +93,22 @@
     {% set f = fig.get(about.figure) %}
     {% set figclass = 'figure-wide' %}
     {% include 'partials/figure.html' %}
+    {% if about.atlas %}
+    <a class="atlas-portal" href="{{ about.atlas.url }}">
+      <span class="ap-body">
+        <span class="ap-kicker">Urban Sea Atlas</span>
+        <span class="ap-title">{{ about.atlas.label }}</span>
+        <span class="ap-text">{{ about.atlas.text }}</span>
+        <span class="ap-go">Open the atlas <svg class="ic"><use href="#i-arrow"/></svg></span>
+      </span>
+      {% if about.atlas.image %}
+      <picture class="ap-media">
+        {% if about.atlas.animation %}<source srcset="{{ about.atlas.animation }}" type="image/webp" media="(prefers-reduced-motion: no-preference)">{% endif %}
+        <img class="ap-img" src="{{ about.atlas.image }}" alt="{{ about.atlas.image_alt }}" loading="lazy" width="480" height="480">
+      </picture>
+      {% endif %}
+    </a>
+    {% endif %}
   </div>
 </section>
 

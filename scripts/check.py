@@ -151,6 +151,11 @@ def main() -> int:
     for i, s in enumerate(about.get("stats") or []):
         req(s, ["value", "label"], f"about.yaml → stats[{i}]")
     check_fig_ref(about.get("figure"), "about.yaml → figure")
+    if about.get("atlas"):
+        req(about["atlas"], ["label", "text", "url"], "about.yaml → atlas")
+        check_url(about["atlas"].get("url"), "about.yaml → atlas")
+        check_file(about["atlas"].get("image"), "about.yaml → atlas")
+        check_file(about["atlas"].get("animation"), "about.yaml → atlas")
     proto = about.get("prototype") or {}
     req(proto, ["kicker", "heading", "body", "points"], "about.yaml → prototype")
     check_fig_ref(proto.get("figure"), "about.yaml → prototype.figure")
