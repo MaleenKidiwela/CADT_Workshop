@@ -21,7 +21,7 @@ people:
     title: Professor Emeritus, School of Oceanography
     affiliation: University of Washington
     group: Conveners
-    photo: null
+    photo: assets/img/people/john-delaney.jpg  # UW School of Oceanography profile
     bio: >-
       Oceanographer and lead architect of the Regional Cabled Array, the interactive
       ocean observatory off the Pacific Northwest coast. Co-author of the Urban Sea
@@ -35,7 +35,7 @@ people:
     title: ""
     affiliation: Ocean Networks Canada / University of Victoria
     group: Conveners
-    photo: null
+    photo: assets/img/people/kate-moran.jpg  # University of Victoria profile
     bio: >-
       Ocean Networks Canada operates the cabled ocean observatories off British
       Columbia, including arrays in the Strait of Georgia and Saanich Inlet.
@@ -49,7 +49,7 @@ people:
     title: Marine geologist, Center for Habitat Studies
     affiliation: Moss Landing Marine Laboratories, San José State University
     group: Conveners
-    photo: null
+    photo: assets/img/people/gary-greene.jpg  # MLML Center for Habitat Studies page
     bio: >-
       Marine geologist and seafloor habitat mapper. Co-author, with John Delaney, of
       the 2025 characterization of Urban Sea Systems.
@@ -60,7 +60,7 @@ people:
     title: Former Administrator
     affiliation: National Oceanic and Atmospheric Administration
     group: Speakers
-    photo: null
+    photo: assets/img/people/richard-spinrad.jpg  # NOAA official portrait, public domain
     bio: >-
       Opening keynote on Day 1: Urban Seas, digital twins, and the blue (and new
       blue) economy.

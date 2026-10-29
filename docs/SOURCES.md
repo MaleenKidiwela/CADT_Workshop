@@ -27,6 +27,20 @@ the organizers and kept in `materials/` (private, not committed).
 - Global Indigenous Data Alliance. CARE Principles for Indigenous Data
   Governance. <https://www.gida-global.org/care>
 
+## Portraits
+
+Files in `assets/img/people/`, cropped square from public profile photos.
+
+- John R. Delaney: UW School of Oceanography profile.
+  <https://www.ocean.washington.edu/home/John_Delaney>
+- Kate Moran: University of Victoria faculty profile.
+  <https://www.uvic.ca/science/seos/people/faculty/profiles/moran-kate.php>
+- H. Gary Greene: Moss Landing Marine Laboratories, Center for Habitat
+  Studies. <https://mlml.sjsu.edu/habitat/?p=57>
+- Richard Spinrad: official NOAA portrait, public domain (U.S. Department of
+  Commerce), via Wikimedia Commons.
+  <https://commons.wikimedia.org/wiki/File:Richard_W._Spinrad,_NOAA_Administrator.jpg>
+
 ## Figure registry
 
 Each figure in `content/figures.yaml` carries a `credit`. Figures from the
