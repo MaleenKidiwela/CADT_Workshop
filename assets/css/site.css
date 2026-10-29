@@ -420,9 +420,9 @@ figcaption .credit::before { content: '· '; }
 .gallery .fig-btn img { aspect-ratio: 16 / 10; object-fit: cover; }
 
 /* ---------- lightbox ---------- */
-.lightbox { border: 0; border-radius: var(--radius); padding: 1rem; max-width: min(1100px, 94vw); background: var(--paper); box-shadow: var(--shadow-lg); }
+.lightbox { margin: auto; border: 0; border-radius: var(--radius); padding: 1rem; max-width: min(1100px, 94vw); background: var(--paper); box-shadow: var(--shadow-lg); }
 .lightbox::backdrop { background: rgba(8, 26, 46, 0.78); backdrop-filter: blur(4px); }
-.lightbox img { max-height: 78vh; width: auto; max-width: 100%; margin: 0 auto; border-radius: var(--radius-sm); }
+.lightbox img { max-height: calc(100vh - 13rem); width: auto; max-width: 100%; margin: 0 auto; border-radius: var(--radius-sm); }
 .lightbox .lb-caption { margin-top: 0.8rem; font-size: 0.95rem; }
 .lightbox .lb-credit { font-size: 0.8rem; color: var(--stone); }
 .lb-close { position: absolute; top: 0.6rem; right: 0.6rem; width: 38px; height: 38px; border-radius: 50%; background: var(--fog); display: flex; align-items: center; justify-content: center; }
