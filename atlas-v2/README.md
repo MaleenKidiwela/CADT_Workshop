@@ -12,8 +12,10 @@ python3 -m http.server 8002 --directory atlas-v2/site
 # then visit http://localhost:8002
 ```
 
-MapLibre GL 5.24 is bundled in `site/vendor/` (BSD-3 license included), so
-the page does not wait on a CDN. The globe view draws a small Natural Earth
+MapLibre GL 5.24 loads from cdnjs (Cloudflare) with a subresource-integrity
+check; if that fails, the page uses the identical copy bundled in
+`site/vendor/` (BSD-3 license included). GitHub Pages was slow to serve the
+1 MB library from some locations. The globe view draws a small Natural Earth
 world layer (`site/data/world.js`); street-detail tiles from OpenFreeMap load
 only once you zoom in past level 3.4, because their zoomed-out tiles are over
 1 MB each. The basemap tiles and fonts need an internet connection. Without

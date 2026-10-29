@@ -280,7 +280,12 @@ map.on('style.load', () => { clearTimeout(styleTimer); addAtlasLayers(); $('#loa
 // milliseconds since navigation, for checking load speed in the console
 window.atlasTiming = {script: Math.round(performance.now())};
 map.once('style.load', () => { atlasTiming.style = Math.round(performance.now()); });
-map.on('load', () => { atlasTiming.load = Math.round(performance.now()); startSpin(); });
+map.on('load', () => {
+  atlasTiming.load = Math.round(performance.now());
+  mapReady = true;
+  if (pendingFit) { const [b, o] = pendingFit; pendingFit = null; fitBox(b, {...o, duration: 0}); }
+  startSpin();
+});
 map.once('idle', () => { atlasTiming.idle = Math.round(performance.now()); setTimeout(prefetchCases, 1500); });
 
 function refreshEntries() {
@@ -828,9 +833,17 @@ function prefetchCases() {
   };
   next();
 }
+// Camera moves wait for the map's first load; before that the globe camera
+// is not ready and fitBounds throws.
+let mapReady = false, pendingFit = null;
 function fitBox(b, opts = {}) {
   if (!b) return;
-  map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: padding(), duration: 1200, essential: true, ...opts});
+  if (!mapReady) { pendingFit = [b, opts]; return; }
+  try {
+    map.fitBounds([[b[0], b[1]], [b[2], b[3]]], {padding: padding(), duration: 1200, essential: true, ...opts});
+  } catch (_) {
+    map.jumpTo({center: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2], zoom: 4});
+  }
 }
 function upstreamOf(d, id) {
   const out = [id], seen = new Set(out);

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Urban Sea Atlas</title>
 <meta name="description" content="An interactive atlas of 583 port-metro entries, their watersheds and receiving waters, with six detailed case studies.">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,9 +44,11 @@
 <div id="toast" class="toast" role="status" hidden></div>
 <div id="loading" class="loading">Loading the atlas…</div>
 
-<script src="vendor/maplibre-gl.js"></script>
+<!-- MapLibre from Cloudflare's CDN (fast worldwide); the bundled copy is the fallback. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/maplibre-gl.js" integrity="sha384-5+cfbwT0iiub6VsQAdn6yz16nr6sDiQoHx6tm4O8OVYXHYOxcffFmCJBL0dgdvGp" crossorigin="anonymous"></script>
+<script>window.maplibregl || document.write('<script src="vendor/maplibre-gl.js"><\/script>');</script>
 <script src="data/catalog.js?v=6"></script>
 <script src="data/world.js?v=4"></script>
-<script src="atlas.js?v=10"></script>
+<script src="atlas.js?v=11"></script>
 </body>
 </html>
