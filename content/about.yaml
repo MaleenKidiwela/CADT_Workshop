@@ -1,14 +1,17 @@
 # ---------------------------------------------------------------------------
 # Why the workshop exists, the key numbers, and the Salish Sea prototype.
 # ---------------------------------------------------------------------------
-kicker: Why this workshop
-heading: Urban Sea Systems are coupled. Their governance is not.
+kicker: Why host such a workshop?
+heading: Urban Sea Systems are economic engines in a global trading market.
 lead: >-
-  Urban Sea Systems run from mountain headwaters through rivers, estuaries, and
-  port cities to the coastal ocean. More than five hundred of them line the world's
-  coasts, and the global inventory lists 583. They hold a large share of the human population, organize much of the
-  global economy, and are governed in pieces that do not match the scales on which
-  water, sediment, organisms, goods, and information actually move.
+  They are abundant, and they are hot spots of pollution in both the atmosphere
+  and the ocean. Urban Sea Systems are human-natural ecological enclaves that
+  extend from mountain headwaters through rivers, estuaries, and port cities into
+  the coastal ocean. More than five hundred of them line the world's coasts, and
+  our global inventory lists 583. They enclose a large share of the human
+  population; they organize much of the global economy; and they are governed in
+  sectors that do not match the scales on which water, sediment, organisms, goods,
+  and information actually flow.
 body: >-
   A digital twin, in the sense used here, is not one model or one dashboard. It is a
   persistent, continuously updated set of domain models, each owned by the experts
@@ -30,14 +33,15 @@ pillars:
     text: >-
       Currents, rivers, and storms ignore borders. Land use, fisheries, water
       quality, transport, and emergency management are each managed well in
-      isolation, and rarely together. Cumulative and cascading risks fall through
-      the gaps.
+      isolation, and rarely together. Cumulative and cascading risks can fall
+      through the gaps.
   - icon: twin
     title: Digital twins as infrastructure
     text: >-
-      Shared, continuously updated representations of system conditions let
-      existing institutions see linkages they could not see before, test what-if
-      questions, and coordinate without waiting for governance to be redesigned.
+      Shared, continuously updated representations of all interacting sub-systems
+      and conditions let existing institutions easily visualize all important
+      linkages they could not readily resolve before, pose "what if" questions, and
+      cooperate interactively without waiting for governance to be redesigned.
 
 stats:
   - value: "500+"
