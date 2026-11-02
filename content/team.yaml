@@ -80,17 +80,34 @@ people:
       - {label: GitHub, url: "https://github.com/mdenolle"}
     published: true
 
-  # ---- Not yet confirmed for public listing. Flip `published` once agreed. ----
   - name: William Wilcock
-    role: Invited speaker
+    role: Organizing committee
     title: Professor, School of Oceanography
     affiliation: University of Washington
-    group: Advisors
-    photo: null
-    bio: ""
-    published: false
-    note: Asked to speak on geohazards and the Paros GeoHazards Center. Confirm role and wording.
+    group: Organizing committee
+    photo: assets/img/people/william-wilcock.jpg  # UW School of Oceanography profile
+    bio: >-
+      Marine seismologist. Studies ocean volcanoes, uses seafloor seismic networks
+      to follow baleen whales, and works to improve seismic and geodetic monitoring
+      of the Cascadia subduction zone.
+    published: true
 
+  - name: Maleen Kidiwela
+    role: Organizing committee
+    title: Research Associate, School of Oceanography
+    affiliation: University of Washington
+    group: Organizing committee
+    photo: assets/img/people/maleen-kidiwela.jpg  # GitHub profile picture
+    bio: >-
+      Seismologist working on ambient-noise imaging, ocean-bottom instruments, and
+      real-time monitoring of submarine volcanism through the Ocean Observatories
+      Initiative. Built this website and the Urban Sea Atlas.
+    links:
+      - {label: Website, url: "https://maleenkidiwela.github.io/"}
+      - {label: GitHub, url: "https://github.com/MaleenKidiwela"}
+    published: true
+
+  # ---- Not yet confirmed for public listing. Flip `published` once agreed. ----
   - name: Ed Saade
     role: Advisor
     title: ""
