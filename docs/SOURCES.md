@@ -42,9 +42,8 @@ Files in `assets/img/people/`, cropped square from public profile photos.
   <https://commons.wikimedia.org/wiki/File:Richard_W._Spinrad,_NOAA_Administrator.jpg>
 - William Wilcock: UW School of Oceanography profile (photo, title, research).
   <https://www.ocean.washington.edu/home/William_Wilcock>
-- Maleen Kidiwela: GitHub profile picture; title from the Wilcock lab listing
-  on the UW School of Oceanography profile above; bio from
-  <https://maleenkidiwela.github.io/>.
+- Maleen Kidiwela: GitHub profile picture; title and bio supplied by
+  Maleen Kidiwela (November 2026).
 
 ## Venue and travel
 

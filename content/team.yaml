@@ -94,14 +94,13 @@ people:
 
   - name: Maleen Kidiwela
     role: Organizing committee
-    title: Research Associate, School of Oceanography
+    title: Postdoctoral Scholar, COSZO
     affiliation: University of Washington
     group: Organizing committee
     photo: assets/img/people/maleen-kidiwela.jpg  # GitHub profile picture
     bio: >-
-      Seismologist working on ambient-noise imaging, ocean-bottom instruments, and
-      real-time monitoring of submarine volcanism through the Ocean Observatories
-      Initiative. Built this website and the Urban Sea Atlas.
+      Seismologist working on Cascadia Offshore Subduction Zone Observatory data
+      flow, data QA/QC systems, and agentic AI workflows for geophysics.
     links:
       - {label: Website, url: "https://maleenkidiwela.github.io/"}
       - {label: GitHub, url: "https://github.com/MaleenKidiwela"}
