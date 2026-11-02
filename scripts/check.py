@@ -252,6 +252,43 @@ def main() -> int:
         if o.get("published", True):
             check_file(o.get("logo"), where)
 
+    # ---- registration ---------------------------------------------------
+    reg = data["register"]
+    req(reg, ["title", "description", "open", "fields", "success", "privacy"], "register.yaml")
+    if not isinstance(reg.get("open"), bool):
+        err("register.yaml → open", "must be true or false")
+    if reg.get("endpoint"):
+        check_url(reg["endpoint"], "register.yaml → endpoint")
+        if not str(reg["endpoint"]).startswith("https://script.google.com/"):
+            warn("register.yaml → endpoint", "expected a Google Apps Script web app URL (https://script.google.com/.../exec)")
+    elif reg.get("open"):
+        warn("register.yaml → endpoint", "empty: the form shows but cannot send responses")
+    names = set()
+    for i, f in enumerate(reg.get("fields") or []):
+        w = f"register.yaml → fields[{i}]"
+        req(f, ["name", "label", "type"], w)
+        if f.get("type") not in ("text", "email", "textarea", "select", "radio"):
+            err(w, f"unknown type {f.get('type')!r}")
+        if f.get("type") in ("select", "radio") and not all(isinstance(o, str) for o in f.get("options") or [None]):
+            err(w, "options must be a non-empty list of text (quote Yes and No)")
+        if f.get("name") in names or f.get("name") == "website":
+            err(w, f"duplicate or reserved name {f.get('name')!r}")
+        names.add(f.get("name"))
+    if not {"name", "email"} <= names:
+        err("register.yaml → fields", "needs fields named name and email")
+    gs = ROOT / "scripts" / "registration.gs"
+    if gs.exists():
+        src = gs.read_text(encoding="utf-8")
+        def gs_list(const):
+            m = re.search(rf"const {const} = \[(.*?)\];", src, re.S)
+            return re.findall(r"'([^']+)'", m.group(1)) if m else None
+        order = [f.get("name") for f in reg.get("fields") or []]
+        if gs_list("FIELDS") != order:
+            err("scripts/registration.gs → FIELDS", f"must match register.yaml field names in order: {order}")
+        required = [f.get("name") for f in reg.get("fields") or [] if f.get("required")]
+        if sorted(gs_list("REQUIRED") or []) != sorted(required):
+            err("scripts/registration.gs → REQUIRED", f"must match the required fields in register.yaml: {required}")
+
     # ---- venue, faq, resources ------------------------------------------
     venue = data["venue"]
     req(venue, ["kicker", "heading", "venue", "travel"], "venue.yaml")

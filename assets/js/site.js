@@ -206,6 +206,57 @@
     }, { once: true });
   });
 
+  // Day 1 registration form (register.html). Sends the answers as JSON to the
+  // Apps Script web app in data-endpoint. A text/plain body keeps it a simple
+  // request, so the browser does not need a CORS preflight that Apps Script
+  // cannot answer.
+  var reg = document.getElementById('reg-form');
+  if (reg) {
+    var status = reg.querySelector('.reg-status');
+    var submit = reg.querySelector('[type="submit"]');
+    var started = Date.now();
+    var say = function (msg, isError) { status.textContent = msg; status.classList.toggle('is-error', !!isError); };
+    // Clear a field's error mark as soon as it is filled in.
+    reg.addEventListener('input', function (e) {
+      var el = e.target;
+      var group = el.type === 'radio' ? reg.querySelectorAll('input[name="' + el.name + '"]') : [el];
+      group.forEach(function (g) { if (g.getAttribute('aria-invalid') === 'true' && (el.type === 'radio' || el.checkValidity())) g.setAttribute('aria-invalid', 'false'); });
+    });
+    reg.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var firstBad = null;
+      reg.querySelectorAll('input, select, textarea').forEach(function (el) {
+        if (el.name === 'website') return;
+        var ok = el.checkValidity();
+        if (el.type === 'radio') {
+          ok = !el.required || !!reg.querySelector('input[name="' + el.name + '"]:checked');
+        }
+        el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok && !firstBad) firstBad = el;
+      });
+      if (firstBad) { say('Please fill in the required fields marked with *.', true); firstBad.focus(); return; }
+      var endpoint = reg.getAttribute('data-endpoint');
+      if (!endpoint) { say('Registration is not connected yet. Please try again later.', true); return; }
+      var data = { elapsed_ms: Date.now() - started };
+      new FormData(reg).forEach(function (v, k) { data[k] = String(v).trim(); });
+      submit.disabled = true;
+      say('Sending…');
+      fetch(endpoint, { method: 'POST', body: JSON.stringify(data) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+          reg.hidden = true;
+          var done = document.getElementById('reg-done');
+          done.hidden = false;
+          done.focus();
+        })
+        .catch(function () {
+          submit.disabled = false;
+          say('Something went wrong and your registration was not saved. Please try again, or email the contact in the footer.', true);
+        });
+    });
+  }
+
   // Footer year.
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
 })();

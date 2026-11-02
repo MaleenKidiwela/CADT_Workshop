@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% set reg = register %}
+{% set day1 = program.days[0] %}
+{% block title %}{{ reg.title }} · {{ site.name }}{% endblock %}
+{% block description %}{{ reg.description }}{% endblock %}
+{% block canonical %}register.html{% endblock %}
+{% block bodyclass %}page{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">{{ reg.kicker }}</p>
+    <h1>{{ reg.title }}</h1>
+    <p class="lead">{{ reg.description }}</p>
+  </div>
+</section>
+<section class="section section-paper">
+  <div class="wrap reg-split">
+    <aside class="reg-facts">
+      <h2>{{ day1.label }}: {{ day1.theme | lower }}</h2>
+      <ul class="reg-meta">
+        <li><svg class="ic"><use href="#i-calendar"/></svg><span>{{ day1.date_label }}</span></li>
+        <li><svg class="ic"><use href="#i-clock"/></svg><span>{{ day1.sessions[0].time }} registration and coffee, program until about {{ day1.sessions[-1].time }}</span></li>
+        <li><svg class="ic"><use href="#i-pin"/></svg><span>{{ venue.venue.name }}<br>{{ venue.venue.address }}</span></li>
+      </ul>
+      <p>{{ reg.intro }}</p>
+      <p><a class="link-arrow" href="index.html#program">See the Day 1 program <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a></p>
+      <p class="fine">{{ reg.privacy }}</p>
+    </aside>
+
+    <div class="reg-main">
+      {% if reg.open %}
+      <form class="reg-form" id="reg-form" data-endpoint="{{ reg.endpoint }}" novalidate>
+        {% for f in reg.fields %}
+        {% set fid = 'f-' ~ f.name %}
+        {% if f.type == 'radio' %}
+        <fieldset class="field">
+          <legend>{{ f.label }}{% if f.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</legend>
+          <div class="choices">
+            {% for o in f.options %}
+            <label class="choice"><input type="radio" name="{{ f.name }}" value="{{ o }}"{% if f.required %} required{% endif %}> {{ o }}</label>
+            {% endfor %}
+          </div>
+        </fieldset>
+        {% else %}
+        <div class="field">
+          <label for="{{ fid }}">{{ f.label }}{% if f.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+          {% if f.hint %}<p class="hint" id="{{ fid }}-hint">{{ f.hint }}</p>{% endif %}
+          {% if f.type == 'textarea' %}
+          <textarea id="{{ fid }}" name="{{ f.name }}" rows="3"{% if f.required %} required{% endif %}{% if f.hint %} aria-describedby="{{ fid }}-hint"{% endif %}></textarea>
+          {% elif f.type == 'select' %}
+          <select id="{{ fid }}" name="{{ f.name }}"{% if f.required %} required{% endif %}>
+            <option value="">Choose one</option>
+            {% for o in f.options %}<option>{{ o }}</option>{% endfor %}
+          </select>
+          {% else %}
+          <input id="{{ fid }}" name="{{ f.name }}" type="{{ f.type }}"{% if f.autocomplete %} autocomplete="{{ f.autocomplete }}"{% endif %}{% if f.required %} required{% endif %}{% if f.hint %} aria-describedby="{{ fid }}-hint"{% endif %}>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {# Left empty by people; bots that fill every field are dropped by the script. #}
+        <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="fine"><span class="req">*</span> Required</p>
+        <div class="reg-actions">
+          <button class="btn btn-primary" type="submit">Register for Day 1</button>
+          <p class="reg-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <div class="reg-done" id="reg-done" tabindex="-1" hidden>
+        <svg class="ic"><use href="#i-check"/></svg>
+        <p>{{ reg.success }}</p>
+      </div>
+      {% else %}
+      <div class="callout"><p>{{ reg.closed_text }}</p></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

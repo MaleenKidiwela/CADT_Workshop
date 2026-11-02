@@ -385,6 +385,38 @@ figcaption .credit::before { content: '· '; }
 .video .credit a { color: inherit; }
 @media (max-width: 900px) { .about-head { grid-template-columns: 1fr; gap: 2rem; } }
 
+/* ---------- registration page ---------- */
+.reg-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 3.5rem; align-items: start; }
+.reg-facts h2 { font-size: 1.35rem; margin-bottom: 1rem; }
+.reg-facts p { margin-bottom: 1rem; }
+.reg-meta { display: grid; gap: 0.6rem; margin-bottom: 1.4rem; }
+.reg-meta li { display: flex; gap: 0.65rem; align-items: flex-start; }
+.reg-meta .ic { flex: none; margin-top: 0.25rem; color: var(--teal); }
+.reg-form, .reg-done { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; }
+.reg-form { display: grid; gap: 1.35rem; }
+.field { display: grid; gap: 0.4rem; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field label, .field legend { font-weight: 600; color: var(--ink); padding: 0; }
+.field .hint { font-size: 0.86rem; color: var(--stone); margin-top: -0.2rem; }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--paper);
+  border: 1px solid rgba(11, 31, 51, 0.28); border-radius: var(--radius-sm); padding: 0.6rem 0.75rem;
+}
+.field textarea { resize: vertical; min-height: 4.5rem; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: var(--teal); }
+.field [aria-invalid="true"] { border-color: #b3261e; }
+.choices { display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; margin-top: 0.3rem; }
+.choice { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 400 !important; cursor: pointer; }
+.choice input { width: 1.1rem; height: 1.1rem; accent-color: var(--teal); }
+.req { color: #b3261e; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.reg-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.reg-status { font-size: 0.95rem; color: var(--stone); }
+.reg-status.is-error { color: #b3261e; }
+.reg-done { display: flex; gap: 0.9rem; align-items: flex-start; font-size: 1.08rem; }
+.reg-done .ic { flex: none; font-size: 1.6rem; color: var(--teal); }
+.reg-form[hidden], .reg-done[hidden] { display: none; }
+@media (max-width: 900px) { .reg-split { grid-template-columns: 1fr; gap: 2rem; } .reg-form, .reg-done { padding: 1.4rem; } }
+
 /* ---------- venue ---------- */
 .venue-split { align-items: start; }
 .venue-card .addr { color: var(--stone); margin: 0.5rem 0 1rem; }

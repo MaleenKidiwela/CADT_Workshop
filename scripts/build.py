@@ -150,6 +150,9 @@ def build(out: Path = SITE) -> Path:
             **ctx, is_index=False, page=page, page_html=render_markdown(page["body"])
         )
         (out / f"{page['slug']}.html").write_text(html, encoding="utf-8")
+    (out / "register.html").write_text(
+        env.get_template("register.html").render(**ctx, is_index=False), encoding="utf-8"
+    )
     (out / "404.html").write_text(
         env.get_template("404.html").render(**ctx, is_index=False), encoding="utf-8"
     )
@@ -161,7 +164,7 @@ def build(out: Path = SITE) -> Path:
         shutil.copytree(atlas, out / "atlas")
     (out / ".nojekyll").write_text("")
     base = ctx["site"]["url"]
-    urls = [base] + [f"{base}{p['slug']}.html" for p in ctx["pages"]]
+    urls = [base, f"{base}register.html"] + [f"{base}{p['slug']}.html" for p in ctx["pages"]]
     if (out / "atlas").exists():
         urls.append(f"{base}atlas/")
     (out / "sitemap.xml").write_text(

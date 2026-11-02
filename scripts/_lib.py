@@ -17,7 +17,7 @@ MATERIALS = ROOT / "materials"
 
 CONTENT_FILES = (
     "site", "about", "modules", "program", "team",
-    "partners", "venue", "figures", "resources", "faq",
+    "partners", "venue", "figures", "resources", "faq", "register",
 )
 
 
