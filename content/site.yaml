@@ -48,10 +48,14 @@ hero:
   heading: Complex Adaptive Digital Twins for Urban Sea Systems
   heading_accent: Urban Sea Systems
   lead: >-
-    The Salish Sea is one coupled system of watersheds, cities, ports, and coastal
-    ocean, shared by two nations. This working meeting brings together the people
-    who model, observe, and govern it to design the first modules of a digital twin,
-    and to decide what it would take to build one.
+    The first day of this workshop welcomes all that may be interested in the
+    general ideas involved. The second and third days will be a working gathering
+    that brings together the people who live within the Salish Urban Sea System,
+    those who model it, observe and measure it, and those who may govern it, to
+    explore the challenges and benefits of building an early prototype of Complex
+    Adaptive Digital Twins for the Salish Urban Sea System. There are at least 500
+    such systems the world over that are integral hubs of the global network of
+    supply chain markets.
   figure: urban-sea-system
   # Optional timelapse: `before` is revealed into `figure` by a slider. `fit`
   # places the before image inside the figure's frame, in percent, so the two
