@@ -53,6 +53,15 @@ stats:
   - value: "3"
     label: Working days in December
 
+# Video beside the heading. Plays from youtube-nocookie.com only after a click;
+# until then the page shows the local thumbnail.
+video:
+  youtube_id: rMXZhX6DzJc
+  title: Urban Sea Video
+  credit: John R. Delaney
+  thumbnail: assets/img/video-urban-sea.jpg  # frame at 6:43
+  published: true
+
 figure: urban-seas-global
 
 # Link to the Urban Sea Atlas, shown under the world map.

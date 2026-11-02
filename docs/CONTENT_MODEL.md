@@ -42,6 +42,10 @@ describes a person, organization, or figure may carry `published: true|false`
 and `prototype` (`kicker`, `heading`, `body` *(md)*, `points[]` with `title`
 and `text`, `figure`).
 
+Optional `video` (`youtube_id`, `title`, `credit`, `thumbnail`, `published`)
+shows beside the heading and lead. The page loads only the local thumbnail;
+the YouTube player (youtube-nocookie.com, captions on) loads on click.
+
 Optional `foundations` (`kicker`, `heading`, `intro`, `items[]` with `name`,
 `idea`, `text`, `obligation`, `obligation_text`, and optional `figure`) renders
 the "what complex adaptive means" section between About and the prototype.

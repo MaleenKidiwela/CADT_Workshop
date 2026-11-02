@@ -372,6 +372,19 @@ figcaption .credit::before { content: '· '; }
 .faq details[open] summary .ic { transform: rotate(45deg); }
 .faq-a { padding: 0 0 1.1rem; color: rgba(255, 255, 255, 0.78); font-size: 0.95rem; }
 
+/* ---------- about: heading beside the video ---------- */
+.about-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 3rem; align-items: center; margin-bottom: 2.75rem; }
+.about-head .section-head { margin-bottom: 0; }
+.video { margin: 0; }
+.video-frame { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; background: #fff; cursor: pointer; }
+.video-frame img, .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.video-play { position: absolute; left: 50%; top: 50%; width: 4.2rem; height: 4.2rem; margin: -2.1rem 0 0 -2.1rem; display: grid; place-items: center; border-radius: 50%; background: var(--navy); color: #fff; font-size: 1.6rem; transition: background 0.15s, transform 0.15s; }
+.video-play .ic { margin-left: 0.2rem; }
+.video-frame:hover .video-play, .video-frame:focus-visible .video-play { background: var(--teal); transform: scale(1.06); }
+.video figcaption { margin-top: 0.6rem; font-size: 0.9rem; color: var(--stone); }
+.video .credit a { color: inherit; }
+@media (max-width: 900px) { .about-head { grid-template-columns: 1fr; gap: 2rem; } }
+
 /* ---------- venue ---------- */
 .venue-split { align-items: start; }
 .venue-card .addr { color: var(--stone); margin: 0.5rem 0 1rem; }

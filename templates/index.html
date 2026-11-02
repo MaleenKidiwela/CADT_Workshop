@@ -75,10 +75,22 @@
 
 <section class="section" id="about">
   <div class="wrap">
-    <div class="section-head">
-      <p class="kicker">{{ about.kicker }}</p>
-      <h2>{{ about.heading }}</h2>
-      <div class="lead">{{ about.lead | md }}</div>
+    {% set vid = about.video if about.video and about.video.published else none %}
+    <div class="{{ 'about-head' if vid else '' }}">
+      <div class="section-head">
+        <p class="kicker">{{ about.kicker }}</p>
+        <h2>{{ about.heading }}</h2>
+        <div class="lead">{{ about.lead | md }}</div>
+      </div>
+      {% if vid %}
+      <figure class="video">
+        <button type="button" class="video-frame" data-youtube="{{ vid.youtube_id }}" data-title="{{ vid.title }}" aria-label="Play video: {{ vid.title }}">
+          <img src="{{ vid.thumbnail }}" alt="" loading="lazy">
+          <span class="video-play"><svg class="ic"><use href="#i-play"/></svg></span>
+        </button>
+        <figcaption>{{ vid.title }} <span class="credit">{{ vid.credit }} · <a href="https://youtu.be/{{ vid.youtube_id }}" target="_blank" rel="noopener">Watch on YouTube</a></span></figcaption>
+      </figure>
+      {% endif %}
     </div>
     <div class="grid grid-3 pillars">
       {% for p in about.pillars %}

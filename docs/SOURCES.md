@@ -60,6 +60,12 @@ Files in `assets/img/people/`, cropped square from public profile photos.
 - Victoria ferry terminal at Pier 69: FRS Clipper.
   <https://support.clippervacations.com/kb/article/22-where-are-the-terminals-located/>
 
+## Video
+
+- "Urban Sea Video", J.R. Delaney, YouTube.
+  <https://youtu.be/rMXZhX6DzJc>. The thumbnail
+  (`assets/img/video-urban-sea.jpg`) is the frame at 6:43.
+
 ## Figure registry
 
 Each figure in `content/figures.yaml` carries a `credit`. Figures from the
