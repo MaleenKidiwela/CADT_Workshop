@@ -19,7 +19,7 @@ closed_text: >-
 # The Google Form's response address:
 #   https://docs.google.com/forms/d/e/<form id>/formResponse
 # While empty, the form shows but tells people it cannot send yet.
-form_action: ""
+form_action: "https://docs.google.com/forms/d/e/1FAIpQLSfZka0jbuRdwG6EEc5_o4XwbR1pBdaR_xJzfJvgATGMeokwVw/formResponse"
 
 intro: >-
   Day 1 sets out why Urban Seas matter, from hazards to the living sea, and gives
@@ -34,19 +34,19 @@ success: >-
 # docs/REGISTRATION.md says how to find them. Options must match the Google
 # Form's choices exactly. Quote "Yes" and "No" so YAML keeps them as text.
 fields:
-  - {name: name, entry: "", label: Full name, type: text, required: true, autocomplete: name}
-  - {name: email, entry: "", label: Email, type: email, required: true, autocomplete: email}
-  - {name: affiliation, entry: "", label: Affiliation or organization, type: text, required: true, autocomplete: organization}
-  - {name: role, entry: "", label: Role or title, type: text, autocomplete: organization-title}
+  - {name: name, entry: "entry.1598541202", label: Full name, type: text, required: true, autocomplete: name}
+  - {name: email, entry: "entry.218230451", label: Email, type: email, required: true, autocomplete: email}
+  - {name: affiliation, entry: "entry.770771857", label: Affiliation or organization, type: text, required: true, autocomplete: organization}
+  - {name: role, entry: "entry.519302275", label: Role or title, type: text, autocomplete: organization-title}
   - name: sector
-    entry: ""
+    entry: "entry.1737430087"
     label: Sector
     type: select
     options: [Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other]
-  - {name: interest, entry: "", label: "What is your interest in digital twins, and what would you like to take away from Day 1?", type: textarea}
+  - {name: interest, entry: "entry.824000826", label: "What is your interest in digital twins, and what would you like to take away from Day 1?", type: textarea}
   # The seven modules, as named in modules.yaml.
   - name: modules
-    entry: ""
+    entry: "entry.716091443"
     label: Which parts of the Urban Sea System interest you most?
     hint: Choose any.
     type: checkbox
@@ -58,18 +58,18 @@ fields:
       - Ports and supply chains
       - Hazards, natural and human-generated
       - Ecological systems
-  - {name: dietary, entry: "", label: Dietary needs, type: textarea, hint: For coffee and breaks.}
-  - {name: accessibility, entry: "", label: Accessibility needs, type: textarea}
+  - {name: dietary, entry: "entry.1028547822", label: Dietary needs, type: textarea, hint: For coffee and breaks.}
+  - {name: accessibility, entry: "entry.705385015", label: Accessibility needs, type: textarea}
   - name: recording_consent
-    entry: ""
+    entry: "entry.1345043081"
     label: Day 1 plenary sessions will be recorded. Do you consent to appearing in the recording?
     type: radio
     required: true
     options: ["Yes", "No"]
   - name: list_publicly
-    entry: ""
+    entry: "entry.57133433"
     label: May we list your name and affiliation as a participant?
     type: radio
     required: true
     options: ["Yes", "No"]
-  - {name: notes, entry: "", label: "Anything else we should know?", type: textarea}
+  - {name: notes, entry: "entry.511456530", label: "Anything else we should know?", type: textarea}
