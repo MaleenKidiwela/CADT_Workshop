@@ -78,6 +78,15 @@ read both from the public form page, or:
 4. `pixi run check`, push, send a test registration on the live page, check
    it arrived in the form, then delete it.
 
+## Confirmation emails
+
+`scripts/registration_confirmation.gs` emails each registrant a short
+confirmation (date, time, venue) when their response reaches the form.
+Replies go to the workshop contact. Install it once from the form's script
+editor and run `installTrigger`; the steps are at the top of the file. It
+reads the answers by question title, so keep the "Full name" and "Email"
+titles as they are.
+
 ## Close registration
 
 Set `open: false` in `content/register.yaml` (the page then shows
