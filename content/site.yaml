@@ -32,7 +32,7 @@ event:
   attendance: Day 1 open to all who register. Days 2 and 3 for about 50 invited participants.
 
 # One of the keys in status_labels.
-status: registration_soon
+status: registration
 status_labels:
   planning: Planning underway
   registration_soon: Day 1 registration opening soon
@@ -70,10 +70,9 @@ hero:
 
 cta:
   primary:
-    # Swap in the registration form URL when it exists, set new_window: true,
-    # and set status: registration.
-    label: Registration opens soon
-    url: "#participate"
+    # Day 1 registration page; see docs/REGISTRATION.md.
+    label: Register for Day 1
+    url: register.html
     new_window: false
   secondary:
     label: Read the concept
