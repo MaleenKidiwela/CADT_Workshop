@@ -21,12 +21,6 @@ closed_text: >-
 # While empty, the form shows but tells people it cannot send yet.
 form_action: "https://docs.google.com/forms/d/e/1FAIpQLSd-WRIlKe746egl1fRJfM-OebsxuRjGAg6IVip6XJt-yAc3WA/formResponse"
 
-# true when the Google Form collects email addresses (Settings → Responses →
-# Collect email addresses: Responder input). The page then also sends the
-# Email answer as the form's own email field, which lets Google send each
-# registrant a copy of their response. Must match the form's setting: with
-# it off here but on in the form, Google rejects every response.
-form_collects_email: true
 
 intro: >-
   Day 1 sets out why Urban Seas matter, from hazards to the living sea, and gives
@@ -38,11 +32,13 @@ success: >-
 
 # Fields, in order. type: text | email | textarea | select | radio | checkbox.
 # `entry` is the Google Form's id for the matching question (entry.123456789);
-# docs/REGISTRATION.md says how to find them. Options must match the Google
+# docs/REGISTRATION.md says how to find them. The email field uses
+# `emailAddress`, the form's own email field (Collect email addresses:
+# Responder input), which lets Google send each registrant a copy. Options must match the Google
 # Form's choices exactly. Quote "Yes" and "No" so YAML keeps them as text.
 fields:
   - {name: name, entry: "entry.130951903", label: Full name, type: text, required: true, autocomplete: name}
-  - {name: email, entry: "entry.1740954354", label: Email, type: email, required: true, autocomplete: email}
+  - {name: email, entry: emailAddress, label: Email, type: email, required: true, autocomplete: email}
   - {name: affiliation, entry: "entry.667162576", label: Affiliation or organization, type: text, required: true, autocomplete: organization}
   - {name: role, entry: "entry.14982402", label: Role or title, type: text, autocomplete: organization-title}
   - name: sector

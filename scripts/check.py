@@ -275,8 +275,8 @@ def main() -> int:
         names.add(f.get("name"))
         entry = f.get("entry")
         if entry:
-            if not re.fullmatch(r"entry\.\d+", str(entry)):
-                err(w, f"entry {entry!r} should look like entry.123456789")
+            if not re.fullmatch(r"entry\.\d+|emailAddress", str(entry)):
+                err(w, f"entry {entry!r} should look like entry.123456789 (or emailAddress)")
             elif entry in entry_ids:
                 err(w, f"entry {entry!r} is used twice")
             entry_ids.add(entry)
@@ -284,8 +284,6 @@ def main() -> int:
             err(w, f"no Google Form entry id for {f.get('name')!r}; its answers would be lost")
     if not {"name", "email"} <= names:
         err("register.yaml → fields", "needs fields named name and email")
-    if "form_collects_email" in reg and not isinstance(reg["form_collects_email"], bool):
-        err("register.yaml → form_collects_email", "must be true or false")
 
     # ---- venue, faq, resources ------------------------------------------
     venue = data["venue"]

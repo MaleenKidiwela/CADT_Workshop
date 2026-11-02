@@ -17,12 +17,6 @@ const QUESTIONS = [
     "help": null
   },
   {
-    "title": "Email",
-    "type": "text",
-    "options": null,
-    "help": null
-  },
-  {
     "title": "Affiliation or organization",
     "type": "text",
     "options": null,
@@ -109,7 +103,10 @@ const QUESTIONS = [
 function createRegistrationForm() {
   const form = FormApp.create('CADT 2026 Day 1 registration');
   form.setDescription('Responses arrive from the registration page on the CADT Workshop 2026 website.');
-  form.setCollectEmail(false);
+  // The form's own email field (Responder input) replaces an Email question.
+  // Then turn on Settings → Responses → Send responders a copy: Always.
+  form.setCollectEmail(true);
+  try { form.setEmailCollectionType(FormApp.EmailCollectionType.RESPONDER_INPUT); } catch (e) { console.log('Set Collect email addresses to "Responder input" by hand in Settings.'); }
   form.setLimitOneResponsePerUser(false);
   form.setAllowResponseEdits(false);
   try { form.setRequireLogin(false); } catch (e) { console.log('Turn off "Restrict to users in University of Washington" by hand in Settings.'); }

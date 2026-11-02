@@ -29,7 +29,7 @@ match.
    | Question | Google Forms type |
    |---|---|
    | Full name | Short answer |
-   | Email | Short answer |
+   | Email | none: the form's built-in email field (see "Confirmation emails") |
    | Affiliation or organization | Short answer |
    | Role or title | Short answer |
    | Sector | Dropdown: Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other |
@@ -81,17 +81,12 @@ read both from the public form page, or:
 
 ## Confirmation emails
 
-Google Forms sends each registrant a copy of their answers:
-
-1. In the form: **Settings → Responses → Collect email addresses: Responder
-   input**, and **Send responders a copy of their response: Always**. Not
-   "Verified", which makes people sign in to Google.
-2. `content/register.yaml` → `form_collects_email: true`. The page then sends
-   the Email answer as the form's own email field too.
-
-Keep the two in step. With collection on in the form but
-`form_collects_email: false`, Google rejects every response without saying
-so.
+Google Forms sends each registrant a copy of their answers. In the form:
+**Settings → Responses → Collect email addresses: Responder input**, and
+**Send responders a copy of their response: Always** (not "Verified", which
+makes people sign in to Google). The form then has its own email field, so it
+needs no separate Email question. In `register.yaml` the email field's
+`entry` is `emailAddress`, which fills that built-in field.
 
 ## Close registration
 
