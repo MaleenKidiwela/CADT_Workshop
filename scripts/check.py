@@ -257,13 +257,12 @@ def main() -> int:
     req(reg, ["title", "description", "open", "fields", "success", "privacy"], "register.yaml")
     if not isinstance(reg.get("open"), bool):
         err("register.yaml → open", "must be true or false")
-    if reg.get("endpoint"):
-        check_url(reg["endpoint"], "register.yaml → endpoint")
-        if not str(reg["endpoint"]).startswith("https://script.google.com/"):
-            warn("register.yaml → endpoint", "expected a Google Apps Script web app URL (https://script.google.com/.../exec)")
-    elif reg.get("open"):
-        warn("register.yaml → endpoint", "empty: the form shows but cannot send responses")
-    names = set()
+    action = reg.get("form_action")
+    if action and not re.fullmatch(r"https://docs\.google\.com/forms/d/e/[\w-]+/formResponse", str(action)):
+        err("register.yaml → form_action", "expected https://docs.google.com/forms/d/e/<form id>/formResponse")
+    elif not action and reg.get("open"):
+        warn("register.yaml → form_action", "empty: the form shows but cannot send responses")
+    names, entry_ids = set(), set()
     for i, f in enumerate(reg.get("fields") or []):
         w = f"register.yaml → fields[{i}]"
         req(f, ["name", "label", "type"], w)
@@ -274,20 +273,17 @@ def main() -> int:
         if f.get("name") in names or f.get("name") == "website":
             err(w, f"duplicate or reserved name {f.get('name')!r}")
         names.add(f.get("name"))
+        entry = f.get("entry")
+        if entry:
+            if not re.fullmatch(r"entry\.\d+", str(entry)):
+                err(w, f"entry {entry!r} should look like entry.123456789")
+            elif entry in entry_ids:
+                err(w, f"entry {entry!r} is used twice")
+            entry_ids.add(entry)
+        elif action:
+            err(w, f"no Google Form entry id for {f.get('name')!r}; its answers would be lost")
     if not {"name", "email"} <= names:
         err("register.yaml → fields", "needs fields named name and email")
-    gs = ROOT / "scripts" / "registration.gs"
-    if gs.exists():
-        src = gs.read_text(encoding="utf-8")
-        def gs_list(const):
-            m = re.search(rf"const {const} = \[(.*?)\];", src, re.S)
-            return re.findall(r"'([^']+)'", m.group(1)) if m else None
-        order = [f.get("name") for f in reg.get("fields") or []]
-        if gs_list("FIELDS") != order:
-            err("scripts/registration.gs → FIELDS", f"must match register.yaml field names in order: {order}")
-        required = [f.get("name") for f in reg.get("fields") or [] if f.get("required")]
-        if sorted(gs_list("REQUIRED") or []) != sorted(required):
-            err("scripts/registration.gs → REQUIRED", f"must match the required fields in register.yaml: {required}")
 
     # ---- venue, faq, resources ------------------------------------------
     venue = data["venue"]

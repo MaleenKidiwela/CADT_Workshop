@@ -29,7 +29,8 @@
 
     <div class="reg-main">
       {% if reg.open %}
-      <form class="reg-form" id="reg-form" data-endpoint="{{ reg.endpoint }}" novalidate>
+      {% set entries = {} %}{% for f in reg.fields %}{% if f.entry %}{% set _ = entries.update({f.name: f.entry}) %}{% endif %}{% endfor %}
+      <form class="reg-form" id="reg-form" data-action="{{ reg.form_action }}" data-entries="{{ entries | tojson | forceescape }}" novalidate>
         {% for f in reg.fields %}
         {% set fid = 'f-' ~ f.name %}
         {% if f.type == 'radio' %}

@@ -100,8 +100,8 @@ materials/        PRIVATE source documents (git-ignored)
 - **Open or close participation.** `site.yaml` → `status` (one of the keys in
   `status_labels`) and `cta.primary`.
 - **Day 1 registration.** `content/register.yaml` renders `register.html`;
-  responses go to a Google Sheet through `scripts/registration.gs`. Setup,
-  opening, and closing: `docs/REGISTRATION.md`.
+  the page posts responses into a Google Form. Setup, opening, and closing:
+  `docs/REGISTRATION.md`.
 - **Add a page.** Create `content/pages/<slug>.md` with front matter
   (`title`, `description`, optional `kicker`). It renders to `<slug>.html` and
   is listed in the footer.

@@ -206,10 +206,10 @@
     }, { once: true });
   });
 
-  // Day 1 registration form (register.html). Sends the answers as JSON to the
-  // Apps Script web app in data-endpoint. A text/plain body keeps it a simple
-  // request, so the browser does not need a CORS preflight that Apps Script
-  // cannot answer.
+  // Day 1 registration form (register.html). Posts the answers into the Google
+  // Form in data-action, mapping each field to its entry id (data-entries).
+  // Google Forms sends no readable reply to other sites (no-cors), so success
+  // means the request went out; required fields are checked here first.
   var reg = document.getElementById('reg-form');
   if (reg) {
     var status = reg.querySelector('.reg-status');
@@ -235,16 +235,19 @@
         if (!ok && !firstBad) firstBad = el;
       });
       if (firstBad) { say('Please fill in the required fields marked with *.', true); firstBad.focus(); return; }
-      var endpoint = reg.getAttribute('data-endpoint');
-      if (!endpoint) { say('Registration is not connected yet. Please try again later.', true); return; }
-      var data = { elapsed_ms: Date.now() - started };
-      new FormData(reg).forEach(function (v, k) { data[k] = String(v).trim(); });
+      var action = reg.getAttribute('data-action');
+      var entries = JSON.parse(reg.getAttribute('data-entries') || '{}');
+      if (!action) { say('Registration is not connected yet. Please try again later.', true); return; }
+      var fd = new FormData(reg);
+      var body = new URLSearchParams();
+      fd.forEach(function (v, k) { if (entries[k]) body.append(entries[k], String(v).trim()); });
+      // Bots fill the hidden "website" field or submit within seconds: show
+      // them the thank-you and send nothing.
+      var bot = fd.get('website') || Date.now() - started < 3000;
       submit.disabled = true;
       say('Sending…');
-      fetch(endpoint, { method: 'POST', body: JSON.stringify(data) })
-        .then(function (r) { return r.json(); })
-        .then(function (res) {
-          if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+      (bot ? Promise.resolve() : fetch(action, { method: 'POST', mode: 'no-cors', body: body }))
+        .then(function () {
           reg.hidden = true;
           var done = document.getElementById('reg-done');
           done.hidden = false;

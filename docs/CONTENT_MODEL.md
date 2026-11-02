@@ -98,11 +98,11 @@ optional `figure` id),
 ## register.yaml
 
 The Day 1 registration page, `register.html`. `title`, `kicker`,
-`description`, `open` (bool), `closed_text`, `endpoint` (Apps Script web app
-URL), `intro`, `privacy`, `success`, and `fields[]` (`name`, `label`, `type`:
-text | email | textarea | select | radio, optional `required`, `options`,
-`hint`, `autocomplete`). Field names must match `FIELDS` in
-`scripts/registration.gs`. Setup: `docs/REGISTRATION.md`.
+`description`, `open` (bool), `closed_text`, `form_action` (the Google Form's
+`.../formResponse` address), `intro`, `privacy`, `success`, and `fields[]`
+(`name`, `entry` (Google Form entry id), `label`, `type`: text | email |
+textarea | select | radio, optional `required`, `options`, `hint`,
+`autocomplete`). Setup: `docs/REGISTRATION.md`.
 
 ## faq.yaml
 

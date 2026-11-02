@@ -1,7 +1,8 @@
 # ---------------------------------------------------------------------------
 # Day 1 registration page, rendered to register.html.
-# The form sends each response to a Google Apps Script web app that appends it
-# to a Google Sheet held by the organizers. Setup: docs/REGISTRATION.md.
+# The form sends each response into a Google Form held by the organizers, so
+# responses collect in that form (and its linked Sheet). Setup:
+# docs/REGISTRATION.md.
 # Days 2 and 3 are by invitation; there is no registration for them.
 # ---------------------------------------------------------------------------
 title: Register for Day 1
@@ -15,9 +16,10 @@ open: true
 closed_text: >-
   Registration for Day 1 is not open yet. Please check back soon.
 
-# The Apps Script web app URL (it ends in /exec). While empty, the form shows
-# but tells people it cannot send yet.
-endpoint: ""
+# The Google Form's response address:
+#   https://docs.google.com/forms/d/e/<form id>/formResponse
+# While empty, the form shows but tells people it cannot send yet.
+form_action: ""
 
 intro: >-
   Day 1 sets out why Urban Seas matter, from hazards to the living sea, and gives
@@ -25,34 +27,38 @@ intro: >-
 
 privacy: >-
   We use these details only to organize the workshop. They are stored in a Google
-  Sheet held by the workshop organizers.
+  Form held by the workshop organizers.
 
 success: >-
   Thank you, you are registered for Day 1. Room details will be sent to
   registered participants before the workshop.
 
 # Fields, in order. type: text | email | textarea | select | radio.
-# `name` is the column heading in the Sheet; keep it stable once responses
-# arrive. Quote "Yes" and "No" so YAML keeps them as text.
+# `entry` is the Google Form's id for the matching question (entry.123456789);
+# docs/REGISTRATION.md says how to find them. Options must match the Google
+# Form's choices exactly. Quote "Yes" and "No" so YAML keeps them as text.
 fields:
-  - {name: name, label: Full name, type: text, required: true, autocomplete: name}
-  - {name: email, label: Email, type: email, required: true, autocomplete: email}
-  - {name: affiliation, label: Affiliation or organization, type: text, required: true, autocomplete: organization}
-  - {name: role, label: Role or title, type: text, autocomplete: organization-title}
+  - {name: name, entry: "", label: Full name, type: text, required: true, autocomplete: name}
+  - {name: email, entry: "", label: Email, type: email, required: true, autocomplete: email}
+  - {name: affiliation, entry: "", label: Affiliation or organization, type: text, required: true, autocomplete: organization}
+  - {name: role, entry: "", label: Role or title, type: text, autocomplete: organization-title}
   - name: sector
+    entry: ""
     label: Sector
     type: select
     options: [Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other]
-  - {name: dietary, label: Dietary needs, type: textarea, hint: For coffee and breaks.}
-  - {name: accessibility, label: Accessibility needs, type: textarea}
+  - {name: dietary, entry: "", label: Dietary needs, type: textarea, hint: For coffee and breaks.}
+  - {name: accessibility, entry: "", label: Accessibility needs, type: textarea}
   - name: recording_consent
+    entry: ""
     label: Day 1 plenary sessions will be recorded. Do you consent to appearing in the recording?
     type: radio
     required: true
     options: ["Yes", "No"]
   - name: list_publicly
+    entry: ""
     label: May we list your name and affiliation as a participant?
     type: radio
     required: true
     options: ["Yes", "No"]
-  - {name: notes, label: "Anything else we should know?", type: textarea}
+  - {name: notes, entry: "", label: "Anything else we should know?", type: textarea}
