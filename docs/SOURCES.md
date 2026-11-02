@@ -65,8 +65,7 @@ Files in `assets/img/people/`, cropped square from public profile photos.
 - "Urban Sea Video", J.R. Delaney, YouTube.
   <https://youtu.be/rMXZhX6DzJc>. The thumbnail
   (`assets/img/video-urban-sea.jpg`) is slide 2 of "Digital Twin 10-13-26
-  Presentation - HH copy" (organizers' Keynote deck), rebuilt from the deck's
-  own image layers.
+  Presentation - HH copy" (organizers' deck), rendered from its PDF export.
 
 ## Figure registry
 
