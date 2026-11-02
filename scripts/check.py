@@ -284,6 +284,8 @@ def main() -> int:
             err(w, f"no Google Form entry id for {f.get('name')!r}; its answers would be lost")
     if not {"name", "email"} <= names:
         err("register.yaml → fields", "needs fields named name and email")
+    if "form_collects_email" in reg and not isinstance(reg["form_collects_email"], bool):
+        err("register.yaml → form_collects_email", "must be true or false")
 
     # ---- venue, faq, resources ------------------------------------------
     venue = data["venue"]

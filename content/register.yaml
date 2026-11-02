@@ -21,6 +21,13 @@ closed_text: >-
 # While empty, the form shows but tells people it cannot send yet.
 form_action: "https://docs.google.com/forms/d/e/1FAIpQLSd-WRIlKe746egl1fRJfM-OebsxuRjGAg6IVip6XJt-yAc3WA/formResponse"
 
+# true when the Google Form collects email addresses (Settings → Responses →
+# Collect email addresses: Responder input). The page then also sends the
+# Email answer as the form's own email field, which lets Google send each
+# registrant a copy of their response. Must match the form's setting: with
+# it off here but on in the form, Google rejects every response.
+form_collects_email: true
+
 intro: >-
   Day 1 sets out why Urban Seas matter, from hazards to the living sea, and gives
   the open audience a voice.

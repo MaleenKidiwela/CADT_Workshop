@@ -241,6 +241,8 @@
       var fd = new FormData(reg);
       var body = new URLSearchParams();
       fd.forEach(function (v, k) { if (entries[k]) body.append(entries[k], String(v).trim()); });
+      // The form's own email field, used for "send responders a copy".
+      if (reg.hasAttribute('data-collect-email')) body.append('emailAddress', String(fd.get('email') || '').trim());
       // Bots fill the hidden "website" field or submit within seconds: show
       // them the thank-you and send nothing.
       var bot = fd.get('website') || Date.now() - started < 3000;

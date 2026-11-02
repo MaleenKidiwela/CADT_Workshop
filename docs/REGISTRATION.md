@@ -47,7 +47,8 @@ match.
    page enforces required fields. If Google requires a question that the
    page leaves blank, Google drops the whole response without saying so.
 3. **Settings → Responses:**
-   - Collect email addresses: **Do not collect**.
+   - Collect email addresses: **Responder input**, and send responders a
+     copy: **Always** (see "Confirmation emails" below).
    - **Restrict to users in University of Washington: off.** UW forms have it
      on by default, and it blocks everyone else.
    - Limit to 1 response: off.
@@ -80,12 +81,17 @@ read both from the public form page, or:
 
 ## Confirmation emails
 
-`scripts/registration_confirmation.gs` emails each registrant a short
-confirmation (date, time, venue) when their response reaches the form.
-Replies go to the workshop contact. Install it once from the form's script
-editor and run `installTrigger`; the steps are at the top of the file. It
-reads the answers by question title, so keep the "Full name" and "Email"
-titles as they are.
+Google Forms sends each registrant a copy of their answers:
+
+1. In the form: **Settings → Responses → Collect email addresses: Responder
+   input**, and **Send responders a copy of their response: Always**. Not
+   "Verified", which makes people sign in to Google.
+2. `content/register.yaml` → `form_collects_email: true`. The page then sends
+   the Email answer as the form's own email field too.
+
+Keep the two in step. With collection on in the form but
+`form_collects_email: false`, Google rejects every response without saying
+so.
 
 ## Close registration
 
