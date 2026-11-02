@@ -47,6 +47,7 @@ fields:
     label: Sector
     type: select
     options: [Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other]
+  - {name: interest, entry: "", label: "What is your interest in digital twins, and what would you like to take away from Day 1?", type: textarea}
   - {name: dietary, entry: "", label: Dietary needs, type: textarea, hint: For coffee and breaks.}
   - {name: accessibility, entry: "", label: Accessibility needs, type: textarea}
   - name: recording_consent

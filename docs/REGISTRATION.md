@@ -24,6 +24,7 @@ Use a UW Google account that the organizers can share.
    | Affiliation or organization | Short answer |
    | Role or title | Short answer |
    | Sector | Dropdown: Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other |
+   | What is your interest in digital twins, and what would you like to take away from Day 1? | Paragraph |
    | Dietary needs | Paragraph |
    | Accessibility needs | Paragraph |
    | Day 1 plenary sessions will be recorded. Do you consent to appearing in the recording? | Multiple choice: Yes, No |
