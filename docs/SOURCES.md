@@ -41,6 +41,19 @@ Files in `assets/img/people/`, cropped square from public profile photos.
   Commerce), via Wikimedia Commons.
   <https://commons.wikimedia.org/wiki/File:Richard_W._Spinrad,_NOAA_Administrator.jpg>
 
+## Venue and travel
+
+- Hotel and light rail station: J.R. Delaney, review comments on the site
+  (Hypothesis, October 2026).
+- Venue map (`venue-map`): drawn for this site from OpenStreetMap data with
+  OpenFreeMap vector tiles. Locations from OpenStreetMap Nominatim; walking
+  routes and times from the OSRM foot router at routing.openstreetmap.de.
+- Light rail times: Sound Transit Link schedule, airport to University of
+  Washington station about 45 minutes.
+  <https://www.soundtransit.org/ride-with-us/routes-schedules/link-light-rail>
+- Victoria ferry terminal at Pier 69: FRS Clipper.
+  <https://support.clippervacations.com/kb/article/22-where-are-the-terminals-located/>
+
 ## Figure registry
 
 Each figure in `content/figures.yaml` carries a `credit`. Figures from the

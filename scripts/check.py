@@ -253,6 +253,7 @@ def main() -> int:
     req(venue, ["kicker", "heading", "venue", "travel"], "venue.yaml")
     req(venue.get("venue") or {}, ["name", "address"], "venue.yaml → venue")
     check_url((venue.get("venue") or {}).get("map_url"), "venue.yaml → venue.map_url")
+    check_fig_ref((venue.get("venue") or {}).get("figure"), "venue.yaml → venue.figure")
     for i, t in enumerate(venue.get("travel") or []):
         req(t, ["title", "text"], f"venue.yaml → travel[{i}]")
 

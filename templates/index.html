@@ -320,6 +320,9 @@
         {% if venue.venue.detail %}<p>{{ venue.venue.detail }}</p>{% endif %}
         <p class="addr">{{ venue.venue.address }}</p>
         {% if venue.venue.map_url %}<a class="link-arrow" href="{{ venue.venue.map_url }}" target="_blank" rel="noopener">Campus map <svg class="ic ic-sm"><use href="#i-external"/></svg></a>{% endif %}
+        {% set f = fig.get(venue.venue.figure) %}
+        {% set figclass = 'venue-map' %}
+        {% include 'partials/figure.html' %}
       </div>
       <div class="travel">
         {% for t in venue.travel %}

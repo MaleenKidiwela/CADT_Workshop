@@ -375,6 +375,7 @@ figcaption .credit::before { content: '· '; }
 /* ---------- venue ---------- */
 .venue-split { align-items: start; }
 .venue-card .addr { color: var(--stone); margin: 0.5rem 0 1rem; }
+.venue-map { margin-top: 1.5rem; }
 .travel { display: grid; gap: 1.4rem; }
 .travel-item h3 { font-size: 1rem; margin-bottom: 0.3rem; }
 .travel-item p { color: var(--stone); font-size: 0.96rem; }

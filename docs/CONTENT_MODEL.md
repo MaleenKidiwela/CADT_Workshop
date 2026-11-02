@@ -87,7 +87,8 @@ order), `organizations[]`: `name`, `tier`, optional `url`, optional `logo`
 
 ## venue.yaml
 
-`kicker`, `heading`, `venue` (`name`, `detail`, `address`, `map_url`),
+`kicker`, `heading`, `venue` (`name`, `detail`, `address`, `map_url`,
+optional `figure` id),
 `travel[]` (`title`, `text` *(md)*), optional `notes[]` *(md)*.
 
 ## faq.yaml

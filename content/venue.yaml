@@ -8,21 +8,28 @@ venue:
   detail: Room details will be sent to registered participants.
   address: 3501 NE 41st Street, Seattle, WA 98105, USA
   map_url: "https://www.washington.edu/maps/"
+  # Figure id from figures.yaml, shown under the venue card.
+  figure: venue-map
 
 travel:
   - title: Arriving by air
     text: >-
-      Seattle–Tacoma International Airport (SEA). Link light rail runs from the
-      airport to the U District station in about 50 minutes. The Center for Urban
-      Horticulture is about 2 km east of the station, a short bus or taxi ride.
+      Seattle–Tacoma International Airport (SEA). The Link 1 Line light rail runs
+      from the airport to University of Washington station in about 45 minutes.
+      The Center for Urban Horticulture is about 1.7 km northeast of the station, a
+      20-minute walk or a short bus or taxi ride.
   - title: From Vancouver and Victoria
     text: >-
       Amtrak Cascades trains and intercity buses connect Vancouver, BC to Seattle in
-      three to four hours. A passenger ferry links Victoria's Inner Harbour to the
-      Seattle waterfront.
+      three to four hours, arriving at King Street Station. A passenger ferry links
+      Victoria's Inner Harbour to Pier 69 on the Seattle waterfront. From downtown,
+      take the Link 1 Line north from International District/Chinatown or Westlake
+      station to University of Washington station.
   - title: Lodging
     text: >-
-      Hotel options near campus will be shared with registered participants.
+      Hotel options include rooms at the Silver Cloud Hotel at University Village,
+      about 1.6 km from the Center for Urban Horticulture. More options will be
+      shared with registered participants.
 
 notes:
   - Participants traveling from Canada should allow time for border formalities.
