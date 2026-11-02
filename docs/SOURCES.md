@@ -53,6 +53,8 @@ Files in `assets/img/people/`, cropped square from public profile photos.
 - Venue map (`venue-map`): drawn for this site from OpenStreetMap data with
   OpenFreeMap vector tiles. Locations from OpenStreetMap Nominatim; walking
   routes, distances, and times from the OSRM foot router at routing.openstreetmap.de.
+- Silver Cloud Hotel address: Silver Cloud Hotels.
+  <https://silvercloud.com/?p=740>
 - Light rail times: Sound Transit Link schedule, airport to University of
   Washington station about 45 minutes.
   <https://www.soundtransit.org/ride-with-us/routes-schedules/link-light-rail>
