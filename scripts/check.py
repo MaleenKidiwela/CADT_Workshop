@@ -254,7 +254,7 @@ def main() -> int:
 
     # ---- registration ---------------------------------------------------
     reg = data["register"]
-    req(reg, ["title", "description", "open", "fields", "success", "privacy"], "register.yaml")
+    req(reg, ["title", "description", "open", "fields", "success"], "register.yaml")
     if not isinstance(reg.get("open"), bool):
         err("register.yaml → open", "must be true or false")
     action = reg.get("form_action")

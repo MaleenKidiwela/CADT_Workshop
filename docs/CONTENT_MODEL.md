@@ -99,7 +99,7 @@ optional `figure` id),
 
 The Day 1 registration page, `register.html`. `title`, `kicker`,
 `description`, `open` (bool), `closed_text`, `form_action` (the Google Form's
-`.../formResponse` address), `intro`, `privacy`, `success`, and `fields[]`
+`.../formResponse` address), `intro`, `success`, and `fields[]`
 (`name`, `entry` (Google Form entry id), `label`, `type`: text | email |
 textarea | select | radio, optional `required`, `options`, `hint`,
 `autocomplete`). Setup: `docs/REGISTRATION.md`.
