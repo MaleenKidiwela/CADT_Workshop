@@ -44,8 +44,7 @@ and `text`, `figure`).
 
 Optional `video` (`youtube_id`, `title`, `credit`, `thumbnail`, `published`)
 shows beside the heading and lead. The page loads only the local thumbnail;
-the YouTube player (youtube-nocookie.com, captions on) loads on click, in a
-large dialog so YouTube serves an HD stream.
+the YouTube player (youtube-nocookie.com, captions on) loads on click.
 
 Optional `foundations` (`kicker`, `heading`, `intro`, `items[]` with `name`,
 `idea`, `text`, `obligation`, `obligation_text`, and optional `figure`) renders

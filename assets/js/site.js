@@ -189,37 +189,22 @@
     if (close) close.addEventListener('click', function () { dlg.close(); });
   }
 
-  // Video: nothing loads from YouTube until a visitor clicks. The player then
-  // opens large in a dialog, because YouTube picks the stream quality from the
-  // player's size; the small inline frame would get a low-resolution stream.
-  // Captions are on by default. Closing the dialog stops the video.
-  var vdlg = document.getElementById('video-player');
-  function youtubeFrame(btn) {
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.youtube + '?autoplay=1&rel=0&cc_load_policy=1&cc_lang_pref=en&hl=en';
-    f.title = btn.dataset.title || 'Video';
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    return f;
-  }
+  // Video: swap the thumbnail for the YouTube player on click, so nothing loads
+  // from YouTube until a visitor asks for it. Captions are on by default.
   document.querySelectorAll('[data-youtube]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      if (vdlg && typeof vdlg.showModal === 'function') {
-        vdlg.querySelector('.vd-frame').replaceChildren(youtubeFrame(btn));
-        vdlg.showModal();
-      } else {
-        var box = document.createElement('div');
-        box.className = 'video-frame';
-        box.appendChild(youtubeFrame(btn));
-        btn.replaceWith(box);
-      }
-    });
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.youtube + '?autoplay=1&rel=0&cc_load_policy=1&cc_lang_pref=en&hl=en';
+      f.title = btn.dataset.title || 'Video';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      var box = document.createElement('div');
+      box.className = 'video-frame';
+      box.appendChild(f);
+      btn.replaceWith(box);
+      f.focus();
+    }, { once: true });
   });
-  if (vdlg) {
-    vdlg.addEventListener('close', function () { vdlg.querySelector('.vd-frame').replaceChildren(); });
-    vdlg.addEventListener('click', function (e) { if (e.target === vdlg) vdlg.close(); });
-    vdlg.querySelector('.lb-close').addEventListener('click', function () { vdlg.close(); });
-  }
 
   // Footer year.
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
