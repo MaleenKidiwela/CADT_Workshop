@@ -176,12 +176,14 @@ figures:
     file: assets/img/figures/venue-map.jpg
     alt: >-
       Street map of northeast Seattle marking University of Washington light rail
-      station, the Silver Cloud Hotel at University Village, and the Center for
-      Urban Horticulture, with dashed walking routes from the station and the hotel
-      to the venue.
+      station, the Silver Cloud Hotel, University Village, and the Center for Urban
+      Horticulture, with dashed walking routes between them and a legend of times
+      and distances.
     caption: >-
-      Getting to the venue. The dashed lines are walking routes, each about 20
-      minutes, from University of Washington station and from the Silver Cloud Hotel.
+      Getting to the venue on foot: from University of Washington station to the
+      hotel (26 minutes), the hotel to the Center for Urban Horticulture (22
+      minutes), the venue to University Village (17 minutes), and University
+      Village back to the hotel (8 minutes).
     credit: Map data © OpenStreetMap contributors, © OpenMapTiles, OpenFreeMap
     published: true
     gallery: false
