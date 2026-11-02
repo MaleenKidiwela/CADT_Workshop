@@ -32,12 +32,13 @@
       <form class="reg-form" id="reg-form" data-action="{{ reg.form_action }}" data-entries="{{ entries | tojson | forceescape }}" novalidate>
         {% for f in reg.fields %}
         {% set fid = 'f-' ~ f.name %}
-        {% if f.type == 'radio' %}
-        <fieldset class="field">
+        {% if f.type in ('radio', 'checkbox') %}
+        <fieldset class="field"{% if f.hint %} aria-describedby="{{ fid }}-hint"{% endif %}>
           <legend>{{ f.label }}{% if f.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</legend>
-          <div class="choices">
+          {% if f.hint %}<p class="hint" id="{{ fid }}-hint">{{ f.hint }}</p>{% endif %}
+          <div class="choices{% if f.type == 'checkbox' %} choices-list{% endif %}">
             {% for o in f.options %}
-            <label class="choice"><input type="radio" name="{{ f.name }}" value="{{ o }}"{% if f.required %} required{% endif %}> {{ o }}</label>
+            <label class="choice"><input type="{{ f.type }}" name="{{ f.name }}" value="{{ o }}"{% if f.required and f.type == 'radio' %} required{% endif %}> {{ o }}</label>
             {% endfor %}
           </div>
         </fieldset>

@@ -266,9 +266,9 @@ def main() -> int:
     for i, f in enumerate(reg.get("fields") or []):
         w = f"register.yaml → fields[{i}]"
         req(f, ["name", "label", "type"], w)
-        if f.get("type") not in ("text", "email", "textarea", "select", "radio"):
+        if f.get("type") not in ("text", "email", "textarea", "select", "radio", "checkbox"):
             err(w, f"unknown type {f.get('type')!r}")
-        if f.get("type") in ("select", "radio") and not all(isinstance(o, str) for o in f.get("options") or [None]):
+        if f.get("type") in ("select", "radio", "checkbox") and not all(isinstance(o, str) for o in f.get("options") or [None]):
             err(w, "options must be a non-empty list of text (quote Yes and No)")
         if f.get("name") in names or f.get("name") == "website":
             err(w, f"duplicate or reserved name {f.get('name')!r}")

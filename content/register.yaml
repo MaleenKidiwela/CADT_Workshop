@@ -29,7 +29,7 @@ success: >-
   Thank you, you are registered for Day 1. Room details will be sent to
   registered participants before the workshop.
 
-# Fields, in order. type: text | email | textarea | select | radio.
+# Fields, in order. type: text | email | textarea | select | radio | checkbox.
 # `entry` is the Google Form's id for the matching question (entry.123456789);
 # docs/REGISTRATION.md says how to find them. Options must match the Google
 # Form's choices exactly. Quote "Yes" and "No" so YAML keeps them as text.
@@ -44,6 +44,20 @@ fields:
     type: select
     options: [Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other]
   - {name: interest, entry: "", label: "What is your interest in digital twins, and what would you like to take away from Day 1?", type: textarea}
+  # The seven modules, as named in modules.yaml.
+  - name: modules
+    entry: ""
+    label: Which parts of the Urban Sea System interest you most?
+    hint: Choose any.
+    type: checkbox
+    options:
+      - Hydrodynamics and circulation
+      - Weather and climate
+      - Watersheds and runoff
+      - Pollution of air and water
+      - Ports and supply chains
+      - Hazards, natural and human-generated
+      - Ecological systems
   - {name: dietary, entry: "", label: Dietary needs, type: textarea, hint: For coffee and breaks.}
   - {name: accessibility, entry: "", label: Accessibility needs, type: textarea}
   - name: recording_consent
