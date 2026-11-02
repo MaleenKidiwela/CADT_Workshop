@@ -14,6 +14,15 @@ request has gone out. Send a test registration after any change to the form.
 
 Use a UW Google account that the organizers can share.
 
+**Quick way:** `scripts/create_registration_form.gs` builds the whole form,
+with every question, nothing required, the right settings, and a linked
+responses Sheet. Paste it into a new project at https://script.google.com,
+run `createRegistrationForm`, and copy the share link from the log. If the
+questions in `register.yaml` change, the script has to be regenerated to
+match.
+
+**By hand:**
+
 1. Create a Google Form, for example "CADT 2026 Day 1 registration", with one
    question per field in `content/register.yaml`, in the same order:
 
