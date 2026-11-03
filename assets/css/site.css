@@ -408,6 +408,8 @@ figcaption .credit::before { content: '· '; }
 .choice { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 400 !important; cursor: pointer; }
 .choice input { width: 1.1rem; height: 1.1rem; accent-color: var(--teal); flex: none; }
 .choices-list { display: grid; gap: 0.45rem; }
+.choice-other { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; }
+.choice-other input[type="text"] { flex: 1 1 14rem; min-width: 0; padding: 0.4rem 0.6rem; }
 .req { color: #b3261e; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .reg-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }

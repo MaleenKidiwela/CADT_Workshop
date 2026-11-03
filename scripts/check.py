@@ -270,6 +270,8 @@ def main() -> int:
             err(w, f"unknown type {f.get('type')!r}")
         if f.get("type") in ("select", "radio", "checkbox") and not all(isinstance(o, str) for o in f.get("options") or [None]):
             err(w, "options must be a non-empty list of text (quote Yes and No)")
+        if f.get("other") is not None and (f.get("type") != "checkbox" or not isinstance(f.get("other"), str)):
+            err(w, "other is the placeholder text for an Other box, and only checkbox fields take it")
         if f.get("name") in names or f.get("name") == "website":
             err(w, f"duplicate or reserved name {f.get('name')!r}")
         names.add(f.get("name"))

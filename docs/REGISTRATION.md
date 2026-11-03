@@ -34,7 +34,7 @@ match.
    | Role or title | Short answer |
    | Sector | Dropdown: Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other |
    | What is your interest in digital twins, and what would you like to take away from Day 1? | Paragraph |
-   | Which parts of the Urban Sea System interest you most? | Checkboxes, one per line: Hydrodynamics and circulation; Weather and climate; Watersheds and runoff; Pollution of air and water; Ports and supply chains; Hazards, natural and human-generated; Ecological systems |
+   | Which parts of the Urban Sea System interest you most? | Checkboxes, one per line: Hydrodynamics and circulation; Weather and climate; Watersheds and runoff; Pollution of air and water; Ports and supply chains; Hazards, natural and human-generated; Ecological systems. Turn on **Add "Other"**. |
    | Dietary needs | Paragraph |
    | Accessibility needs | Paragraph |
    | Day 1 plenary sessions will be recorded. Do you consent to appearing in the recording? | Multiple choice: Yes, No |
@@ -42,7 +42,9 @@ match.
    | Anything else we should know? | Paragraph |
 
    Choice text must match the options in `register.yaml` exactly, including
-   capitals.
+   capitals. A field with `other` in `register.yaml` sends an "Other" answer,
+   which Google accepts only if that question has **Add "Other"** turned on;
+   without it Google drops the whole response.
 2. Leave every question **not required** and add no response validation. The
    page enforces required fields. If Google requires a question that the
    page leaves blank, Google drops the whole response without saying so.

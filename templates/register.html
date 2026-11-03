@@ -28,7 +28,7 @@
 
     <div class="reg-main">
       {% if reg.open %}
-      {% set entries = {} %}{% for f in reg.fields %}{% if f.entry %}{% set _ = entries.update({f.name: f.entry}) %}{% endif %}{% endfor %}
+      {% set entries = {} %}{% for f in reg.fields %}{% if f.entry %}{% set _ = entries.update({f.name: f.entry}) %}{% if f.other %}{% set _ = entries.update({f.name ~ '__other': f.entry ~ '.other_option_response'}) %}{% endif %}{% endif %}{% endfor %}
       <form class="reg-form" id="reg-form" data-action="{{ reg.form_action }}" data-entries="{{ entries | tojson | forceescape }}" novalidate>
         {% for f in reg.fields %}
         {% set fid = 'f-' ~ f.name %}
@@ -40,6 +40,12 @@
             {% for o in f.options %}
             <label class="choice"><input type="{{ f.type }}" name="{{ f.name }}" value="{{ o }}"{% if f.required and f.type == 'radio' %} required{% endif %}> {{ o }}</label>
             {% endfor %}
+            {% if f.other %}
+            <div class="choice-other">
+              <label class="choice"><input type="checkbox" name="{{ f.name }}" value="__other_option__" data-other="{{ fid }}-other"> Other:</label>
+              <input id="{{ fid }}-other" name="{{ f.name }}__other" type="text" placeholder="{{ f.other }}" aria-label="Other, please say what">
+            </div>
+            {% endif %}
           </div>
         </fieldset>
         {% else %}

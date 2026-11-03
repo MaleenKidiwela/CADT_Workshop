@@ -47,12 +47,15 @@ fields:
     type: select
     options: [Academic, Government, Tribal nation, Industry, Nonprofit, Student, Other]
   - {name: interest, entry: "entry.1123239878", label: "What is your interest in digital twins, and what would you like to take away from Day 1?", type: textarea}
-  # The seven modules, as named in modules.yaml.
+  # The seven modules, as named in modules.yaml. `other` adds an "Other" box
+  # with a text field; it needs "Add 'Other'" turned on for this question in
+  # the Google Form, or Google drops the response.
   - name: modules
     entry: "entry.1927992237"
     label: Which parts of the Urban Sea System interest you most?
-    hint: Choose any.
+    hint: Choose any, and add your own under Other.
     type: checkbox
+    other: "For example: funding, education, security, population health, politics"
     options:
       - Hydrodynamics and circulation
       - Weather and climate

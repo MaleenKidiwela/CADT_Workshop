@@ -221,6 +221,15 @@
       var el = e.target;
       var group = el.type === 'radio' ? reg.querySelectorAll('input[name="' + el.name + '"]') : [el];
       group.forEach(function (g) { if (g.getAttribute('aria-invalid') === 'true' && (el.type === 'radio' || el.checkValidity())) g.setAttribute('aria-invalid', 'false'); });
+      // "Other": typing ticks the box, emptying the text unticks it, ticking
+      // the box moves to the text, and unticking it clears the text.
+      var box = reg.querySelector('[data-other="' + el.id + '"]');
+      if (box) box.checked = !!el.value.trim();
+      if (el.hasAttribute('data-other')) {
+        var text = document.getElementById(el.getAttribute('data-other'));
+        if (el.checked) text.focus();
+        else { text.value = ''; text.setAttribute('aria-invalid', 'false'); }
+      }
     });
     reg.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -231,16 +240,19 @@
         if (el.type === 'radio') {
           ok = !el.required || !!reg.querySelector('input[name="' + el.name + '"]:checked');
         }
+        // A ticked "Other" needs its text.
+        var box = reg.querySelector('[data-other="' + el.id + '"]');
+        if (box && box.checked && !el.value.trim()) ok = false;
         el.setAttribute('aria-invalid', ok ? 'false' : 'true');
         if (!ok && !firstBad) firstBad = el;
       });
-      if (firstBad) { say('Please fill in the required fields marked with *.', true); firstBad.focus(); return; }
+      if (firstBad) { say(firstBad.name.slice(-7) === '__other' ? 'Please say what "Other" is, or untick it.' : 'Please fill in the required fields marked with *.', true); firstBad.focus(); return; }
       var action = reg.getAttribute('data-action');
       var entries = JSON.parse(reg.getAttribute('data-entries') || '{}');
       if (!action) { say('Registration is not connected yet. Please try again later.', true); return; }
       var fd = new FormData(reg);
       var body = new URLSearchParams();
-      fd.forEach(function (v, k) { if (entries[k]) body.append(entries[k], String(v).trim()); });
+      fd.forEach(function (v, k) { v = String(v).trim(); if (entries[k] && v) body.append(entries[k], v); });
       // Bots fill the hidden "website" field or submit within seconds: show
       // them the thank-you and send nothing.
       var bot = fd.get('website') || Date.now() - started < 3000;

@@ -60,7 +60,8 @@ const QUESTIONS = [
       "Hazards, natural and human-generated",
       "Ecological systems"
     ],
-    "help": "Choose any."
+    "help": "Choose any, and add your own under Other.",
+    "other": true
   },
   {
     "title": "Dietary needs",
@@ -117,7 +118,7 @@ function createRegistrationForm() {
     else if (q.type === 'paragraph') item = form.addParagraphTextItem();
     else if (q.type === 'list') item = form.addListItem().setChoiceValues(q.options);
     else if (q.type === 'choice') item = form.addMultipleChoiceItem().setChoiceValues(q.options);
-    else if (q.type === 'checkbox') item = form.addCheckboxItem().setChoiceValues(q.options);
+    else if (q.type === 'checkbox') item = form.addCheckboxItem().setChoiceValues(q.options).showOtherOption(!!q.other);
     item.setTitle(q.title).setRequired(false);
     if (q.help) item.setHelpText(q.help);
   });
