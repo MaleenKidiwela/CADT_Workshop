@@ -75,8 +75,8 @@ cta:
     url: register.html
     new_window: false
   secondary:
-    label: Read the concept
-    url: "#about"
+    label: Read the program
+    url: "#program"
 
 nav:
   - {label: About, href: "#about"}
