@@ -151,6 +151,7 @@ def main() -> int:
     for i, s in enumerate(about.get("stats") or []):
         req(s, ["value", "label"], f"about.yaml → stats[{i}]")
     check_fig_ref(about.get("figure"), "about.yaml → figure")
+    check_fig_ref(about.get("atlas_figure"), "about.yaml → atlas_figure")
     vid = about.get("video")
     if vid:
         req(vid, ["youtube_id", "title", "thumbnail", "published"], "about.yaml → video")

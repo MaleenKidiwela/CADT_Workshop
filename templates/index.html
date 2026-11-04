@@ -116,6 +116,9 @@
       {% if about.atlas.image %}<img class="ap-img" src="{{ about.atlas.image }}" alt="{{ about.atlas.image_alt }}" loading="lazy">{% endif %}
     </a>
     {% endif %}
+    {% set f = fig.get(about.atlas_figure) %}
+    {% set figclass = 'figure-wide' %}
+    {% include 'partials/figure.html' %}
   </div>
 </section>
 

@@ -46,6 +46,10 @@ Optional `video` (`youtube_id`, `title`, `credit`, `thumbnail`, `published`)
 shows beside the heading and lead. The page loads only the local thumbnail;
 the YouTube player (youtube-nocookie.com, captions on) loads on click.
 
+Optional `atlas` (`label`, `text`, `url`, `image`, `image_alt`) renders the
+link card to the Urban Sea Atlas under the world map, and optional
+`atlas_figure` (a figure id) renders a figure under that card.
+
 Optional `foundations` (`kicker`, `heading`, `intro`, `items[]` with `name`,
 `idea`, `text`, `obligation`, `obligation_text`, and optional `figure`) renders
 the "what complex adaptive means" section between About and the prototype.

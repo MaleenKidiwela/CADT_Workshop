@@ -77,6 +77,9 @@ atlas:
     The Urban Sea Atlas: a globe with the survey's port cities marked, beside a
     ranking of entries by city size.
 
+# Figure shown under the atlas link.
+atlas_figure: global-trade-layers
+
 foundations:
   kicker: What complex adaptive means
   heading: Federated, bounded, governed from within
