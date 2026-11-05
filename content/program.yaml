@@ -3,12 +3,13 @@
 # Session type: plenary | talk | working | session | social | break
 # leads: names that match team.yaml exactly become links.
 #
-# Source: draft agenda v2.3 (28 October 2026). Names appear only where the
-# agenda does not mark them as tentative. Held back until confirmed or
-# reviewed: the Welcome to the land (tribal reviewer), the 9:55 keynote
-# (Zachary Penney, in discussion), the 10:35 keynote (Francisco Werner),
-# the circulation panelist, the ACLIM speakers, the Internet of Things and
-# salmon speakers, the experimental Vltava interlude, and the Day 3 Esri talk
+# Source: draft agenda v2.3 (28 October 2026); the 10:35 keynote (Francisco
+# Werner) and the 13:25 talk title (Joshua Berger) from the maintainer,
+# 5 November 2026. Names appear only where the agenda does not mark them as
+# tentative. Held back until confirmed or reviewed: the Welcome to the land
+# (tribal reviewer), the 9:55 keynote (Zachary Penney, in discussion), the
+# circulation panelist, the ACLIM speakers, the Internet of Things and salmon
+# speakers, the experimental Vltava interlude, and the Day 3 Esri talk
 # (Kevin Butler).
 # ---------------------------------------------------------------------------
 status: draft
@@ -68,11 +69,11 @@ days:
         title: Coffee
         type: break
       - time: "10:35"
-        title: "Keynote: digital twins of the global ocean and in industry"
+        title: "Digital Twins (DTs) at the Land–Ocean Interface: connecting science, decisions, and public understanding"
         type: plenary
         description: >-
-          Including a report from the DITTO Summit in Yokohama. Speaker to be
-          announced.
+          Keynote, including a report from the DITTO Summit in Yokohama.
+        leads: [Francisco Werner]
       - time: "10:55"
         title: The Salish Urban Sea
         type: talk
@@ -96,9 +97,9 @@ days:
         type: talk
         leads: [Paul Blomerus, Clear Seas]
       - time: "13:25"
-        title: Talk, title to come
+        title: Connecting the Blue Economy across our Urban Sea
         type: talk
-        leads: [Joshua Berger, Maritime Blue]
+        leads: [Joshua Berger, "President and CEO, Maritime Blue"]
       - time: "13:35"
         title: Measuring the system in real time
         type: session
