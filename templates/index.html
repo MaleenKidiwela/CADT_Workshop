@@ -54,12 +54,12 @@
         <input class="cmp-range" type="range" min="0" max="1000" value="1000" aria-label="Time, from {{ cmp.before_label | lower }} to {{ cmp.after_label | lower }}" data-before-label="{{ cmp.before_label }}" data-after-label="{{ cmp.after_label }}">
         <span class="cmp-end">{{ cmp.after_label }}</span>
       </div>
-      <figcaption data-before-caption="{{ before_fig.caption }}" data-after-caption="{{ hero_fig.caption }}">{{ hero_fig.caption }}</figcaption>
+      <figcaption><span class="cmp-caption" data-before-caption="{{ before_fig.caption }}" data-after-caption="{{ hero_fig.caption }}">{{ hero_fig.caption }}</span>{% if hero_fig.credit %} <span class="credit">Credit: {{ hero_fig.credit }}</span>{% endif %}</figcaption>
     </figure>
     {% elif hero_fig %}
     <figure class="hero-figure">
       <img src="{{ hero_fig.file }}" alt="{{ hero_fig.alt }}" loading="eager" fetchpriority="high">
-      <figcaption>{{ hero_fig.caption }}</figcaption>
+      <figcaption>{{ hero_fig.caption }}{% if hero_fig.credit %} <span class="credit">Credit: {{ hero_fig.credit }}</span>{% endif %}</figcaption>
     </figure>
     {% endif %}
   </div>
@@ -429,7 +429,7 @@
           <img src="{{ f.file }}" alt="{{ f.alt }}" loading="lazy">
         </button>
         <p class="cap">{{ f.caption }}</p>
-        <p class="credit">{{ f.credit }}</p>
+        <p class="credit">Credit: {{ f.credit }}</p>
       </li>
       {% endfor %}
     </ul>

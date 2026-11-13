@@ -184,6 +184,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 .hero-figure figcaption { margin-top: 0.8rem; font-size: 0.84rem; color: rgba(255, 255, 255, 0.66); }
+.hero-figure figcaption .credit { color: inherit; }
 
 /* Hero timelapse: the "today" image grows out of the "before" image from the harbor. */
 .cmp-stage {
@@ -243,7 +244,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .fig-btn:hover img { opacity: 0.94; }
 figcaption { margin-top: 0.8rem; font-size: 0.9rem; color: var(--stone); }
 figcaption .credit, .credit { font-size: 0.8rem; color: var(--stone); opacity: 0.85; }
-figcaption .credit::before { content: '· '; }
+figcaption .credit { display: block; margin-top: 0.2rem; }
+.video figcaption .credit { display: inline; margin-top: 0; }
+.video figcaption .credit::before { content: '· '; }
 .figure-tall .fig-btn { max-width: 560px; }
 
 /* ---------- about ---------- */

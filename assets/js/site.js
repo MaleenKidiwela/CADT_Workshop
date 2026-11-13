@@ -102,7 +102,7 @@
     var after = cmp.querySelector('.cmp-after');
     var range = cmp.querySelector('.cmp-range');
     var play = cmp.querySelector('.cmp-play');
-    var capEl = cmp.querySelector('figcaption');
+    var capEl = cmp.querySelector('.cmp-caption');
     var ox = parseFloat(cmp.getAttribute('data-origin-x')) / 100;
     var oy = parseFloat(cmp.getAttribute('data-origin-y')) / 100;
     var t = 1, anim = null;

@@ -4,6 +4,6 @@
   <button type="button" class="fig-btn" data-lightbox data-src="{{ f.file }}" data-alt="{{ f.alt }}" data-caption="{{ f.caption }}" data-credit="{{ f.credit }}" aria-label="Enlarge figure">
     <img src="{{ f.file }}" alt="{{ f.alt }}" loading="lazy">
   </button>
-  <figcaption>{{ f.caption }} <span class="credit">{{ f.credit }}</span></figcaption>
+  <figcaption>{{ f.caption }} <span class="credit">Credit: {{ f.credit }}</span></figcaption>
 </figure>
 {% endif %}

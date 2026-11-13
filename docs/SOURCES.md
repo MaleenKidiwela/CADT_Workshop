@@ -73,6 +73,11 @@ Each figure in `content/figures.yaml` carries a `credit`. Figures from the
 draft concept paper are credited to its authors and should be re-checked
 against the published version when it appears.
 
+Figures from the organizers are credited "J.R. Delaney. Graphics by Hunter
+Hadaway", as the maintainer asked on 13 November 2026. A figure that follows
+an earlier source keeps that source after the credit. The site prints
+"Credit:" before every credit.
+
 ## Facts still to confirm
 
 Tracked as `published: false` entries and `note` fields inside the content

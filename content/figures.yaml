@@ -15,7 +15,7 @@ figures:
       a single coherent, dynamically coupled system that is economically powerful,
       ecologically challenged, and episodically threatened by natural or
       human-induced hazards.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
     gallery: true
 
@@ -27,7 +27,7 @@ figures:
     caption: >-
       Urban Sea Systems line the world's coasts and form the nodes of a global trade
       network. This map marks more than two hundred of them.
-    credit: J.R. Delaney and H.G. Greene, after Greene and Delaney (2025)
+    credit: J.R. Delaney. Graphics by Hunter Hadaway. After Greene and Delaney (2025)
     published: true
 
   - id: global-trade-layers
@@ -38,7 +38,7 @@ figures:
     caption: >-
       The dual-layer structure of global trade. Shipping routes at the surface and
       submarine cables on the seafloor converge at the ports of Urban Sea Systems.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: salish-sea-basin
@@ -50,7 +50,7 @@ figures:
     caption: >-
       The Salish Sea and its watershed, shared by the United States and Canada. The
       upper Fraser basin more than doubles the conventionally drawn watershed.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: six-modules
@@ -63,7 +63,7 @@ figures:
       The six modules first proposed for a complex adaptive digital twin of an
       Urban Sea System. Ecological systems has since been added as a seventh. Each
       module is a domain model owned by experts and coupled to the others.
-    credit: J.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: layered-architecture
@@ -75,7 +75,7 @@ figures:
     caption: >-
       Layered architecture for the Salish Urban Sea digital twin. Baseline and
       observing layer beneath, domain modules above, and the seams that couple them.
-    credit: J.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: enabling-infrastructure
@@ -87,7 +87,7 @@ figures:
     caption: >-
       A digital twin as enabling infrastructure. Interconnected modules, one dynamic
       system, and outcomes for the people who use it.
-    credit: J.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: three-urban-seas
@@ -98,7 +98,7 @@ figures:
     caption: >-
       Three North American Urban Sea Systems: the Salish Sea, San Francisco Bay, and
       Chesapeake Bay.
-    credit: J.R. Delaney and H.G. Greene
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: urban-sea-before
@@ -109,7 +109,7 @@ figures:
     caption: >-
       The same coast as a natural refuge, before it became a port-centered region.
       What will it look like in thirty years?
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: digital-twin-cycle
@@ -124,7 +124,7 @@ figures:
       A continuous, adaptive cycle. Observations feed the twin, models and
       simulations generate insights, and insights inform the decisions and
       interventions that reshape the real world.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: three-foundations
@@ -138,7 +138,7 @@ figures:
       From theory to design obligations. Holland's mechanism, Levin's limit, and
       Ostrom's remedy each require a feature of the instrument: federated,
       bounded rather than predictive, and governed from within.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   - id: design-obligations
@@ -152,7 +152,7 @@ figures:
     caption: >-
       Real world, twin, and governance. The real world informs the twin, governance
       reshapes what is modeled and how, and interventions act on the system.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
   # ---- Available but not published. ----
@@ -160,7 +160,7 @@ figures:
     file: assets/img/figures/five-module-architecture.jpg
     alt: Block diagram of an Urban Sea System ringed by five digital twin modules.
     caption: Earlier five-module architecture from the draft concept paper.
-    credit: J.R. Delaney, H.G. Greene and M.R. Delaney
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: false
     note: Superseded by the six-module figure.
 
@@ -168,7 +168,7 @@ figures:
     file: assets/img/figures/sixteen-subcomponents.jpg
     alt: Diagram listing sixteen sub-component domains of an operational Urban Sea System digital twin.
     caption: Sixteen sub-component domains, natural and human, of an operational Urban Sea System digital twin.
-    credit: J.R. Delaney and H.G. Greene, adapted from Sobocinski et al. (2022)
+    credit: J.R. Delaney. Graphics by Hunter Hadaway. Adapted from Sobocinski et al. (2022)
     published: false
     note: Adapted from a third-party publication. Confirm permission before publishing.
 
