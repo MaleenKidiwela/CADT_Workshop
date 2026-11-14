@@ -156,12 +156,13 @@ const STYLE = 'https://tiles.openfreemap.org/styles/positron';
 const FALLBACK_STYLE = {version: 8, sources: {}, layers: [{id: 'background', type: 'background', paint: {'background-color': '#d6e4ea'}}]};
 const map = new maplibregl.Map({
   container: 'map', style: STYLE, center: [15, 22], zoom: 2.1, minZoom: 1, maxZoom: 13,
-  attributionControl: {compact: true, customAttribution: 'Survey: J.R. Delaney and R. Delaney, 2026 · Natural Earth · HydroBASINS · WRI Aqueduct'},
+  attributionControl: {compact: true, customAttribution: 'Created by Maleen Kidiwela, based on the survey by J.R. Delaney and R. Delaney (2026) · Natural Earth · HydroBASINS · WRI Aqueduct'},
   dragRotate: false, pitchWithRotate: false,
 });
 map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-right');
 if (maplibregl.GlobeControl) map.addControl(new maplibregl.GlobeControl(), 'top-right');
-map.addControl(new maplibregl.ScaleControl({maxWidth: 110}), 'bottom-left');
+// Bottom right, above the credit line, so a wrapped credit cannot run into it.
+map.addControl(new maplibregl.ScaleControl({maxWidth: 110}), 'bottom-right');
 map.touchZoomRotate.disableRotation();
 
 let styleFailed = false;

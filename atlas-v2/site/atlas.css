@@ -60,6 +60,10 @@ body[data-mode="systems"] .maplibregl-ctrl-bottom-right { margin-right: calc(var
 body[data-mode="explore"] .maplibregl-ctrl-bottom-left,
 body[data-mode="cases"] .maplibregl-ctrl-bottom-left,
 body[data-mode="systems"] .maplibregl-ctrl-bottom-left { margin-left: calc(var(--left-w) + 16px); }
+/* Keep the credit line clear of the left panel: wrap it in the gap between the panels. */
+body[data-mode="explore"] .maplibregl-ctrl-attrib.maplibregl-compact-show,
+body[data-mode="cases"] .maplibregl-ctrl-attrib.maplibregl-compact-show,
+body[data-mode="systems"] .maplibregl-ctrl-attrib.maplibregl-compact-show { max-width: calc(100vw - var(--left-w) - var(--right-w) - 100px); }
 .maplibregl-popup-content { border-radius: 12px; box-shadow: var(--shadow); padding: 12px 14px; font: 13px/1.4 var(--sans); }
 
 /* ---------- panels ---------- */
@@ -365,6 +369,7 @@ dl.facts dd { margin: 0; }
   body[data-mode] .maplibregl-ctrl-top-right,
   body[data-mode] .maplibregl-ctrl-bottom-right { margin-right: 0; }
   body[data-mode] .maplibregl-ctrl-bottom-left { margin-left: 0; }
+  body[data-mode] .maplibregl-ctrl-attrib.maplibregl-compact-show { max-width: none; }
   .about article { padding: 22px 18px; }
   .about .bignums { grid-template-columns: 1fr 1fr; }
 }
