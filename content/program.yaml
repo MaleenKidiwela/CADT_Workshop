@@ -5,12 +5,12 @@
 #
 # Source: draft agenda v2.3 (28 October 2026); the 10:35 keynote (Francisco
 # Werner) and the 13:25 talk title (Joshua Berger) from the maintainer,
-# 5 November 2026. Names appear only where the agenda does not mark them as
+# 5 November 2026; the 9:55 keynote (Zachary Penney) from the maintainer,
+# 13 November 2026. Names appear only where the agenda does not mark them as
 # tentative. Held back until confirmed or reviewed: the Welcome to the land
-# (tribal reviewer), the 9:55 keynote (Zachary Penney, in discussion), the
-# circulation panelist, the ACLIM speakers, the Internet of Things and salmon
-# speakers, the experimental Vltava interlude, and the Day 3 Esri talk
-# (Kevin Butler).
+# (tribal reviewer), the circulation panelist, the ACLIM speakers, the
+# Internet of Things and salmon speakers, the experimental Vltava interlude,
+# and the Day 3 Esri talk (Kevin Butler).
 # ---------------------------------------------------------------------------
 status: draft
 status_note: >-
@@ -64,7 +64,7 @@ days:
       - time: "09:55"
         title: Keynote
         type: plenary
-        description: Speaker to be announced.
+        leads: [Dr. Zachary Penney]
       - time: "10:15"
         title: Coffee
         type: break
