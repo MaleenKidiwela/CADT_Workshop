@@ -3,14 +3,16 @@
 # Session type: plenary | talk | working | session | social | break
 # leads: names that match team.yaml exactly become links.
 #
-# Source: draft agenda v2.3 (28 October 2026); the 10:35 keynote (Francisco
-# Werner) from the maintainer, 5 November 2026. Day 1 times, titles, and
+# Source: draft agenda v2.3 (28 October 2026). Day 1 times, titles, and
 # speakers follow John Delaney's Hypothesis comments of 14 November 2026,
 # which also merged the Clear Seas and Maritime Blue slots, dropped the
-# salmon and Internet of Things items, and moved ACLIM to 14:20. Names appear
-# only where the agenda does not mark them as tentative. Held back until
-# confirmed or reviewed: the Welcome to the land (tribal reviewer), the
-# experimental Vltava interlude, and the Day 3 Esri talk (Kevin Butler).
+# salmon and Internet of Things items, and moved ACLIM to 14:20. Francisco
+# Werner's keynote (from the maintainer, 5 November 2026) keeps its 20
+# minutes after the coffee break, so the rest of the morning runs 10 minutes
+# later than in those comments. Names appear only where the agenda does not
+# mark them as tentative. Held back until confirmed or reviewed: the Welcome
+# to the land (tribal reviewer), the experimental Vltava interlude, and the
+# Day 3 Esri talk (Kevin Butler).
 # ---------------------------------------------------------------------------
 status: draft
 status_note: >-
@@ -70,17 +72,17 @@ days:
         title: Coffee break
         type: break
         description: 20 minutes.
-      - time: "10:35"
+      - time: "10:40"
         title: "Digital Twins (DTs) at the Land–Ocean Interface: connecting science, decisions, and public understanding"
         type: plenary
         description: >-
           Keynote, including a report from the DITTO Summit in Yokohama.
         leads: [Francisco Werner]
-      - time: "10:50"
+      - time: "11:00"
         title: Issues and challenges of the Salish Urban Sea System as a prototype for many similar systems globally
         type: talk
         leads: [Kathryn Sobocinski]
-      - time: "11:15"
+      - time: "11:25"
         title: "Panel: the physical system"
         type: session
         description: >-
@@ -91,10 +93,10 @@ days:
           Khangaonkar, joining by Zoom from Hawaii). The Fraser and the other
           rivers (Gwyn Lintern).
         leads: [John R. Delaney]
-      - time: "11:45"
+      - time: "11:55"
         title: Questions to the speakers
         type: session
-      - time: "12:20"
+      - time: "12:30"
         title: Box lunches
         type: break
         description: 40 minutes.
