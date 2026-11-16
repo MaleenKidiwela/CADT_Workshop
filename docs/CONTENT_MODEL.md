@@ -73,7 +73,7 @@ Icons available: `globe`, `layers`, `twin`, `wave`, `cloud`, `river`,
 
 - `status`: `draft | confirmed | final`
 - `status_note`, `timezone_label`, `arc` *(md)*
-- `type_labels`: label shown for each session `type`
+- `type_labels`: label shown for each session `type`; an empty label shows no tag
 - `days[]`: `id`, `label`, `theme`, `date`, `summary` *(md)*, `sessions[]`
 - session: `time` (string), `title`, optional `type` (`plenary | talk |
   working | session | social | break`, default `session`), optional

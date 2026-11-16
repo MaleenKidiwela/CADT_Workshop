@@ -267,7 +267,7 @@
             <div class="tl-time">{{ s.time }}</div>
             <div class="tl-body">
               <h3 class="tl-title">{{ s.title }}</h3>
-              {% if s.type != 'break' and s.type in program.type_labels %}<span class="tl-type">{{ program.type_labels[s.type] }}</span>{% endif %}
+              {% if s.type != 'break' and program.type_labels.get(s.type) %}<span class="tl-type">{{ program.type_labels[s.type] }}</span>{% endif %}
               {% if s.description %}<p>{{ s.description | md_inline }}</p>{% endif %}
               {% if s.leads %}
               <p class="tl-leads">{% for lead in s.leads %}{% if lead in team.by_name %}<a href="#person-{{ team.by_name[lead].slug }}">{{ lead }}</a>{% else %}<span>{{ lead }}</span>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>

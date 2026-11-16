@@ -25,7 +25,7 @@ arc: >-
   decisions: who holds the twin, what to build first, and who will carry it.
 
 type_labels:
-  plenary: Plenary
+  plenary: ""   # empty: no tag shown
   talk: Talk
   working: Working session
   session: Session
