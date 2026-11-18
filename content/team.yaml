@@ -66,6 +66,19 @@ people:
       blue) economy.
     published: true
 
+  - name: Tarang Khangaonkar
+    role: Speaker
+    title: Director, Salish Sea Modeling Center
+    affiliation: UW Center for Urban Waters and Pacific Northwest National Laboratory
+    group: Speakers
+    # Bio in his own words, sent to the maintainer on 17 November 2026.
+    bio: >-
+      Tarang is the Director of the Salish Sea Modeling Center (SSMC) at the UW
+      Center for Urban Waters through a dual appointment with the Pacific
+      Northwest National Laboratory (PNNL). At PNNL, Tarang is a Principal
+      Program Manager specializing in Coastal Ocean Modeling.
+    published: true
+
   - name: Marine Denolle
     role: Organizing committee
     title: Associate Professor, Earth and Space Sciences
