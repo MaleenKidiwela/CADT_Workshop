@@ -26,7 +26,7 @@ arc: >-
 
 type_labels:
   plenary: ""   # empty: no tag shown
-  talk: Talk
+  talk: ""      # empty: no tag shown
   working: Working session
   session: Session
   social: Social
