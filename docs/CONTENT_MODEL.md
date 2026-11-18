@@ -74,6 +74,8 @@ Icons available: `globe`, `layers`, `twin`, `wave`, `cloud`, `river`,
 - `status`: `draft | confirmed | final`
 - `status_note`, `timezone_label`, `arc` *(md)*
 - `type_labels`: label shown for each session `type`; an empty label shows no tag
+- session `end`: optional end time ("HH:MM"), shown as a range after `time`
+- session `speakers`: list of `{name, about}`, one line per speaker; a name that matches `team.yaml` links to the card
 - `days[]`: `id`, `label`, `theme`, `date`, `summary` *(md)*, `sessions[]`
 - session: `time` (string), `title`, optional `type` (`plenary | talk |
   working | session | social | break`, default `session`), optional

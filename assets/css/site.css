@@ -346,12 +346,15 @@ figcaption .credit { display: block; margin-top: 0.2rem; }
 .tab-date { font-size: 0.85rem; opacity: 0.8; }
 .day-summary { color: var(--stone); max-width: 50rem; margin-bottom: 1.5rem; }
 .timeline { border-top: 1px solid var(--line); }
-.tl-item { display: grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+.tl-item { display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
 .tl-time { font-family: var(--font-head); font-weight: 700; color: var(--navy); padding-top: 0.1rem; }
 .tl-title { font-size: 1.05rem; display: inline; margin-right: 0.6rem; }
 .tl-type { display: inline-block; vertical-align: 2px; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--fog-2); color: var(--stone); }
 .tl-body p { color: var(--stone); font-size: 0.95rem; margin-top: 0.4rem; }
 .tl-leads { font-size: 0.9rem; }
+.tl-end { font-weight: 500; color: var(--stone); }
+.tl-speakers { list-style: none; margin: 0.45rem 0 0; padding: 0; display: grid; gap: 0.3rem; font-size: 0.92rem; color: var(--stone); }
+.tl-speakers a, .tl-speakers strong { color: var(--ink); font-weight: 600; }
 .tl-leads::before { content: 'Led by '; color: var(--stone); }
 .tl-resources { margin-top: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.9rem; }
 .tl-resources a { text-decoration: underline; text-underline-offset: 3px; }

@@ -264,11 +264,14 @@
         <ol class="timeline">
           {% for s in d.sessions %}
           <li class="tl-item is-{{ s.type }}">
-            <div class="tl-time">{{ s.time }}</div>
+            <div class="tl-time">{{ s.time }}{% if s.end %}<span class="tl-end">–{{ s.end }}</span>{% endif %}</div>
             <div class="tl-body">
               <h3 class="tl-title">{{ s.title }}</h3>
               {% if s.type != 'break' and program.type_labels.get(s.type) %}<span class="tl-type">{{ program.type_labels[s.type] }}</span>{% endif %}
               {% if s.description %}<p>{{ s.description | md_inline }}</p>{% endif %}
+              {% if s.speakers %}
+              <ul class="tl-speakers">{% for sp in s.speakers %}<li>{% if sp.name in team.by_name %}<a href="#person-{{ team.by_name[sp.name].slug }}">{{ sp.name }}</a>{% else %}<strong>{{ sp.name }}</strong>{% endif %}{% if sp.about %}: {{ sp.about | md_inline }}{% endif %}</li>{% endfor %}</ul>
+              {% endif %}
               {% if s.leads %}
               <p class="tl-leads">{% for lead in s.leads %}{% if lead in team.by_name %}<a href="#person-{{ team.by_name[lead].slug }}">{{ lead }}</a>{% else %}<span>{{ lead }}</span>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
               {% endif %}

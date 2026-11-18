@@ -233,6 +233,14 @@ def main() -> int:
             req(s, ["time", "title"], sw)
             if s.get("type") and s["type"] not in types:
                 err(sw, f"type {s['type']!r} is not in type_labels")
+            hhmm = re.compile(r"^\d{2}:\d{2}$")
+            for k in ("time", "end"):
+                if s.get(k) is not None and not hhmm.match(str(s[k])):
+                    err(sw, f"{k} must be HH:MM, got {s[k]!r}")
+            if s.get("end") and hhmm.match(str(s.get("time", ""))) and str(s["end"]) <= str(s["time"]):
+                err(sw, f"end {s['end']} is not after time {s['time']}")
+            for k, sp in enumerate(s.get("speakers") or []):
+                req(sp, ["name"], f"{sw} → speakers[{k}]")
             for lead in s.get("leads") or []:
                 if lead not in pub_names:
                     warn(sw, f"lead {lead!r} is not a published person; rendered as plain text")

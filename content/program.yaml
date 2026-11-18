@@ -1,6 +1,21 @@
 # ---------------------------------------------------------------------------
 # Program. status: draft | confirmed | final
 # Session type: plenary | talk | working | session | social | break
+# time: start, "HH:MM". end: optional, shown as a range.
+# speakers: {name, about}, one line each; names that match team.yaml link.
+# leads: names that match team.yaml exactly become links.
+#
+# Day 1: the organizers' agenda "UrbSea Draft 11-16-26" (John Delaney,
+# 16 November 2026), times, titles, speakers, and speaker notes. Tarang
+# Khangaonkar's note is his own (17 November 2026). The agenda gives
+# registration as 08:00-08:35 and the welcome as 08:30; registration is
+# shown ending at 08:30. Days 2 and 3: draft agenda v2.3 (28 October 2026).
+# Names appear only where the agenda does not mark them as tentative. Held
+# back until confirmed or reviewed: the Welcome to the land (tribal
+# reviewer), the experimental Vltava interlude, and the Day 3 Esri talk.
+# ---------------------------------------------------------------------------
+status: draft | confirmed | final
+# Session type: plenary | talk | working | session | social | break
 # leads: names that match team.yaml exactly become links.
 #
 # Source: draft agenda v2.3 (28 October 2026). Day 1 times, titles, and
@@ -45,111 +60,170 @@ days:
       voice. Day 1 plenaries are recorded, with consent requested.
     sessions:
       - time: "08:00"
-        title: Registration and coffee
+        end: "08:30"
+        title: Registration, coffee, and pastries
         type: break
+      - time: "08:30"
+        end: "08:35"
+        title: Welcome and introduction
+        type: plenary
       - time: "08:35"
-        title: "Urban Sea Systems around the world: the Southwest Pacific and the Baltic"
-        type: talk
-        leads: [H. Gary Greene]
+        end: "08:50"
+        title: "Urban Sea Systems: what they are, where they are, and why they are important"
+        type: plenary
+        speakers:
+          - name: H. Gary Greene
+            about: >-
+              President of the Circum-Pacific Council (CPC); founder and treasurer
+              of GeoHab; technical advisor to the South Pacific Geoscience
+              Commission (SOPAC); 29 years with the USGS, Distinguished Service;
+              past director of Moss Landing Marine Laboratories; professor
+              emeritus, San José State University.
       - time: "08:50"
-        title: "University of Victoria and Ocean Networks Canada: commitments to Salish Sea documentation"
-        type: talk
-        leads: [Kate Moran]
+        end: "09:05"
+        title: "University of Victoria and Ocean Networks Canada (ONC): strategies for characterizing Canadian Pacific marine systems"
+        type: plenary
+        speakers:
+          - name: Kate Moran
+            about: >-
+              Past President and CEO of ONC. Named an Officer of the Order of
+              Canada on 11 May 2023. Former Assistant Director of the White House
+              Office of Science and Technology Policy.
       - time: "09:05"
+        end: "09:15"
+        title: GeoHazards in an evolving world of novel sensors
+        type: plenary
+        speakers:
+          - name: William Wilcock
+            about: >-
+              Jerome M. Paros Endowed Chair in Sensor Networks; inaugural director
+              of the Paros Geohazards Center.
+      - time: "09:15"
+        end: "09:45"
         title: "Keynote: Urban Seas, digital twins, and the blue (and new blue) economy"
         type: plenary
-        leads: [Richard Spinrad]
-      - time: "09:35"
-        title: The new UW Paros GeoHazards Program
-        type: talk
-        leads: [William Wilcock]
-      - time: "09:50"
-        title: "The Columbia Basin as precedent: fifty years of co-managed science at basin scale"
+        speakers:
+          - name: Richard Spinrad
+            about: >-
+              11th Administrator of the National Oceanic and Atmospheric
+              Administration; member of the National Academy of Engineering;
+              formerly of the Office of Naval Research.
+      - time: "09:45"
+        end: "10:15"
+        title: "Keynote: The Columbia Basin as precedent: fifty years of co-managed science at basin scale"
         type: plenary
-        description: Keynote. Preliminary title.
-        leads: [Zachary Penney, Barry Thom]
-      - time: "10:20"
+        description: Preliminary title.
+        speakers:
+          - name: Zachary Penney
+            about: Director of Strategic Initiatives, Columbia River Inter-Tribal Fish Commission (CRITFC).
+          - name: Barry Thom
+            about: Executive Director, Pacific States Marine Fisheries Commission (PSMFC).
+      - time: "10:15"
+        end: "10:40"
         title: Coffee break
         type: break
-        description: 20 minutes.
       - time: "10:40"
+        end: "11:00"
         title: "Digital Twins (DTs) at the Land–Ocean Interface: connecting science, decisions, and public understanding"
         type: plenary
         description: >-
-          Keynote, including a report from the DITTO Summit in Yokohama.
-        leads: [Francisco Werner]
+          Includes a report from the Digital Twin of the Ocean Summit in Yokohama,
+          November 2026.
+        speakers:
+          - name: Francisco “Cisco” Werner
+            about: Sant Chair in Marine Science, National Museum of Natural History.
       - time: "11:00"
-        title: Issues and challenges of the Salish Urban Sea System as a prototype for many similar systems globally
-        type: talk
-        leads: [Kathryn Sobocinski]
+        end: "11:25"
+        title: Issues and challenges of the Salish Urban Sea System as a prototype for similar systems globally
+        type: plenary
+        speakers:
+          - name: Kathryn Sobocinski
+            about: >-
+              Professor, Department of Environmental Sciences and Marine and
+              Coastal Science, Western Washington University.
       - time: "11:25"
-        title: "Panel: the physical system"
-        type: session
-        description: >-
-          Weather in the Salish Sea and the Pacific Northwest (Cecilia Bitz).
-          Watershed dynamics (Brad Butman). Salish Sea and Columbia River
-          Operational Forecast System: a digital twin for circulation,
-          biogeochemical cycles, and toxics fate and transport (Tarang
-          Khangaonkar, joining by Zoom from Hawaii). The Fraser and the other
-          rivers (Gwyn Lintern).
-        leads: [John R. Delaney]
+        end: "11:55"
+        title: "Salish Sea and Columbia River Operational Forecast System: a digital twin for circulation, biogeochemical cycles, and toxics fate and transport"
+        type: plenary
+        speakers:
+          # His own description (17 November 2026), not the agenda's.
+          - name: Tarang Khangaonkar
+            about: >-
+              Director of the Salish Sea Modeling Center (SSMC) at the UW Center
+              for Urban Waters, through a dual appointment with the Pacific
+              Northwest National Laboratory (PNNL). At PNNL, Principal Program
+              Manager specializing in Coastal Ocean Modeling.
       - time: "11:55"
+        end: "12:20"
         title: Questions to the speakers
-        type: session
-      - time: "12:30"
+        type: plenary
+      - time: "12:20"
+        end: "13:10"
         title: Box lunches
         type: break
-        description: 40 minutes.
       - time: "13:15"
-        title: Clear Seas and the Blue Economy across our Urban Sea System
+        end: "13:55"
+        title: "The benefits and limitations of existing digital twins: ports, supply chains, and infrastructure"
+        type: plenary
+        description: Questions and answers with Kevin Butler.
+        speakers:
+          - name: Shiori Sasaki
+            about: >-
+              Professional engineer at Esri (Environmental Systems Research
+              Institute), the geographic information system (GIS) software
+              company. Shiori has worked on building and using digital twins in
+              industry.
+      - time: "13:55"
+        end: "14:15"
+        title: Clear Seas and the Blue Economy across our Salish Urban Sea System
         type: session
-        description: >-
-          Panel discussion with Paul Blomerus, CEO of Clear Seas, and Joshua
-          Berger, President and CEO of Maritime Blue. 20 minutes.
-        leads: [Paul Blomerus, Joshua Berger]
-      - time: "13:40"
-        title: "Canadian–US collaboration: measuring the Salish Sea System in real time"
+        description: Panel discussion.
+        speakers:
+          - {name: Paul Blomerus, about: "CEO of Clear Seas (Vancouver)."}
+          - {name: Joshua Berger, about: "President and CEO of Maritime Blue (Seattle)."}
+      - time: "14:15"
+        end: "14:45"
+        title: "Canadian–US ocean observations in the Salish Sea: the power of what we have, opportunities for what we need"
         type: session
-        description: >-
-          What is in place now, and what could be done? Jan Newton of NANOOS and
-          Jordan Watson of Ocean Networks Canada discuss marine sensing systems
-          for the Salish Sea.
-        leads: [Jan Newton, Jordan Watson]
-      - time: "14:00"
-        title: "The modelers respond: what do they actually want over the next two decades?"
+        description: Current and future marine sensing systems for the Salish Sea.
+        speakers:
+          - {name: Jan Newton, about: "U.S. NANOOS."}
+          - {name: Jordan Watson, about: "Ocean Networks Canada."}
+      - time: "14:45"
+        end: "15:10"
+        title: "The modelers respond: what do you want over the next two decades?"
         type: session
-        description: >-
-          Measurements: what, where, and how often? 20 minutes. Moderator: Al
-          Hermann.
-      - time: "14:20"
-        title: "What can we learn from Arctic fisheries research (ACLIM)?"
-        type: talk
-        leads: [Kirstin Holsman]
-      - time: "14:40"
-        title: Coffee break
-        type: break
-        description: 30 minutes. Posters go up.
+        description: "Measurements: what, where, and how often? Moderator: Al Hermann."
       - time: "15:10"
-        title: "Digital twins in practice: ports and infrastructure"
-        type: talk
-        description: The benefits and limitations of digital twins.
-        leads: [Shiori Sasaki, Esri]
-      - time: "15:30"
-        title: Why an Urban Sea System may require a Complex Adaptive Digital Twin ensemble to capture its full complexity
-        type: talk
-        description: Speaker to be announced.
+        end: "15:45"
+        title: Coffee break and discussion
+        type: break
       - time: "15:45"
-        title: Digital twin approaches to complex systems and next-generation stewardship
-        type: session
-        description: Discussion. Moderator to be announced.
-      - time: "16:00"
+        end: "16:05"
+        title: "A LEAP or a STEP: reflections on future digital twins of the ocean, inspired by a decade of integrated modeling in Alaska"
+        type: plenary
+        speakers:
+          - name: Kirstin K. Holsman
+            about: >-
+              NOAA Alaska Fisheries Science Center. Co-author of the
+              Intergovernmental Panel on Climate Change Sixth Assessment Report
+              (Working Group II). Co-lead investigator on the Alaska Climate
+              Integrated Modeling Project (ACLIM).
+      - time: "16:05"
+        end: "16:25"
+        title: Why an Urban Sea System like the Salish requires a Complex Adaptive Digital Twin ensemble to capture its full behavior
+        type: plenary
+        description: Speaker to be announced.
+      - time: "16:25"
+        end: "17:00"
         title: "Open forum: comments welcome"
         type: working
         description: >-
           The graphic of a pristine and a modern Urban Sea System goes up on the
           large screen: which set of issues is yours? Moderators: Anna Sulc and
-          H. Gary Greene.
+          Jeff Harris.
       - time: "17:00"
+        end: "17:15"
         title: "What happens on Days 2 and 3; breakout sign-up for the Day 2 focused sessions"
         type: plenary
         leads: [Kate Moran, Jeff Harris, John R. Delaney]
@@ -159,7 +233,7 @@ days:
       - time: "18:30"
         title: Bar closes; dinner on your own
         type: social
-        description: University Village is six blocks away.
+        description: "University Village is six blocks away. [See the map](#venue)."
 
   - id: day-2
     label: Day 2
