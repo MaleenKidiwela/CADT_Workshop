@@ -46,7 +46,7 @@ pillars:
 stats:
   - value: "500+"
     label: Urban Sea Systems along the world's coasts
-  - value: "2"
+  - value: Many
     label: Nations sharing one Salish Sea
   - value: "7"
     label: Starting modules
