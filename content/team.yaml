@@ -119,6 +119,24 @@ people:
       - {label: GitHub, url: "https://github.com/MaleenKidiwela"}
     published: true
 
+  - name: Jeff Harris
+    role: Organizing committee
+    affiliation: Affiliation to be announced
+    group: Organizing committee
+    published: true
+    note: >-
+      Added to the committee by the maintainer, 24 November 2026. Add his title
+      and affiliation once confirmed.
+
+  - name: Anna Sulc
+    role: Organizing committee
+    title: Interdisciplinary PhD student, School of Aquatic and Fishery Sciences
+    affiliation: University of Washington
+    group: Organizing committee
+    # Added by the maintainer, 24 November 2026. Title: Punt Lab page,
+    # https://puntlab.washington.edu/anna-sulc/
+    published: true
+
   # ---- Not yet confirmed for public listing. Flip `published` once agreed. ----
   - name: Ed Saade
     role: Advisor
