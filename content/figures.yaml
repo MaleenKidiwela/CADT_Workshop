@@ -66,6 +66,23 @@ figures:
     credit: J.R. Delaney. Graphics by Hunter Hadaway
     published: true
 
+  - id: seven-modules
+    file: assets/img/video-urban-sea.jpg
+    alt: >-
+      A block of coast with a city, port, rivers, farmland, and seabed, ringed by
+      seven cylinders linked by dashed lines: Climate and Weather, Watersheds and
+      Runoff, Pollution (Air and Water), Marine Ecological Systems, Hydrodynamics
+      and Marine Circulation, Ports and Supply Chains, and Hazards (Natural and
+      Human). Labels on the block name pressures such as stormwater runoff,
+      vessel traffic, and sea level rise.
+    caption: >-
+      The seven modules around one Urban Sea System. Each module is a digital
+      twin module, or data silo, and the dashed lines are the couplings among
+      them.
+    credit: J.R. Delaney. Graphics by Hunter Hadaway
+    gallery: false
+    published: true
+
   - id: layered-architecture
     file: assets/img/figures/layered-architecture.jpg
     alt: >-

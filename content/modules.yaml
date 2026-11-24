@@ -18,6 +18,9 @@ readiness_scale:
   - Operational
   - Operational and coupled
 
+# Figure shown in the open cells after the last module card.
+figure: seven-modules
+
 modules:
   - id: hydrodynamics
     number: 1

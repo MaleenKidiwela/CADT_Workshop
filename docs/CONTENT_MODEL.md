@@ -60,6 +60,8 @@ Icons available: `globe`, `layers`, `twin`, `wave`, `cloud`, `river`,
 ## modules.yaml
 
 - `kicker`, `heading`, `intro` *(md)*
+- optional `figure`: figure id shown in the open grid cells after the last
+  module card
 - `readiness_scale[]`: labels from least to most ready; its length sets the
   meter size
 - `modules[]`: `id`, `number`, `icon`, `name`, optional `subtitle`,

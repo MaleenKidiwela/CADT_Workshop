@@ -201,6 +201,9 @@
         {% if m.note %}<p class="note">{{ m.note | md_inline }}</p>{% endif %}
       </li>
       {% endfor %}
+      {% set f = fig.get(modules.figure) %}{% if f %}
+      <li class="module-figure span-{{ 3 - (modules.modules | length) % 3 }}">{% set figclass = '' %}{% include 'partials/figure.html' %}</li>
+      {% endif %}
     </ol>
 
     {% set arch = modules.architecture %}

@@ -187,6 +187,7 @@ def main() -> int:
     arch = mods.get("architecture") or {}
     req(arch, ["kicker", "heading", "intro", "layers"], "modules.yaml → architecture")
     check_fig_ref(arch.get("figure"), "modules.yaml → architecture.figure")
+    check_fig_ref(mods.get("figure"), "modules.yaml → figure")
 
     # ---- team ------------------------------------------------------------
     team = data["team"]
