@@ -71,7 +71,9 @@ figures:
     alt: >-
       Diagram in four horizontal bands: a baseline map of the Salish Sea at the
       bottom, an observing layer of marine sensors and civic telemetry above it,
-      six module tiles above that, and arcs of coupling seams at the top.
+      seven module tiles above that, and arcs of coupling seams at the top, with
+      examples such as currents carrying pollution and precipitation becoming
+      runoff.
     caption: >-
       Layered architecture for the Salish Urban Sea digital twin. Baseline and
       observing layer beneath, domain modules above, and the seams that couple them.
