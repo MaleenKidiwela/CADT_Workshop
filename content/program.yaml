@@ -67,6 +67,11 @@ days:
         end: "08:35"
         title: Welcome and introduction
         type: plenary
+        speakers:
+          # Speaker from the maintainer, 24 November 2026; title from UW News
+          # (docs/SOURCES.md).
+          - name: Joel Thornton
+            about: Maggie Walker Dean, College of the Environment, University of Washington.
       - time: "08:35"
         end: "08:50"
         title: "Urban Sea Systems: what they are, where they are, and why they are important"

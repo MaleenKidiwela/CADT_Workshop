@@ -60,6 +60,13 @@ Files in `assets/img/people/`, cropped square from public profile photos.
 - Victoria ferry terminal at Pier 69: FRS Clipper.
   <https://support.clippervacations.com/kb/article/22-where-are-the-terminals-located/>
 
+## Program
+
+- Joel Thornton, Maggie Walker Dean of the UW College of the Environment
+  (welcome on Day 1, per the maintainer, 24 November 2026): UW News,
+  8 May 2026.
+  <https://www.washington.edu/news/2026/05/08/joel-thornton-selected-as-dean-of-the-college-of-the-environment/>
+
 ## Video
 
 - "Urban Sea Video", J.R. Delaney, YouTube.
